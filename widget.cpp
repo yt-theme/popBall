@@ -14,11 +14,21 @@ Widget::Widget(QWidget *parent)
 //    右键菜单
     rightBtnMenu = new QMenu(this);
 
+//    QLabel
+    cpu_label = new QLabel(this);
+
 //    获取内容方法
     Get_sys_info = new GetSysInfo();
 //    内容
-    content();
+//    content();
 
+//    全局唯一计时器
+    global_timer = new QTimer(this);
+
+    connect(global_timer, &QTimer::timeout, this, &Widget::timer_setInterval);
+
+//    开始计时
+    global_timer->start(900);
 }
 
 Widget::~Widget()
@@ -28,9 +38,13 @@ Widget::~Widget()
     delete Get_sys_info;
 }
 
+void Widget::timer_setInterval() {
+    content();
+}
+
 
 void Widget::mouseReleaseEvent(QMouseEvent *event) {
-    Q_UNUSED(event);
+    Q_UNUSED(event)
     mouseIsPress = false;
 }
 
@@ -58,10 +72,11 @@ void Widget::paintEvent(QPaintEvent *event) {
 
 //内容
 void Widget::content() {
-//    QLabel
-    cpu_label = new QLabel(this);
+//    获取cpu
     QString cpu_txt = Get_sys_info->getCpuInfo();
+//    显示
     cpu_label->setText(cpu_txt);
+//    样式
     cpu_label->setGeometry(0, 0, 100, 100);
     cpu_label->setStyleSheet("color:gray;");
 }

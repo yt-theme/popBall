@@ -9,6 +9,9 @@
 #include <QStyleOption>
 #include <QBrush>
 #include <QLabel>
+#include <QTimer>
+#include <QDebug>
+#include <QDateTime>
 
 #include "getsysinfo.h"
 
@@ -35,8 +38,6 @@ public:
 
 //    绘制圆角窗口
     void paintEvent(QPaintEvent *event);
-//    painter
-    QPainter painters;
 
 //    内容
     void content();
@@ -44,5 +45,12 @@ public:
 
 //    获取内容方法
     GetSysInfo *Get_sys_info;
+
+//    全局唯一计时器对象
+    QTimer *global_timer;
+private slots:
+//    全局唯一计时器
+    void timer_setInterval();
+
 };
 #endif // WIDGET_H
