@@ -7,7 +7,7 @@ Widget::Widget(QWidget *parent)
     this->setWindowFlag(Qt::Tool);
     this->setWindowFlag(Qt::WindowStaysOnTopHint);
     this->setAttribute(Qt::WA_TranslucentBackground);
-    this->setWindowOpacity(0.799);
+    this->setWindowOpacity(0.89);
     this->setFixedSize(100, 100);
     this->setStyleSheet("QWidget{border-top-left-radius:100px;border-top-right-radius:100px;}");
 
@@ -28,7 +28,7 @@ Widget::Widget(QWidget *parent)
     connect(global_timer, &QTimer::timeout, this, &Widget::timer_setInterval);
 
 //    开始计时
-    global_timer->start(900);
+    global_timer->start(1700);
 }
 
 Widget::~Widget()
@@ -64,9 +64,15 @@ void Widget::mouseMoveEvent(QMouseEvent *event) {
 void Widget::paintEvent(QPaintEvent *event) {
     QPainter painter(this);
     painter.setRenderHint(QPainter::Antialiasing);
-    painter.setBrush(QBrush(Qt::black));
+    painter.setBrush(QBrush(QColor::fromRgb(35, 38, 41)));
+
+//    main circle
     painter.setPen(Qt::transparent);
     painter.drawEllipse(0, 0, 100, 100);
+//    outer circle
+    QPen outercircle_pen(QColor::fromRgb(238, 238, 238), 3, Qt::SolidLine, Qt::SquareCap, Qt::RoundJoin);
+    painter.setPen(outercircle_pen);
+    painter.drawEllipse(3, 3, 94, 94);
     QWidget::paintEvent(event);
 }
 
@@ -77,6 +83,6 @@ void Widget::content() {
 //    显示
     cpu_label->setText(cpu_txt);
 //    样式
-    cpu_label->setGeometry(0, 0, 100, 100);
-    cpu_label->setStyleSheet("color:gray;");
+    cpu_label->setGeometry(8, 0, 100, 100);
+    cpu_label->setStyleSheet("color:#eeeeee;");
 }
