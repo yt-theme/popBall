@@ -11,7 +11,9 @@
 #include <QRegExp>
 #include <QList>
 
-class GetSysInfo
+#include "datastruct.h"
+
+class GetSysInfo : public DataStruct
 {
 public:
     GetSysInfo();
@@ -19,6 +21,8 @@ public:
     QString getCpuTemperature();
     QString getCpuInfo();
     QString getMemInfo();
+
+    struct CpuStruct cpu_struct;
 };
 
 #endif // GETSYSINFO_H

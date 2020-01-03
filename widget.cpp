@@ -81,7 +81,7 @@ void Widget::content() {
 //    获取cpu
     QString cpu_txt = Get_sys_info->getCpuInfo();
 //    显示
-    cpu_label->setText(cpu_txt);
+    cpu_label->setText(cpu_txt + "GHz");
 //    样式
     cpu_label->setGeometry(8, 0, 100, 100);
     cpu_label->setStyleSheet("color:#eeeeee;");

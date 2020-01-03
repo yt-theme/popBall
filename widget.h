@@ -14,6 +14,7 @@
 #include <QDateTime>
 
 #include "getsysinfo.h"
+#include "datastruct.h"
 
 class Widget : public QWidget
 {

@@ -17,21 +17,48 @@ QString GetSysInfo::getCpuInfo() {
 
     QStringList tmp_str_arr = tmp_str.split("\n");
 
-    double cpu_average;
-    double num_of_cpu = 0.0;
-    for (int i=0; i<tmp_str_arr.size(); i++) {
 
+    double num_of_cpu = 0.0;
+    double max_freq = 0.0;
+    double min_freq = 10000000000.0;
+    double ave_freq = 0.0;
+    double sum_freq = 0.0;
+
+    for (int i=0; i<tmp_str_arr.size(); i++) {
         if (tmp_str_arr[i].contains("cpu MHz")) {
+
            qDebug() << "getCpuInfo =>" << tmp_str_arr[i];
            double tmp_split = tmp_str_arr[i].split(":")[1].trimmed().toDouble();
-           cpu_average += tmp_split;
+
+//           get max
+           if (tmp_split > max_freq) {
+               max_freq = tmp_split;
+           }
+//           get min
+           if (tmp_split < min_freq) {
+               min_freq = tmp_split;
+           }
+
+//           sum freq
+           sum_freq += tmp_split;
+
+//           num cpu
            num_of_cpu += 1;
         }
     }
 
+//    get average
+    ave_freq = sum_freq / num_of_cpu;
+
+    cpu_struct.max_freq = max_freq;
+    cpu_struct.min_freq = min_freq;
+    cpu_struct.ave_freq = ave_freq;
+
+//    mhz -> ghz
+    max_freq = (max_freq/1000);
 
     process.close();
-    return QString::number(cpu_average / num_of_cpu).split(".")[0];
+    return QString::number(max_freq, 'f', 2);
 }
 
 QString GetSysInfo::getMemInfo() {
