@@ -27,8 +27,6 @@ public:
 
     QString cpuUsage_last = ""; // 上一次 cpu 使用率数据
 
-    struct CpuStruct cpu_struct;
-
 private:
     QFile *file_proc_stat = new QFile("/proc/stat"); // open /proc/stat
 

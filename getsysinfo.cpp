@@ -41,11 +41,6 @@ QString GetSysInfo::getCpuInfo() {
     }
 
     ave_freq = sum_freq / num_of_cpu;
-
-    cpu_struct.max_freq = max_freq;
-    cpu_struct.min_freq = min_freq;
-    cpu_struct.ave_freq = ave_freq;
-
     max_freq = (max_freq/1000);
 
     process.close();
@@ -72,20 +67,41 @@ QString GetSysInfo::getMemInfo() {
     process.start("cat /proc/meminfo");
     process.waitForFinished();
 
-    QString tmp_str_total = process.readLine().replace("\t", "").replace("\n", "");
-    QString tmp_str_free  = process.readLine().replace("\t", "").replace("\n", "");
+//    QString tmp_str_total = process.readLine().replace("\t", "").replace("\n", "");
+//    QString tmp_str_free  = process.readLine().replace("\t", "").replace("\n", "");
+//    QStringList tmp_str_total_arr = tmp_str_total.split(":");
+//    QStringList tmp_str_free_arr  = tmp_str_free.split(":");
+//    unsigned long long total = tmp_str_total_arr[1].trimmed().split(" ")[0].trimmed().toULongLong();
+//    unsigned long long free  = tmp_str_free_arr[1].trimmed().split(" ")[0].trimmed().toULongLong();
+//    // 百分比 range
+//    double range = (double)(total - free)/total;
+    QString     data_string = process.readAll().replace("\t", "");
+    QStringList data_list   = data_string.split("\n", QString::SkipEmptyParts);
 
-    QStringList tmp_str_total_arr = tmp_str_total.split(":");
-    QStringList tmp_str_free_arr  = tmp_str_free.split(":");
+    // store struct
+    DataStruct::MemStruct memstruct;
 
-    long long total = tmp_str_total_arr[1].trimmed().split(" ")[0].trimmed().toLongLong();
-    long long free  = tmp_str_free_arr[1].trimmed().split(" ")[0].trimmed().toLongLong();
+    for (auto ite : data_list) {
+        // every item for lines
+        QStringList ite_list = ite.split(":", QString::SkipEmptyParts);
+        if (ite_list[0] == "MemTotal")     { memstruct.MemTotal = ite_list[1].trimmed().split(" ")[0].toULongLong(); }
+        if (ite_list[0] == "MemFree")      { memstruct.MemFree = ite_list[1].trimmed().split(" ")[0].toULongLong(); }
+        if (ite_list[0] == "MemAvailable") { memstruct.MemAvailable = ite_list[1].trimmed().split(" ")[0].toULongLong(); }
+        if (ite_list[0] == "Cached")       { memstruct.Cached = ite_list[1].trimmed().split(" ")[0].toULongLong(); }
+        if (ite_list[0] == "Buffers")      { memstruct.Buffers = ite_list[1].trimmed().split(" ")[0].toULongLong(); }
+    }
 
-    // 百分比 range
-    double range = (total - free);
+    qDebug() << "getMemInfo =>"
+             << memstruct.MemTotal
+             << memstruct.MemFree
+             << "sys free =>" << memstruct.MemFree
+             << "free =>" << memstruct.Buffers + memstruct.MemFree + memstruct.Cached
+             << "used =>" << memstruct.MemTotal - (memstruct.Buffers + memstruct.MemFree + memstruct.Cached)
+             ;
+    unsigned long long used = memstruct.MemTotal - (memstruct.Buffers + memstruct.MemFree + memstruct.Cached);
 
-    qDebug() << "getMemInfo =>" << total << "," << free << "," << range;
+    double rate = (double)used / memstruct.MemTotal * 100;
 
     process.close();
-    return tmp_str_total;
+    return QString::number(rate, 'f', 0) + '%';
 }

@@ -99,5 +99,8 @@ void Widget::content() {
     QString mem_txt = Get_sys_info->getMemInfo();
     // set txt
     mem_label->setText(mem_txt);
+    // style
+    mem_label->setAlignment(Qt::AlignHCenter);
+    mem_label->setGeometry(3, 47, 94, 47);
 
 }
