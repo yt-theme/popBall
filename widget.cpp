@@ -86,7 +86,7 @@ void Widget::paintEvent(QPaintEvent *event) {
     // 裁剪
     QPainterPath clip_path;
     clip_path.moveTo(OUTER_CIRCLE_X, OUTER_CIRCLE_Y);
-    clip_path.arcTo(OUTER_CIRCLE_X+2, OUTER_CIRCLE_Y-2, OUTER_CIRCLE_W-4, OUTER_CIRCLE_H-1, 0, 360);
+    clip_path.arcTo(OUTER_CIRCLE_X+BORDER_WIDTH, OUTER_CIRCLE_Y+BORDER_WIDTH, OUTER_CIRCLE_W-(BORDER_WIDTH*2), OUTER_CIRCLE_H-(BORDER_WIDTH*2), 0, 360);
     painter.setClipPath(clip_path);
     // mem chart
     QPen mem_pen;
@@ -94,7 +94,7 @@ void Widget::paintEvent(QPaintEvent *event) {
     mem_pen.setStyle(Qt::SolidLine);
     mem_pen.setWidthF(1);
     painter.setPen(mem_pen);
-    painter.setViewport(OUTER_CIRCLE_X, HEIGHT/2 - OUTER_CIRCLE_Y, WIDTH, HEIGHT/2);
+//    painter.setViewport(OUTER_CIRCLE_X, HEIGHT/2 - OUTER_CIRCLE_Y, WIDTH, HEIGHT/2);
     path.moveTo(OUTER_CIRCLE_X, HEIGHT);
     for (auto i=0; i<mem_data_history.size(); i++) {
         path.lineTo(i*WIDTH/CHART_ROW, 100 - mem_data_history[i]);
@@ -102,11 +102,6 @@ void Widget::paintEvent(QPaintEvent *event) {
     path.lineTo(WIDTH, 100 - mem_data_history[ mem_data_history.size()-1 ]);
     path.lineTo(WIDTH, HEIGHT);
     painter.fillPath(path, QColor::fromRgba(qRgba(25,180,112, 171)));
-    // 用于圆形窗口摭罩
-//    QRegion mask_circle_window(0, 0, WIDTH, HEIGHT, QRegion::Ellipse);
-//    setMask(mask_circle_window);
-
-    qDebug() << "update =>" << mem_data_history;
 }
 
 //内容

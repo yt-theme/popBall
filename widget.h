@@ -64,7 +64,7 @@ private:
 
 
     // 图表最大列数
-    int CHART_ROW = 8;
+    int CHART_ROW = 19;
     // timer
     int TIMER_INTERVAL = 1900;
     // size
