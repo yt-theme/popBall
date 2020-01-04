@@ -5,6 +5,10 @@
 #include <QMouseEvent>
 #include <QMenu>
 #include <QPainter>
+#include <QPen>
+#include <QPainterPath>
+#include <QPixmap>
+#include <QRegion>
 #include <QFrame>
 #include <QStyleOption>
 #include <QBrush>
@@ -12,6 +16,9 @@
 #include <QTimer>
 #include <QDebug>
 #include <QDateTime>
+#include <QString>
+#include <QStringList>
+#include <QVector>
 
 #include "getsysinfo.h"
 #include "datastruct.h"
@@ -28,22 +35,21 @@ public:
     void mouseReleaseEvent(QMouseEvent *event);
     void mouseMoveEvent(QMouseEvent *event);
 
-    // 鼠标是否按下
-    bool mouseIsPress = false;
 
-    // 当前坐标
-    QPoint curPoint;
-    // 绘制圆角窗口
-    void paintEvent(QPaintEvent *event);
+    bool mouseIsPress = false; // 鼠标是否按下
 
-    // 右键菜单
-    QMenu *rightBtnMenu;
+    QPoint curPoint; // 当前坐标
+
+    void paintEvent(QPaintEvent *event); // 绘制界面
+
+    QMenu *rightBtnMenu; // 右键菜单
 
     // 内容
     void content();
     QLabel *cpu_label;      // cpu标签
     QLabel *cpuUsage_label; // cpu usage
     QLabel *mem_label;      // mem标签
+    QLabel *mem_chart;      // mem图表
 
     // 获取内容方法
     GetSysInfo *Get_sys_info;
@@ -51,6 +57,14 @@ public:
     // 全局唯一计时器对象
     QTimer *global_timer;
 private:
+
+    double cpu_data;
+    double mem_data;
+    QVector<double> mem_data_history; // data of mem
+
+
+    // 图表最大列数
+    int CHART_ROW = 8;
     // timer
     int TIMER_INTERVAL = 1900;
     // size

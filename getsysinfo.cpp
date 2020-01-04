@@ -10,7 +10,7 @@ GetSysInfo::~GetSysInfo() {
 }
 
 //cpu 信息
-QString GetSysInfo::getCpuInfo() {
+double GetSysInfo::getCpuInfo() {
     QString tmp_str = "";
     QProcess process;
     process.start("cat /proc/cpuinfo");
@@ -44,7 +44,7 @@ QString GetSysInfo::getCpuInfo() {
     max_freq = (max_freq/1000);
 
     process.close();
-    return QString::number(max_freq, 'f', 2) + "GHz";
+    return max_freq;
 }
 
 //cpu 使用率
@@ -62,7 +62,7 @@ QString GetSysInfo::getCpuUsageInfo() {
     return tmp_result;
 }
 
-QString GetSysInfo::getMemInfo() {
+double GetSysInfo::getMemInfo() {
     QProcess process;
     process.start("cat /proc/meminfo");
     process.waitForFinished();
@@ -103,5 +103,5 @@ QString GetSysInfo::getMemInfo() {
     double rate = (double)used / memstruct.MemTotal * 100;
 
     process.close();
-    return QString::number(rate, 'f', 0) + '%';
+    return rate;
 }

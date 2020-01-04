@@ -21,9 +21,9 @@ public:
     ~GetSysInfo();
 
     QString getCpuTemperature();
-    QString getCpuInfo();
+    double getCpuInfo();
     QString getCpuUsageInfo();
-    QString getMemInfo();
+    double  getMemInfo();
 
     QString cpuUsage_last = ""; // 上一次 cpu 使用率数据
 
