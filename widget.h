@@ -80,7 +80,7 @@ private:
     int MAIN_CIRCLE_W  = 100;
     int MAIN_CIRCLE_H  = 100;
     // color
-    double MAIN_OPACITY       = 0.89;
+    double MAIN_OPACITY       = 0.79;
     int MAIN_COLOR[3]         = {35, 38, 41};
     int OUTER_BORDER_COLOR[3] = {249, 249, 249};
     int MEM_CHART_COLOR[4]    = {19, 187, 177, 191};

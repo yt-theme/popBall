@@ -67,14 +67,6 @@ double GetSysInfo::getMemInfo() {
     process.start("cat /proc/meminfo");
     process.waitForFinished();
 
-//    QString tmp_str_total = process.readLine().replace("\t", "").replace("\n", "");
-//    QString tmp_str_free  = process.readLine().replace("\t", "").replace("\n", "");
-//    QStringList tmp_str_total_arr = tmp_str_total.split(":");
-//    QStringList tmp_str_free_arr  = tmp_str_free.split(":");
-//    unsigned long long total = tmp_str_total_arr[1].trimmed().split(" ")[0].trimmed().toULongLong();
-//    unsigned long long free  = tmp_str_free_arr[1].trimmed().split(" ")[0].trimmed().toULongLong();
-//    // 百分比 range
-//    double range = (double)(total - free)/total;
     QString     data_string = process.readAll().replace("\t", "");
     QStringList data_list   = data_string.split("\n", QString::SkipEmptyParts);
 
