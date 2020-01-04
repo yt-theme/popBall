@@ -14,6 +14,7 @@ Widget::Widget(QWidget *parent)
     this->setWindowFlag(Qt::WindowStaysOnTopHint);
     this->setAttribute(Qt::WA_TranslucentBackground);
     this->setWindowOpacity(MAIN_OPACITY);
+    this->setWindowFlags(windowFlags()|Qt::BypassWindowManagerHint);
     this->setFixedSize(WIDTH, HEIGHT);
     this->setStyleSheet("QWidget{border-top-left-radius:100px;border-top-right-radius:100px;}");
 
@@ -101,7 +102,7 @@ void Widget::paintEvent(QPaintEvent *event) {
     }
     path.lineTo(WIDTH, 100 - mem_data_history[ mem_data_history.size()-1 ]);
     path.lineTo(WIDTH, HEIGHT);
-    painter.fillPath(path, QColor::fromRgba(qRgba(25,180,112, 171)));
+    painter.fillPath(path, QColor::fromRgba(qRgba(MEM_CHART_COLOR[0],MEM_CHART_COLOR[1],MEM_CHART_COLOR[2],MEM_CHART_COLOR[3])));
 }
 
 //内容
