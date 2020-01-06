@@ -1,3 +1,5 @@
+// GPL-3.0
+
 #include "widget.h"
 
 Widget::Widget(QWidget *parent)
@@ -6,6 +8,7 @@ Widget::Widget(QWidget *parent)
     // QVector init
     for (auto i=0; i<CHART_ROW; i++) {
         mem_data_history.push_back(0);
+        cpuUsage_data_history.push_back(0);
     }
 
     // main styleSheet
@@ -68,18 +71,17 @@ void Widget::mouseMoveEvent(QMouseEvent *event) {
 void Widget::paintEvent(QPaintEvent *event) {
     QPainter painter(this);
     QPainterPath path;
+    QPainterPath path2;
+
     painter.setRenderHint(QPainter::Antialiasing);
-    painter.setBrush(QBrush(QColor::fromRgb(
-                                MAIN_COLOR[0], MAIN_COLOR[1], MAIN_COLOR[2]
-                            )));
+    painter.setBrush(QBrush(QColor::fromRgb( MAIN_COLOR[0], MAIN_COLOR[1], MAIN_COLOR[2] )));
 
     // main circle
     painter.setPen(Qt::transparent);
     painter.drawEllipse(MAIN_CIRCLE_X, MAIN_CIRCLE_Y, MAIN_CIRCLE_W, MAIN_CIRCLE_H);
+
     // outer circle
-    QPen outercircle_pen(QColor::fromRgb(
-                             OUTER_BORDER_COLOR[0], OUTER_BORDER_COLOR[1], OUTER_BORDER_COLOR[2]
-                        ), BORDER_WIDTH, Qt::SolidLine, Qt::SquareCap, Qt::RoundJoin);
+    QPen outercircle_pen(QColor::fromRgb( OUTER_BORDER_COLOR[0], OUTER_BORDER_COLOR[1], OUTER_BORDER_COLOR[2] ), BORDER_WIDTH, Qt::SolidLine, Qt::SquareCap, Qt::RoundJoin);
     painter.setPen(outercircle_pen);
     painter.drawEllipse(OUTER_CIRCLE_X, OUTER_CIRCLE_Y, OUTER_CIRCLE_W, OUTER_CIRCLE_H);
 
@@ -89,9 +91,10 @@ void Widget::paintEvent(QPaintEvent *event) {
     clip_path.moveTo(OUTER_CIRCLE_X, OUTER_CIRCLE_Y);
     clip_path.arcTo(OUTER_CIRCLE_X+BORDER_WIDTH, OUTER_CIRCLE_Y+BORDER_WIDTH, OUTER_CIRCLE_W-(BORDER_WIDTH*2), OUTER_CIRCLE_H-(BORDER_WIDTH*2), 0, 360);
     painter.setClipPath(clip_path);
+
     // mem chart
     QPen mem_pen;
-    mem_pen.setColor(Qt::green);
+    mem_pen.setColor(QColor::fromRgb(225, 255, 187));
     mem_pen.setStyle(Qt::SolidLine);
     mem_pen.setWidthF(1);
     painter.setPen(mem_pen);
@@ -103,6 +106,19 @@ void Widget::paintEvent(QPaintEvent *event) {
     path.lineTo(WIDTH, 100 - mem_data_history[ mem_data_history.size()-1 ]);
     path.lineTo(WIDTH, HEIGHT);
     painter.fillPath(path, QColor::fromRgba(qRgba(MEM_CHART_COLOR[0],MEM_CHART_COLOR[1],MEM_CHART_COLOR[2],MEM_CHART_COLOR[3])));
+
+    // cpuUsage chart
+    QLineF cpuUsage_pen[cpuUsage_data_history.size()];
+    QPointF cpuUsage_prevPoint[1] = { QPointF(OUTER_CIRCLE_X, HEIGHT) }; // prev
+    for (int i=0; i<cpuUsage_data_history.size(); i++) {
+        cpuUsage_pen[i].setPoints(
+                    cpuUsage_prevPoint[0],
+                    QPointF(i*WIDTH/CHART_ROW, 100 - cpuUsage_data_history[i])
+                );
+        cpuUsage_prevPoint[0] = { QPointF(i*WIDTH/CHART_ROW, 100 - cpuUsage_data_history[i]) };
+        // qDebug() << cpuUsage_prevPoint[0] << i*WIDTH/CHART_ROW << 100 - cpuUsage_data_history[i];
+    }
+    painter.drawLines(cpuUsage_pen, cpuUsage_data_history.size());
 }
 
 //内容
@@ -122,9 +138,11 @@ void Widget::content() {
 
     // ######## cpu usage #######
     // 获取cpu使用率
-    QString cpuUsage_txt = Get_sys_info->getCpuUsageInfo();
+    cpu_usageData = Get_sys_info->getCpuUsageInfo();
+    cpuUsage_data_history.push_back(cpu_usageData);
+    if (cpuUsage_data_history.size() > CHART_ROW) { cpuUsage_data_history.pop_front(); }
     // set txt
-    cpuUsage_label->setText(cpuUsage_txt);
+    // cpuUsage_label->setText(QString::number(cpu_usageData, 'f', 2));
 
 
     // ######## mem #############
@@ -133,12 +151,12 @@ void Widget::content() {
     mem_data_history.push_back(mem_data);
     if (mem_data_history.size() > CHART_ROW) { mem_data_history.pop_front(); }
     // set txt
-    mem_label->setText(QString::number(mem_data, 'f', 0) + '%');
+    mem_label->setText("mem " + QString::number(mem_data, 'f', 0) + '%');
     // style
     mem_label->setAlignment(Qt::AlignHCenter);
     mem_label->setGeometry(3, 47, 94, 47);
     mem_label->setFont(QFont("Microsoft YaHei", 8, 45));
-    cpu_label->setStyleSheet("color:#eeeeee;");
+    mem_label->setStyleSheet("color:#eeeeee;");
 
 
     // ######## mem chart #######

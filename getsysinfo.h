@@ -1,6 +1,8 @@
 #ifndef GETSYSINFO_H
 #define GETSYSINFO_H
 
+// GPL-3.0
+
 #include <QString>
 #include <sys/statfs.h>
 #include <QProcess>
@@ -22,15 +24,18 @@ public:
 
     QString getCpuTemperature();
     double getCpuInfo();
-    QString getCpuUsageInfo();
-    double  getMemInfo();
-
-    QString cpuUsage_last = ""; // 上一次 cpu 使用率数据
+    double getCpuUsageInfo();
+    double getMemInfo();   
 
 private:
+    QProcess process;                // Qprocess
+    DataStruct::MemStruct memstruct; // store struct
+    unsigned long long mem_used;     // mem used
+    double cpu_usage;                // cpu usage
+    double cpuUsage_total_last=0.0;  // 上一次 cpu total
+    double cpuUsage_idle_last=0.0;   // 上一次 cpu idle
+
     QFile *file_proc_stat = new QFile("/proc/stat"); // open /proc/stat
-
-
 };
 
 #endif // GETSYSINFO_H

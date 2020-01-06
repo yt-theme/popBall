@@ -2,6 +2,8 @@
 #define DATASTRUCT_H
 
 
+// GPL-3.0
+
 class DataStruct
 {
 public:

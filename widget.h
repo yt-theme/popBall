@@ -1,3 +1,5 @@
+// GPL-3.0
+
 #ifndef WIDGET_H
 #define WIDGET_H
 
@@ -6,6 +8,7 @@
 #include <QMenu>
 #include <QPainter>
 #include <QPen>
+#include <QLineF>
 #include <QPainterPath>
 #include <QPixmap>
 #include <QRegion>
@@ -59,8 +62,10 @@ public:
 private:
 
     double cpu_data;
+    double cpu_usageData;
     double mem_data;
     QVector<double> mem_data_history; // data of mem
+    QVector<double> cpuUsage_data_history; // data of cpuUsage
 
 
     // 图表最大列数
@@ -80,10 +85,11 @@ private:
     int MAIN_CIRCLE_W  = 100;
     int MAIN_CIRCLE_H  = 100;
     // color
-    double MAIN_OPACITY       = 0.79;
-    int MAIN_COLOR[3]         = {35, 38, 41};
-    int OUTER_BORDER_COLOR[3] = {249, 249, 249};
-    int MEM_CHART_COLOR[4]    = {19, 187, 177, 191};
+    double MAIN_OPACITY         = 0.79;
+    int MAIN_COLOR[3]           = {35, 38, 41};
+    int OUTER_BORDER_COLOR[3]   = {249, 249, 249};
+    int MEM_CHART_COLOR[4]      = {19, 187, 177, 191};
+    int CPUUSAGE_CHART_COLOR[4] = {17, 109, 200, 191};
 
 private slots:
 //    全局唯一计时器
