@@ -131,9 +131,9 @@ void Widget::content() {
     cpu_label->setText(QString::number(cpu_data, 'f', 2) + "GHz");
     // style
     cpu_label->setAlignment(Qt::AlignHCenter);
-    cpu_label->setGeometry(3, 3, 94, 94);
-    cpu_label->setFont(QFont("Microsoft YaHei", 9, 25));
-    cpu_label->setStyleSheet("color:#eeeeee;");
+    cpu_label->setGeometry(3, 6, 94, 94);
+    cpu_label->setFont(QFont("Microsoft YaHei", 10, 74));
+    cpu_label->setStyleSheet("color:#fefefe;");
 
 
     // ######## cpu usage #######
@@ -151,12 +151,12 @@ void Widget::content() {
     mem_data_history.push_back(mem_data);
     if (mem_data_history.size() > CHART_ROW) { mem_data_history.pop_front(); }
     // set txt
-    mem_label->setText("mem " + QString::number(mem_data, 'f', 0) + '%');
+    // mem_label->setText("mem " + QString::number(mem_data, 'f', 0) + '%');
     // style
     mem_label->setAlignment(Qt::AlignHCenter);
     mem_label->setGeometry(3, 47, 94, 47);
-    mem_label->setFont(QFont("Microsoft YaHei", 8, 45));
-    mem_label->setStyleSheet("color:#eeeeee;");
+    mem_label->setFont(QFont("Microsoft YaHei", 8, 70));
+    mem_label->setStyleSheet("color:#fefefe");
 
 
     // ######## mem chart #######

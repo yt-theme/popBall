@@ -69,9 +69,9 @@ private:
 
 
     // 图表最大列数
-    int CHART_ROW = 19;
+    int CHART_ROW = 41;
     // timer
-    int TIMER_INTERVAL = 1900;
+    int TIMER_INTERVAL = 1000;
     // size
     int WIDTH          = 100; // window width;
     int HEIGHT         = 100; // wineow height;
@@ -85,7 +85,7 @@ private:
     int MAIN_CIRCLE_W  = 100;
     int MAIN_CIRCLE_H  = 100;
     // color
-    double MAIN_OPACITY         = 0.79;
+    double MAIN_OPACITY         = 0.89;
     int MAIN_COLOR[3]           = {35, 38, 41};
     int OUTER_BORDER_COLOR[3]   = {249, 249, 249};
     int MEM_CHART_COLOR[4]      = {19, 187, 177, 191};
