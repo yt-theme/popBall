@@ -13,6 +13,7 @@
 #include <QPixmap>
 #include <QRegion>
 #include <QFrame>
+#include <QGraphicsDropShadowEffect>
 #include <QStyleOption>
 #include <QBrush>
 #include <QLabel>
@@ -66,6 +67,8 @@ private:
     double mem_data;
     QVector<double> mem_data_history; // data of mem
     QVector<double> cpuUsage_data_history; // data of cpuUsage
+
+    QGraphicsDropShadowEffect *text_shadowEffect; // text shadow effect
 
 
     // 图表最大列数
