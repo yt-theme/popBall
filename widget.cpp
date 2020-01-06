@@ -102,7 +102,7 @@ void Widget::paintEvent(QPaintEvent *event) {
 
     // mem chart
     QPen mem_pen;
-    mem_pen.setColor(QColor::fromRgb(225, 255, 187));
+    mem_pen.setColor(QColor::fromRgb(137, 255, 199));
     mem_pen.setStyle(Qt::SolidLine);
     mem_pen.setWidthF(1);
     painter.setPen(mem_pen);
@@ -159,7 +159,7 @@ void Widget::content() {
     mem_data_history.push_back(mem_data);
     if (mem_data_history.size() > CHART_ROW) { mem_data_history.pop_front(); }
     // set txt
-    // mem_label->setText("mem " + QString::number(mem_data, 'f', 0) + '%');
+    //  mem_label->setText("mem " + QString::number(mem_data, 'f', 0) + '%');
     // style
     mem_label->setAlignment(Qt::AlignHCenter);
     mem_label->setGeometry(3, 47, 94, 47);
