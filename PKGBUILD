@@ -1,5 +1,5 @@
 # Maintainer: yt-theme <13133528465@163.com>
-# Contributor: TransistorLogic <liuhongwu2003@outlook.com>
+# Maintainerr: TransistorLogic <liuhongwu2003@outlook.com>
 
 pkgname=yt-popball
 pkgver=0.1
