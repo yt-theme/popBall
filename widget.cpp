@@ -19,7 +19,7 @@ Widget::Widget(QWidget *parent)
     this->setWindowOpacity(MAIN_OPACITY);
     this->setWindowFlags(windowFlags()|Qt::BypassWindowManagerHint);
     this->setFixedSize(WIDTH, HEIGHT);
-    this->setStyleSheet("QWidget{border-top-left-radius:100px;border-top-right-radius:100px;}");
+    // this->setStyleSheet("QWidget{border-top-left-radius:100px;border-top-right-radius:100px;}");
 
     rightBtnMenu = new QMenu(this);     // 右键菜单
     cpu_label = new QLabel(this);       // cpu频率 QLabel
@@ -31,7 +31,7 @@ Widget::Widget(QWidget *parent)
     text_shadowEffect = new QGraphicsDropShadowEffect(cpu_label);
     text_shadowEffect->setOffset(0, 0);
     text_shadowEffect->setColor(Qt::black);
-    text_shadowEffect->setBlurRadius(5);
+    text_shadowEffect->setBlurRadius(LABEL_FONT_SHADOW_R);
     cpu_label->setGraphicsEffect(text_shadowEffect);
 
     Get_sys_info = new GetSysInfo(); // 获取内容数据类
@@ -139,9 +139,9 @@ void Widget::content() {
     cpu_label->setText(QString::number(cpu_data, 'f', 2) + "GHz");
     // style
     cpu_label->setAlignment(Qt::AlignHCenter);
-    cpu_label->setGeometry(3, 6, 94, 94);
-    cpu_label->setFont(QFont("Microsoft YaHei", 10, 74));
-    cpu_label->setStyleSheet("color:#fefefe;");
+    cpu_label->setGeometry(OUTER_CIRCLE_X, OUTER_CIRCLE_Y*2, OUTER_CIRCLE_W, OUTER_CIRCLE_H);
+    cpu_label->setFont(QFont(LABEL_FONT_TYPE, LABEL_FONT_SIZE, LABEL_FONT_WEIGHT));
+    cpu_label->setStyleSheet(LABEL_STYLE);
 
 
     // ######## cpu usage #######
@@ -161,14 +161,14 @@ void Widget::content() {
     // set txt
     //  mem_label->setText("mem " + QString::number(mem_data, 'f', 0) + '%');
     // style
-    mem_label->setAlignment(Qt::AlignHCenter);
-    mem_label->setGeometry(3, 47, 94, 47);
-    mem_label->setFont(QFont("Microsoft YaHei", 8, 70));
-    mem_label->setStyleSheet("color:#fefefe");
+    // mem_label->setAlignment(Qt::AlignHCenter);
+    // mem_label->setGeometry(3, 47, 94, 47);
+    // mem_label->setFont(QFont("Microsoft YaHei", 8, 70));
+    // mem_label->setStyleSheet(LABEL_STYLE);
 
 
     // ######## mem chart #######
-    mem_chart->setGeometry(3, 47, 94, 47);
+    // mem_chart->setGeometry(3, 47, 94, 47);
     // 绘制
 
     update();
