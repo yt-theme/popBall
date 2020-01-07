@@ -93,7 +93,7 @@ private:
     int LABEL_FONT_SIZE     = 10;
     int LABEL_FONT_WEIGHT   = 74;
     QString LABEL_STYLE     = "color:#fefefe;";
-    int LABEL_FONT_SHADOW_R = 5;
+    int LABEL_FONT_SHADOW_R = 11;
     // color
     double MAIN_OPACITY         = 0.89;
     int MAIN_COLOR[3]           = {35, 38, 41};
