@@ -102,9 +102,9 @@ void Widget::paintEvent(QPaintEvent *event) {
 
     // mem chart
     QPen mem_pen;
-    mem_pen.setColor(QColor::fromRgb(137, 255, 199));
+    mem_pen.setColor(QColor::fromRgb(CPU_LINE_COLOR[0], CPU_LINE_COLOR[1], CPU_LINE_COLOR[2]));
     mem_pen.setStyle(Qt::SolidLine);
-    mem_pen.setWidthF(1);
+    mem_pen.setWidthF(CPU_LINE_W);
     painter.setPen(mem_pen);
 //    painter.setViewport(OUTER_CIRCLE_X, HEIGHT/2 - OUTER_CIRCLE_Y, WIDTH, HEIGHT/2);
     path.moveTo(OUTER_CIRCLE_X, HEIGHT);

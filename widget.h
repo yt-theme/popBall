@@ -76,6 +76,7 @@ private:
     // timer
     int TIMER_INTERVAL = 1000;
     // size
+    double CPU_LINE_W  = 1.5;
     int WIDTH          = 100; // window width;
     int HEIGHT         = 100; // wineow height;
     int BORDER_WIDTH   = 3;   // border width
@@ -92,6 +93,7 @@ private:
     int MAIN_COLOR[3]           = {35, 38, 41};
     int OUTER_BORDER_COLOR[3]   = {249, 249, 249};
     int MEM_CHART_COLOR[4]      = {19, 187, 177, 191};
+    int CPU_LINE_COLOR[3]       = {137, 255, 199};
     int CPUUSAGE_CHART_COLOR[4] = {17, 109, 200, 191};
 
 private slots:
