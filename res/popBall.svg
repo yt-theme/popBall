@@ -25,9 +25,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="1.4"
-     inkscape:cx="119.26147"
-     inkscape:cy="78.161532"
+     inkscape:zoom="0.98994949"
+     inkscape:cx="-142.65848"
+     inkscape:cy="120.29844"
      inkscape:document-units="mm"
      inkscape:current-layer="layer1"
      showgrid="true"
@@ -50,7 +50,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -59,6 +59,13 @@
      inkscape:groupmode="layer"
      id="layer1"
      transform="translate(0,-229.26665)">
+    <ellipse
+       style="opacity:1;fill:#999999;fill-opacity:0.74901961;fill-rule:nonzero;stroke:none;stroke-width:0.26684618;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="path817-7"
+       cx="33.847763"
+       cy="263.43573"
+       rx="33.961159"
+       ry="34.24464" />
     <circle
        style="opacity:1;fill:#333333;fill-opacity:0.74901961;fill-rule:nonzero;stroke:none;stroke-width:0.26499999;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        id="path817"
@@ -66,7 +73,7 @@
        cy="263.13333"
        r="33.866665" />
     <ellipse
-       style="opacity:1;fill:#f9f9f9;fill-opacity:0.74901961;fill-rule:nonzero;stroke:none;stroke-width:0.27336469;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       style="opacity:1;fill:#f9f9f9;fill-opacity:0.88235295;fill-rule:nonzero;stroke:none;stroke-width:0.27336469;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        id="path819"
        cx="33.866665"
        cy="263.16687"
@@ -85,7 +92,13 @@
        id="path821-3"
        inkscape:connector-curvature="0" />
     <path
-       style="fill:none;stroke:#79e6cb;stroke-width:3.43958333;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;paint-order:markers stroke fill"
+       style="fill:none;stroke:#707070;stroke-width:3.4395833;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;paint-order:markers stroke fill"
+       d="m 12.7,282.71249 12.7,-25.4 12.7,25.4 h 16.933333"
+       id="path858-6"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="cccc" />
+    <path
+       style="fill:none;stroke:#a9e4cc;stroke-width:3.43958333;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;paint-order:markers stroke fill"
        d="m 12.7,280.06665 12.7,-25.4 12.7,25.4 h 16.933333"
        id="path858"
        inkscape:connector-curvature="0"
