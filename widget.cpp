@@ -19,7 +19,7 @@ Widget::Widget(QWidget *parent)
     this->setWindowOpacity(MAIN_OPACITY);
     this->setWindowFlags(windowFlags()|Qt::BypassWindowManagerHint);
     this->setFixedSize(WIDTH, HEIGHT);
-    // this->setStyleSheet("QWidget{border-top-left-radius:100px;border-top-right-radius:100px;}");
+    this->setStyleSheet("QWidget{border-top-left-radius:100px;border-top-right-radius:100px;}");
 
     rightBtnMenu = new QMenu(this);     // 右键菜单
     cpu_label = new QLabel(this);       // cpu频率 QLabel
@@ -138,8 +138,8 @@ void Widget::content() {
     // set txt
     cpu_label->setText(QString::number(cpu_data, 'f', 2) + "GHz");
     // style
-    cpu_label->setAlignment(Qt::AlignHCenter);
-    cpu_label->setGeometry(OUTER_CIRCLE_X, OUTER_CIRCLE_Y*2, OUTER_CIRCLE_W, OUTER_CIRCLE_H);
+    cpu_label->setAlignment(Qt::AlignCenter);
+    cpu_label->setGeometry(OUTER_CIRCLE_X, OUTER_CIRCLE_Y, OUTER_CIRCLE_W, OUTER_CIRCLE_H);
     cpu_label->setFont(QFont(LABEL_FONT_TYPE, LABEL_FONT_SIZE, LABEL_FONT_WEIGHT));
     cpu_label->setStyleSheet(LABEL_STYLE);
 
