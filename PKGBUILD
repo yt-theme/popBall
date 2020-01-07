@@ -11,7 +11,7 @@ url="https://github.com/yt-theme/popBall"
 license=('GPLv3')
 groups=()
 depends=('qt5-base')
-makedepends=('qt5-base')
+makedepends=()
 checkdepends=()
 optdepends=()
 provides=("yt-popball")
@@ -49,6 +49,7 @@ package() {
 	install -D -m755 popBall "$pkgdir/usr/bin/$pkgname"
 	
 	install -D -m644 LICENSE "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
+	install -D -m644 res/popBall.svg "$pkgdir/usr/share/pixmaps/popBall.svg"
 	install -D -m644 res/$pkgname.desktop "$pkgdir/usr/share/applications/$pkgname.desktop"
 	install -D -m644 README.md "$pkgdir/usr/share/doc/$pkgname/README.md"
 	#install -D -m644 Changelog.md "$pkgdir/usr/share/doc/$pkgname/Changelog.md"

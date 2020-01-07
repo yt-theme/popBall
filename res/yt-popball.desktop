@@ -19,7 +19,7 @@ Path=/usr/bin/
 Exec=yt-popball
 
 # The name of the icon that will be used to display this entry
-Icon=
+Icon=/usr/share/pixmaps/popBall.svg
 
 # Describes whether this application needs to be run in a terminal or not
 Terminal=false
