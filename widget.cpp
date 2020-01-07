@@ -139,7 +139,7 @@ void Widget::content() {
     cpu_label->setText(QString::number(cpu_data, 'f', 2) + "GHz");
     // style
     cpu_label->setAlignment(Qt::AlignCenter);
-    cpu_label->setGeometry(OUTER_CIRCLE_X, OUTER_CIRCLE_Y, OUTER_CIRCLE_W, OUTER_CIRCLE_H);
+    cpu_label->setGeometry(OUTER_CIRCLE_X, OUTER_CIRCLE_Y+1, OUTER_CIRCLE_W, OUTER_CIRCLE_H);
     cpu_label->setFont(QFont(LABEL_FONT_TYPE, LABEL_FONT_SIZE, LABEL_FONT_WEIGHT));
     cpu_label->setStyleSheet(LABEL_STYLE);
 
