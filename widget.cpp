@@ -6,15 +6,15 @@ Widget::Widget(QWidget *parent)
     : QWidget(parent)
 {
     // addon
-    rightBtnMenu = new QMenu(this);     // 右键菜单
-    cpu_label    = new QLabel(this);    // cpu频率 QLabel
-    mem_label    = new QLabel(this);    // mem使用
-    mem_chart    = new QLabel(this);    // mem图表
-    mail_indic_label = new QLabel(this);    // main指示器
+    rightBtnMenu     = new QMenu(this);     // 右键菜单
+    cpu_label        = new QLabel(this);    // cpu频率 QLabel
+    mem_label        = new QLabel(this);    // mem使用
+    mem_chart        = new QLabel(this);    // mem图表
+    mail_indic_label = new QLabel(this);    // mail指示器
 
-    deal_configFile(1); // 处理配置文件
-    set_init_data();    // 设置初始数据
-    set_ui_style();     // 设置 main ui
+    deal_configFile(USE_MODE); // 处理配置文件
+    set_init_data();           // 设置初始数据
+    set_ui_style();            // 设置 main ui
 
     Get_sys_info = new GetSysInfo(); // 获取内容数据类
 
@@ -36,7 +36,7 @@ Widget::~Widget()
     delete mail_indic_label;
 }
 
-void Widget::deal_configFile(int mode) { // mode=1:use conf, mode=2: set conf
+void Widget::deal_configFile(int mode) { // USE_MODE:use conf, SET_MODE: set conf
     QDir dot_config_dir;
     QFileInfo config_file_path;
     QFile *config_file = new QFile; // 配置文件对象
@@ -57,7 +57,6 @@ void Widget::deal_configFile(int mode) { // mode=1:use conf, mode=2: set conf
     config_file_path.setFile(cur_user_fullpath + "/.config/" + CONF_FILE_NAME);
     // 不存在则创建 (not exist them create it)
     if (!config_file_path.exists()) {
-        // dot_config_dir.cd(cur_user_fullpath + "/.config");
         config_file->setFileName(cur_user_fullpath + "/.config/" + CONF_FILE_NAME);
         config_file->open(QIODevice::WriteOnly);
         // 添加默认配置
@@ -81,7 +80,7 @@ void Widget::deal_configFile(int mode) { // mode=1:use conf, mode=2: set conf
         if(item[0].trimmed() == "POSITION") {
             // mode
             switch (mode) {
-                case 1: // use conf
+                case USE_MODE: // use conf
                     configItem.POSITION_X = item[1].trimmed().split(" ")[0].toInt();
                     configItem.POSITION_Y = item[1].trimmed().split(" ")[1].toInt();
                     POSITION_X = configItem.POSITION_X;
@@ -89,7 +88,7 @@ void Widget::deal_configFile(int mode) { // mode=1:use conf, mode=2: set conf
                     // 设置窗口位置
                     this->setGeometry(POSITION_X, POSITION_Y, OUTER_CIRCLE_W, OUTER_CIRCLE_H);
                 break;
-                case 2: // set conf
+                case SET_MODE: // set conf
                     config_items[i] = "POSITION=" + QString::number(POSITION_X) + " " + QString::number(POSITION_Y);
                     tmp_config_content = config_items.join("\n");
                 break;
@@ -156,10 +155,15 @@ void Widget::timer_setInterval() {
 
 
 void Widget::mouseReleaseEvent(QMouseEvent *event) {
-    // 保存当前坐标
+    // 窗口当前坐标
     POSITION_X = this->x();
     POSITION_Y = this->y();
-    deal_configFile(2);
+
+    // 确定窗口大小模式
+    window_adsorb();
+
+    // 保存当前坐标
+    deal_configFile(SET_MODE);
 
     Q_UNUSED(event)
     mouseIsPress = false;
@@ -178,7 +182,41 @@ void Widget::mouseMoveEvent(QMouseEvent *event) {
     }
 }
 
+void Widget::window_adsorb() {
+
+    // 判断模式
+    int mode = NORMAL_MODE;
+
+    // 判断窗口坐标是否超过屏幕边缘
+    const int screen_w = QApplication::desktop()->width();
+    const int screen_h = QApplication::desktop()->height();
+
+    // 窗口吸附左边
+    if (POSITION_X < 0) { mode = LEFT_MODE; }
+    // 窗口吸附到右边
+    if (POSITION_X > (screen_w - WIDTH)) { mode = RIGHT_MODE; }
+    // 窗口拖上下边判断
+    if (POSITION_Y<0 || POSITION_Y>(screen_h - HEIGHT)) {
+        if (POSITION_X <  ((screen_w - WIDTH)/2)) { mode = LEFT_MODE;  }
+        if (POSITION_X >  ((screen_w - WIDTH)/2)) { mode = RIGHT_MODE; }
+        if (POSITION_X == ((screen_w - WIDTH)/2)) { mode = RIGHT_MODE; }
+    }
+    // 窗口正常
+    if ( POSITION_X>=0 && POSITION_X<=(screen_w - WIDTH) && POSITION_Y>=0 && POSITION_Y<=(screen_h - HEIGHT) ) { mode = NORMAL_MODE; }
+
+    switch (mode) {
+        case LEFT_MODE:   WINDOW_SIZE_LOOK = MINI_MODE;   break;
+        case RIGHT_MODE:  WINDOW_SIZE_LOOK = MINI_MODE;   break;
+        case NORMAL_MODE: WINDOW_SIZE_LOOK = NORMAL_MODE; break;
+        default:          WINDOW_SIZE_LOOK = NORMAL_MODE; break;
+    }
+
+    // 重绘
+    content(); // or use update()
+}
+
 void Widget::paintEvent(QPaintEvent *) {
+
     QPainter painter(this);
     QPainterPath path;
 
@@ -225,7 +263,6 @@ void Widget::paintEvent(QPaintEvent *) {
                     QPointF(i*WIDTH/CHART_ROW, 100 - cpuUsage_data_history[i])
                 );
         cpuUsage_prevPoint[0] = { QPointF(i*WIDTH/CHART_ROW, 100 - cpuUsage_data_history[i]) };
-        // qDebug() << cpuUsage_prevPoint[0] << i*WIDTH/CHART_ROW << 100 - cpuUsage_data_history[i];
     }
     painter.drawLines(cpuUsage_pen, cpuUsage_data_history.size());
 }

@@ -6,6 +6,9 @@
 #include <unistd.h>
 
 #include <QWidget>
+#include <QApplication>
+#include <QDesktopWidget>
+#include <QGuiApplication>
 #include <QMouseEvent>
 #include <QMenu>
 #include <QPainter>
@@ -19,6 +22,7 @@
 #include <QStyleOption>
 #include <QBrush>
 #include <QLabel>
+#include <QRect>
 #include <QTimer>
 #include <QDebug>
 #include <QDateTime>
@@ -31,6 +35,7 @@
 #include <QFileInfo>
 #include <QFile>
 
+#include "define.h"
 #include "getsysinfo.h"
 #include "datastruct.h"
 
@@ -56,12 +61,13 @@ public:
     QMenu *rightBtnMenu;      // 右键菜单 (right menu)
 
     // methods
-    void deal_configFile(int mode); // 检测和生成配置文件mode=1:use 2:set (test and create configure) at ~/.config/PopBall
-    void set_init_data();     // 设置初始数据 (set initial data)
-    void set_ui_style();      // 设置主要样式 (set main style)
-    void timer_setInterval(); // 用于全局唯一计时器执行 (only timer func)
-    void content();           // 内容 (content func)
-    GetSysInfo *Get_sys_info; // 获取内容方法 (get content func)
+    void deal_configFile(int mode); // 检测和生成配置文件SET_MODE:use SET_MODE:set (test and create configure) at ~/.config/PopBall
+    void set_init_data();           // 设置初始数据 (set initial data)
+    void set_ui_style();            // 设置主要样式 (set main style)
+    void timer_setInterval();       // 用于全局唯一计时器执行 (only timer func)
+    void content();                 // 内容 (content func)
+    void window_adsorb();   // 窗口吸附位置
+    GetSysInfo *Get_sys_info;       // 获取内容方法 (get content func)
 
 private:
     // event cor
@@ -87,14 +93,17 @@ private:
     QString CONF_FILE_NAME = "yt-popball.conf"; // name
     const char CONF_FILE_DEFAULT_CONTENT[14] = "POSITION=0 0\n";
 
+    // 窗口模式外观 (MINI and NORMAL) (window look)
+    int WINDOW_SIZE_LOOK = NORMAL_MODE; // default normal mode
+
     // 图表最大列数 (max row)
     int CHART_ROW = 41;
     // timer
     int TIMER_INTERVAL = 1000;
     // size
     double CPU_LINE_W  = 1.5;
-    int POSITION_X     = 0;
-    int POSITION_Y     = 0;
+    int POSITION_X     = 0;   // position x at window
+    int POSITION_Y     = 0;   // position y at window
     int WIDTH          = 100; // window width;
     int HEIGHT         = 100; // wineow height;
     int BORDER_WIDTH   = 3;   // border width

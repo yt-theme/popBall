@@ -24,6 +24,7 @@ SOURCES += \
 
 HEADERS += \
     datastruct.h \
+    define.h \
     getsysinfo.h \
     mailnotify.h \
     widget.h
