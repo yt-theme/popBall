@@ -94,7 +94,19 @@ void Widget::deal_configFile(int mode) { // USE_MODE:use conf, SET_MODE: set con
                 break;
                 default: break;
             }
+        }
+        // REFRESH_INTERVAL
+        if (item[0].trimmed() == "REFRESH_INTERVAL") {
+            switch (mode) {
+                case USE_MODE:
+                    configItem.REFRESH_INTERVAL = item[1].trimmed().toInt();
+                    TIMER_INTERVAL = configItem.REFRESH_INTERVAL;
+                break;
+                case SET_MODE:
 
+                break;
+                default: break;
+            }
         }
     }
     config_file->close();
@@ -205,10 +217,10 @@ void Widget::window_adsorb() {
     if ( POSITION_X>=0 && POSITION_X<=(screen_w - WIDTH) && POSITION_Y>=0 && POSITION_Y<=(screen_h - HEIGHT) ) { mode = NORMAL_MODE; }
 
     switch (mode) {
-        case LEFT_MODE:   WINDOW_SIZE_LOOK = MINI_MODE;   break;
-        case RIGHT_MODE:  WINDOW_SIZE_LOOK = MINI_MODE;   break;
-        case NORMAL_MODE: WINDOW_SIZE_LOOK = NORMAL_MODE; break;
-        default:          WINDOW_SIZE_LOOK = NORMAL_MODE; break;
+        case LEFT_MODE:   WINDOW_SIZE_LOOK = MINI_MODE;   WINDOW_SET_DIRECTION = LEFT_MODE;    break;
+        case RIGHT_MODE:  WINDOW_SIZE_LOOK = MINI_MODE;   WINDOW_SET_DIRECTION = RIGHT_MODE;   break;
+        case NORMAL_MODE: WINDOW_SIZE_LOOK = NORMAL_MODE; WINDOW_SET_DIRECTION = NOTEDGE_MODE; break;
+        default:          WINDOW_SIZE_LOOK = NORMAL_MODE; WINDOW_SET_DIRECTION = NOTEDGE_MODE; break;
     }
 
     // 重绘
@@ -220,51 +232,80 @@ void Widget::paintEvent(QPaintEvent *) {
     QPainter painter(this);
     QPainterPath path;
 
-    painter.setRenderHint(QPainter::Antialiasing);
-    painter.setBrush(QBrush(QColor::fromRgb( MAIN_COLOR[0], MAIN_COLOR[1], MAIN_COLOR[2] )));
+    // 窗口样式
+    switch (WINDOW_SIZE_LOOK) {
+        case NORMAL_MODE: // WINDOW_SET_DIRECTION = NOTEDGE_MODE;
+        {
+            painter.setRenderHint(QPainter::Antialiasing);
+            painter.setBrush(QBrush(QColor::fromRgb( MAIN_COLOR[0], MAIN_COLOR[1], MAIN_COLOR[2] )));
 
-    // main circle
-    painter.setPen(Qt::transparent);
-    painter.drawEllipse(MAIN_CIRCLE_X, MAIN_CIRCLE_Y, MAIN_CIRCLE_W, MAIN_CIRCLE_H);
+            // main circle
+            painter.setPen(Qt::transparent);
+            painter.drawEllipse(MAIN_CIRCLE_X, MAIN_CIRCLE_Y, MAIN_CIRCLE_W, MAIN_CIRCLE_H);
 
-    // outer circle
-    QPen outercircle_pen(QColor::fromRgb( OUTER_BORDER_COLOR[0], OUTER_BORDER_COLOR[1], OUTER_BORDER_COLOR[2] ), BORDER_WIDTH, Qt::SolidLine, Qt::SquareCap, Qt::RoundJoin);
-    painter.setPen(outercircle_pen);
-    painter.drawEllipse(OUTER_CIRCLE_X, OUTER_CIRCLE_Y, OUTER_CIRCLE_W, OUTER_CIRCLE_H);
+            // outer circle
+            QPen outercircle_pen(QColor::fromRgb( OUTER_BORDER_COLOR[0], OUTER_BORDER_COLOR[1], OUTER_BORDER_COLOR[2] ), BORDER_WIDTH, Qt::SolidLine, Qt::SquareCap, Qt::RoundJoin);
+            painter.setPen(outercircle_pen);
+            painter.drawEllipse(OUTER_CIRCLE_X, OUTER_CIRCLE_Y, OUTER_CIRCLE_W, OUTER_CIRCLE_H);
 
-    // clip
-    // 裁剪
-    QPainterPath clip_path;
-    clip_path.moveTo(OUTER_CIRCLE_X, OUTER_CIRCLE_Y);
-    clip_path.arcTo(OUTER_CIRCLE_X+BORDER_WIDTH, OUTER_CIRCLE_Y+BORDER_WIDTH, OUTER_CIRCLE_W-(BORDER_WIDTH*2), OUTER_CIRCLE_H-(BORDER_WIDTH*2), 0, 360);
-    painter.setClipPath(clip_path);
+            // clip
+            // 裁剪
+            QPainterPath clip_path;
+            clip_path.moveTo(OUTER_CIRCLE_X, OUTER_CIRCLE_Y);
+            clip_path.arcTo(OUTER_CIRCLE_X+BORDER_WIDTH, OUTER_CIRCLE_Y+BORDER_WIDTH, OUTER_CIRCLE_W-(BORDER_WIDTH*2), OUTER_CIRCLE_H-(BORDER_WIDTH*2), 0, 360);
+            painter.setClipPath(clip_path);
 
-    // mem chart
-    QPen chart_pen;
-    chart_pen.setColor(QColor::fromRgb(CPU_LINE_COLOR[0], CPU_LINE_COLOR[1], CPU_LINE_COLOR[2]));
-    chart_pen.setStyle(Qt::SolidLine);
-    chart_pen.setWidthF(CPU_LINE_W);
-    painter.setPen(chart_pen);
-//    painter.setViewport(OUTER_CIRCLE_X, HEIGHT/2 - OUTER_CIRCLE_Y, WIDTH, HEIGHT/2);
-    path.moveTo(OUTER_CIRCLE_X, HEIGHT);
-    for (auto i=0; i<mem_data_history.size(); i++) {
-        path.lineTo(i*WIDTH/CHART_ROW, 100 - mem_data_history[i]);
+            // mem chart
+            QPen chart_pen;
+            chart_pen.setColor(QColor::fromRgb(CPU_LINE_COLOR[0], CPU_LINE_COLOR[1], CPU_LINE_COLOR[2]));
+            chart_pen.setStyle(Qt::SolidLine);
+            chart_pen.setWidthF(CPU_LINE_W);
+            painter.setPen(chart_pen);
+//            painter.setViewport(OUTER_CIRCLE_X, HEIGHT/2 - OUTER_CIRCLE_Y, WIDTH, HEIGHT/2);
+            path.moveTo(OUTER_CIRCLE_X, HEIGHT);
+            for (auto i=0; i<mem_data_history.size(); i++) {
+                path.lineTo(i*WIDTH/CHART_ROW, 100 - mem_data_history[i]);
+            }
+            path.lineTo(WIDTH, 100 - mem_data_history[ mem_data_history.size()-1 ]);
+            path.lineTo(WIDTH, HEIGHT);
+            painter.fillPath(path, QColor::fromRgba(qRgba(MEM_CHART_COLOR[0],MEM_CHART_COLOR[1],MEM_CHART_COLOR[2],MEM_CHART_COLOR[3])));
+
+            // cpuUsage chart
+            QLineF cpuUsage_pen[cpuUsage_data_history.size()];
+            QPointF cpuUsage_prevPoint[1] = { QPointF(OUTER_CIRCLE_X, HEIGHT) }; // prev
+            for (int i=0; i<cpuUsage_data_history.size(); i++) {
+                cpuUsage_pen[i].setPoints(
+                            cpuUsage_prevPoint[0],
+                            QPointF(i*WIDTH/CHART_ROW, 100 - cpuUsage_data_history[i])
+                        );
+                cpuUsage_prevPoint[0] = { QPointF(i*WIDTH/CHART_ROW, 100 - cpuUsage_data_history[i]) };
+            }
+            painter.drawLines(cpuUsage_pen, cpuUsage_data_history.size());
+        }
+        break;
+        case MINI_MODE:
+        {
+            // draw a rect
+
+            switch (WINDOW_SET_DIRECTION) {
+                case LEFT_MODE:
+                {
+
+                }
+                break;
+                case RIGHT_MODE:
+                {
+
+                }
+                break;
+                default: break;
+            }
+        }
+        break;
+        default: break;
     }
-    path.lineTo(WIDTH, 100 - mem_data_history[ mem_data_history.size()-1 ]);
-    path.lineTo(WIDTH, HEIGHT);
-    painter.fillPath(path, QColor::fromRgba(qRgba(MEM_CHART_COLOR[0],MEM_CHART_COLOR[1],MEM_CHART_COLOR[2],MEM_CHART_COLOR[3])));
 
-    // cpuUsage chart
-    QLineF cpuUsage_pen[cpuUsage_data_history.size()];
-    QPointF cpuUsage_prevPoint[1] = { QPointF(OUTER_CIRCLE_X, HEIGHT) }; // prev
-    for (int i=0; i<cpuUsage_data_history.size(); i++) {
-        cpuUsage_pen[i].setPoints(
-                    cpuUsage_prevPoint[0],
-                    QPointF(i*WIDTH/CHART_ROW, 100 - cpuUsage_data_history[i])
-                );
-        cpuUsage_prevPoint[0] = { QPointF(i*WIDTH/CHART_ROW, 100 - cpuUsage_data_history[i]) };
-    }
-    painter.drawLines(cpuUsage_pen, cpuUsage_data_history.size());
+
 }
 
 //内容

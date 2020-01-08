@@ -82,8 +82,9 @@ private:
     QVector<double> mem_data_history;      // data of mem
     QVector<double> cpuUsage_data_history; // data of cpuUsage
     struct configItem {                    // configure item
-        int POSITION_X; // x at window
-        int POSITION_Y; // y at window
+        int    POSITION_X; // x at window
+        int    POSITION_Y; // y at window
+        int    REFRESH_INTERVAL; // data refresh interval
     } configItem;
 
     // effect
@@ -91,14 +92,15 @@ private:
 
     // configure file name
     QString CONF_FILE_NAME = "yt-popball.conf"; // name
-    const char CONF_FILE_DEFAULT_CONTENT[14] = "POSITION=0 0\n";
+    const char CONF_FILE_DEFAULT_CONTENT[127] = "POSITION=0 0\nREFRESH_INTERVAL=1000\n";
 
     // 窗口模式外观 (MINI and NORMAL) (window look)
     int WINDOW_SIZE_LOOK = NORMAL_MODE; // default normal mode
+    int WINDOW_SET_DIRECTION = NOTEDGE_MODE; // window on edge (left or right or other)
 
     // 图表最大列数 (max row)
     int CHART_ROW = 41;
-    // timer
+    // time interval
     int TIMER_INTERVAL = 1000;
     // size
     double CPU_LINE_W  = 1.5;
