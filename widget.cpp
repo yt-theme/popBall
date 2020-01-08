@@ -86,7 +86,7 @@ void Widget::deal_configFile(int mode) { // USE_MODE:use conf, SET_MODE: set con
                     POSITION_X = configItem.POSITION_X;
                     POSITION_Y = configItem.POSITION_Y;
                     // 设置窗口位置
-                    this->setGeometry(POSITION_X, POSITION_Y, OUTER_CIRCLE_W, OUTER_CIRCLE_H);
+                    this->setGeometry(POSITION_X, POSITION_Y, WIDTH, HEIGHT);
                 break;
                 case SET_MODE: // set conf
                     config_items[i] = "POSITION=" + QString::number(POSITION_X) + " " + QString::number(POSITION_Y);
@@ -171,11 +171,11 @@ void Widget::mouseReleaseEvent(QMouseEvent *event) {
     POSITION_X = this->x();
     POSITION_Y = this->y();
 
-    // 确定窗口大小模式
-    window_adsorb();
-
     // 保存当前坐标
     deal_configFile(SET_MODE);
+
+    // 确定窗口大小模式
+    window_adsorb();
 
     Q_UNUSED(event)
     mouseIsPress = false;
@@ -217,8 +217,18 @@ void Widget::window_adsorb() {
     if ( POSITION_X>=0 && POSITION_X<=(screen_w - WIDTH) && POSITION_Y>=0 && POSITION_Y<=(screen_h - HEIGHT) ) { mode = NORMAL_MODE; }
 
     switch (mode) {
-        case LEFT_MODE:   WINDOW_SIZE_LOOK = MINI_MODE;   WINDOW_SET_DIRECTION = LEFT_MODE;    break;
-        case RIGHT_MODE:  WINDOW_SIZE_LOOK = MINI_MODE;   WINDOW_SET_DIRECTION = RIGHT_MODE;   break;
+        case LEFT_MODE:
+            WINDOW_SIZE_LOOK = MINI_MODE;
+            WINDOW_SET_DIRECTION = LEFT_MODE;
+            // 窗口位置
+            this->setGeometry(0, POSITION_Y, WIDTH/4, HEIGHT);
+        break;
+        case RIGHT_MODE:
+            WINDOW_SIZE_LOOK = MINI_MODE;
+            WINDOW_SET_DIRECTION = RIGHT_MODE;
+            // 窗口位置
+            this->setGeometry(QApplication::desktop()->width()-MAIN_CIRCLE_W/4, POSITION_Y, WIDTH/4, HEIGHT);
+        break;
         case NORMAL_MODE: WINDOW_SIZE_LOOK = NORMAL_MODE; WINDOW_SET_DIRECTION = NOTEDGE_MODE; break;
         default:          WINDOW_SIZE_LOOK = NORMAL_MODE; WINDOW_SET_DIRECTION = NOTEDGE_MODE; break;
     }
@@ -236,6 +246,9 @@ void Widget::paintEvent(QPaintEvent *) {
     switch (WINDOW_SIZE_LOOK) {
         case NORMAL_MODE: // WINDOW_SET_DIRECTION = NOTEDGE_MODE;
         {
+            // set size and content
+            this->setFixedSize(WIDTH, HEIGHT);
+
             painter.setRenderHint(QPainter::Antialiasing);
             painter.setBrush(QBrush(QColor::fromRgb( MAIN_COLOR[0], MAIN_COLOR[1], MAIN_COLOR[2] )));
 
@@ -285,7 +298,18 @@ void Widget::paintEvent(QPaintEvent *) {
         break;
         case MINI_MODE:
         {
-            // draw a rect
+            // draw a round rect
+            painter.setRenderHint(QPainter::Antialiasing);
+            painter.setBrush(QBrush(QColor::fromRgb( MAIN_COLOR[0], MAIN_COLOR[1], MAIN_COLOR[2] )));
+
+            // main circle
+            painter.setPen(Qt::transparent);
+            painter.drawRoundedRect(MAIN_CIRCLE_X, MAIN_CIRCLE_Y, MAIN_CIRCLE_W/4, MAIN_CIRCLE_H, 3, 3);
+
+            // set size and content
+            this->setFixedSize(MAIN_CIRCLE_W/4, HEIGHT);
+
+            cpu_label->clear();
 
             switch (WINDOW_SET_DIRECTION) {
                 case LEFT_MODE:
