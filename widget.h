@@ -3,6 +3,8 @@
 #ifndef WIDGET_H
 #define WIDGET_H
 
+#include <unistd.h>
+
 #include <QWidget>
 #include <QMouseEvent>
 #include <QMenu>
@@ -23,6 +25,11 @@
 #include <QString>
 #include <QStringList>
 #include <QVector>
+#include <QIODevice>
+#include <QDir>
+#include <QStandardPaths>
+#include <QFileInfo>
+#include <QFile>
 
 #include "getsysinfo.h"
 #include "datastruct.h"
@@ -35,48 +42,59 @@ public:
     Widget(QWidget *parent = nullptr);
     ~Widget();
 
+    // event
     void mousePressEvent(QMouseEvent *event);
     void mouseReleaseEvent(QMouseEvent *event);
     void mouseMoveEvent(QMouseEvent *event);
+    void paintEvent(QPaintEvent *event);        // 绘制界面 (paint interface)
 
+    // addon
+    QLabel *cpu_label;        // cpu标签 (cpu tag)
+    QLabel *mem_label;        // mem标签 (mem tag)
+    QLabel *mem_chart;        // mem图表 (mem chart)
+    QLabel *mail_indic_label; // mail指示器 (mail indicating)
+    QMenu *rightBtnMenu;      // 右键菜单 (right menu)
 
-    bool mouseIsPress = false; // 鼠标是否按下
+    // methods
+    void deal_configFile(int mode); // 检测和生成配置文件mode=1:use 2:set (test and create configure) at ~/.config/PopBall
+    void set_init_data();     // 设置初始数据 (set initial data)
+    void set_ui_style();      // 设置主要样式 (set main style)
+    void timer_setInterval(); // 用于全局唯一计时器执行 (only timer func)
+    void content();           // 内容 (content func)
+    GetSysInfo *Get_sys_info; // 获取内容方法 (get content func)
 
-    QPoint curPoint; // 当前坐标
-
-    void paintEvent(QPaintEvent *event); // 绘制界面
-
-    QMenu *rightBtnMenu; // 右键菜单
-
-    // 内容
-    void content();
-    QLabel *cpu_label;      // cpu标签
-    QLabel *cpuUsage_label; // cpu usage
-    QLabel *mem_label;      // mem标签
-    QLabel *mem_chart;      // mem图表
-
-    // 获取内容方法
-    GetSysInfo *Get_sys_info;
-
-    // 全局唯一计时器对象
-    QTimer *global_timer;
 private:
+    // event cor
+    bool mouseIsPress = false; // 鼠标是否按下 (mouse is press)
+    QPoint curPoint;           // 当前坐标 (current coordinate)
+    QTimer *global_timer;      // 全局唯一计时器对象 (only timer obj)
 
+    // data
     double cpu_data;
     double cpu_usageData;
     double mem_data;
-    QVector<double> mem_data_history; // data of mem
+    QVector<double> mem_data_history;      // data of mem
     QVector<double> cpuUsage_data_history; // data of cpuUsage
+    struct configItem {                    // configure item
+        int POSITION_X; // x at window
+        int POSITION_Y; // y at window
+    } configItem;
 
+    // effect
     QGraphicsDropShadowEffect *text_shadowEffect; // text shadow effect
 
+    // configure file name
+    QString CONF_FILE_NAME = "yt-popball.conf"; // name
+    const char CONF_FILE_DEFAULT_CONTENT[14] = "POSITION=0 0\n";
 
-    // 图表最大列数
+    // 图表最大列数 (max row)
     int CHART_ROW = 41;
     // timer
     int TIMER_INTERVAL = 1000;
     // size
     double CPU_LINE_W  = 1.5;
+    int POSITION_X     = 0;
+    int POSITION_Y     = 0;
     int WIDTH          = 100; // window width;
     int HEIGHT         = 100; // wineow height;
     int BORDER_WIDTH   = 3;   // border width
@@ -101,10 +119,5 @@ private:
     int MEM_CHART_COLOR[4]      = {19, 187, 177, 191};
     int CPU_LINE_COLOR[3]       = {121, 230, 203};
     int CPUUSAGE_CHART_COLOR[4] = {17, 109, 200, 191};
-
-private slots:
-//    全局唯一计时器
-    void timer_setInterval();
-
 };
 #endif // WIDGET_H

@@ -18,15 +18,23 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += \
     datastruct.cpp \
     getsysinfo.cpp \
+    mailnotify.cpp \
     main.cpp \
     widget.cpp
 
 HEADERS += \
     datastruct.h \
     getsysinfo.h \
+    mailnotify.h \
     widget.h
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
+
+DISTFILES += \
+    res/mail.svg
+
+RESOURCES += \
+    res/mail.qrc
