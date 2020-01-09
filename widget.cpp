@@ -227,6 +227,9 @@ void Widget::window_adsorb(bool isInit) {
             if (POSITION_Y<0) { pos_y = 0; }
             if (POSITION_Y > QApplication::desktop()->height()-HEIGHT) { pos_y = QApplication::desktop()->height()-HEIGHT; }
             this->setGeometry(0, pos_y, WIDTH/6+1, HEIGHT);
+            // set size and content
+            this->setFixedSize(MAIN_CIRCLE_W/6, HEIGHT);
+            cpu_label->clear();
         }
         break;
         case RIGHT_MODE:
@@ -238,6 +241,9 @@ void Widget::window_adsorb(bool isInit) {
             if (POSITION_Y<0) { pos_y = 0; }
             if (POSITION_Y > QApplication::desktop()->height()-HEIGHT) { pos_y = QApplication::desktop()->height()-HEIGHT; }
             this->setGeometry(QApplication::desktop()->width()-MAIN_CIRCLE_W/6, pos_y, WIDTH/6+1, HEIGHT);
+            // set size and content
+            this->setFixedSize(MAIN_CIRCLE_W/6, HEIGHT);
+            cpu_label->clear();
         }
         break;
         case NORMAL_MODE: WINDOW_SIZE_LOOK = NORMAL_MODE; WINDOW_SET_DIRECTION = NOTEDGE_MODE; break;
@@ -248,7 +254,7 @@ void Widget::window_adsorb(bool isInit) {
     if (isInit) {
 
     } else {
-        content(); // or use update()
+        update(); // or use update()
     }
 }
 
@@ -320,11 +326,6 @@ void Widget::paintEvent(QPaintEvent *) {
             // main circle
             painter.setPen(Qt::transparent);
             painter.drawRoundedRect(MAIN_CIRCLE_X, MAIN_CIRCLE_Y, MAIN_CIRCLE_W/6, MAIN_CIRCLE_H, 1, 1);
-
-            // set size and content
-
-            this->setFixedSize(MAIN_CIRCLE_W/6, HEIGHT);
-            cpu_label->clear();
 
             // mem chart
             QPen mem_pen;
