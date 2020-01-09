@@ -261,9 +261,6 @@ void Widget::paintEvent(QPaintEvent *) {
     switch (WINDOW_SIZE_LOOK) {
         case NORMAL_MODE: // WINDOW_SET_DIRECTION = NOTEDGE_MODE;
         {
-            // 窗口透明
-            this->setWindowOpacity(MAIN_OPACITY);
-
             // set size and content
             this->setFixedSize(WIDTH, HEIGHT);
 
@@ -316,8 +313,6 @@ void Widget::paintEvent(QPaintEvent *) {
         break;
         case MINI_MODE:
         {
-            // 窗口不透明
-            this->setWindowOpacity(1);
             // draw a round rect
             painter.setRenderHint(QPainter::Antialiasing);
             painter.setBrush(QBrush(QColor::fromRgb( MAIN_COLOR[0], MAIN_COLOR[1], MAIN_COLOR[2] )));
@@ -338,7 +333,7 @@ void Widget::paintEvent(QPaintEvent *) {
             mem_pen.setWidthF(CPU_LINE_W);
             painter.setBrush(QBrush(QColor::fromRgb( MEM_CHART_COLOR[0], MEM_CHART_COLOR[1], MEM_CHART_COLOR[2] )));
             painter.setPen(mem_pen);
-            painter.drawRoundedRect(1, 100-mem_data, MAIN_CIRCLE_W/6/2, mem_data, 1, 1);
+            painter.drawRoundedRect(1, 100-mem_data, MAIN_CIRCLE_W/6-2, mem_data, 0, 0);
 
             // cpu chart
             QPen cpu_pen;
@@ -347,7 +342,7 @@ void Widget::paintEvent(QPaintEvent *) {
             cpu_pen.setWidthF(CPU_LINE_W);
             painter.setBrush(QBrush(QColor::fromRgb( CPU_LINE_COLOR[0], CPU_LINE_COLOR[1], CPU_LINE_COLOR[2] )));
             painter.setPen(cpu_pen);
-            painter.drawRoundedRect(MAIN_CIRCLE_W/6/2-1, 100-cpu_usageData, MAIN_CIRCLE_W/6/2, cpu_usageData, 1, 1);
+            painter.drawRoundedRect(MAIN_CIRCLE_W/6/2-1, 100-cpu_usageData, MAIN_CIRCLE_W/6/2, cpu_usageData, 0, 0);
 
             switch (WINDOW_SET_DIRECTION) {
                 case LEFT_MODE:
