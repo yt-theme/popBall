@@ -347,7 +347,7 @@ void Widget::paintEvent(QPaintEvent *) {
             cpu_pen.setWidthF(CPU_LINE_W);
             painter.setBrush(QBrush(QColor::fromRgb( CPU_LINE_COLOR[0], CPU_LINE_COLOR[1], CPU_LINE_COLOR[2] )));
             painter.setPen(cpu_pen);
-            painter.drawRoundedRect(MAIN_CIRCLE_W/6/2-1, 100-cpu_usageData, MAIN_CIRCLE_W/6/2, cpu_usageData, 2, 2);
+            painter.drawRoundedRect(MAIN_CIRCLE_W/6/2-1, 100-cpu_usageData, MAIN_CIRCLE_W/6/2, cpu_usageData, 1, 1);
 
             switch (WINDOW_SET_DIRECTION) {
                 case LEFT_MODE:
