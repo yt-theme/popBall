@@ -87,6 +87,7 @@ void Widget::deal_configFile(int mode) { // USE_MODE:use conf, SET_MODE: set con
                     POSITION_Y = configItem.POSITION_Y;
                     // 设置窗口位置
                     this->setGeometry(POSITION_X, POSITION_Y, WIDTH, HEIGHT);
+                    window_adsorb(true);
                 break;
                 case SET_MODE: // set conf
                     config_items[i] = "POSITION=" + QString::number(POSITION_X) + " " + QString::number(POSITION_Y);
@@ -175,7 +176,7 @@ void Widget::mouseReleaseEvent(QMouseEvent *event) {
     deal_configFile(SET_MODE);
 
     // 确定窗口大小模式
-    window_adsorb();
+    window_adsorb(false);
 
     Q_UNUSED(event)
     mouseIsPress = false;
@@ -194,7 +195,7 @@ void Widget::mouseMoveEvent(QMouseEvent *event) {
     }
 }
 
-void Widget::window_adsorb() {
+void Widget::window_adsorb(bool isInit) {
 
     // 判断模式
     int mode = NORMAL_MODE;
@@ -218,23 +219,37 @@ void Widget::window_adsorb() {
 
     switch (mode) {
         case LEFT_MODE:
-            WINDOW_SIZE_LOOK = MINI_MODE;
+        {
+            WINDOW_SIZE_LOOK     = MINI_MODE;
             WINDOW_SET_DIRECTION = LEFT_MODE;
             // 窗口位置
-            this->setGeometry(0, POSITION_Y, WIDTH/4, HEIGHT);
+            int pos_y = POSITION_Y;
+            if (POSITION_Y<0) { pos_y = 0; }
+            if (POSITION_Y > QApplication::desktop()->height()-HEIGHT) { pos_y = QApplication::desktop()->height()-HEIGHT; }
+            this->setGeometry(0, pos_y, WIDTH/6+1, HEIGHT);
+        }
         break;
         case RIGHT_MODE:
-            WINDOW_SIZE_LOOK = MINI_MODE;
+        {
+            WINDOW_SIZE_LOOK     = MINI_MODE;
             WINDOW_SET_DIRECTION = RIGHT_MODE;
             // 窗口位置
-            this->setGeometry(QApplication::desktop()->width()-MAIN_CIRCLE_W/4, POSITION_Y, WIDTH/4, HEIGHT);
+            int pos_y = POSITION_Y;
+            if (POSITION_Y<0) { pos_y = 0; }
+            if (POSITION_Y > QApplication::desktop()->height()-HEIGHT) { pos_y = QApplication::desktop()->height()-HEIGHT; }
+            this->setGeometry(QApplication::desktop()->width()-MAIN_CIRCLE_W/6, pos_y, WIDTH/6+1, HEIGHT);
+        }
         break;
         case NORMAL_MODE: WINDOW_SIZE_LOOK = NORMAL_MODE; WINDOW_SET_DIRECTION = NOTEDGE_MODE; break;
         default:          WINDOW_SIZE_LOOK = NORMAL_MODE; WINDOW_SET_DIRECTION = NOTEDGE_MODE; break;
     }
 
     // 重绘
-    content(); // or use update()
+    if (isInit) {
+
+    } else {
+        content(); // or use update()
+    }
 }
 
 void Widget::paintEvent(QPaintEvent *) {
@@ -246,6 +261,9 @@ void Widget::paintEvent(QPaintEvent *) {
     switch (WINDOW_SIZE_LOOK) {
         case NORMAL_MODE: // WINDOW_SET_DIRECTION = NOTEDGE_MODE;
         {
+            // 窗口透明
+            this->setWindowOpacity(MAIN_OPACITY);
+
             // set size and content
             this->setFixedSize(WIDTH, HEIGHT);
 
@@ -298,18 +316,38 @@ void Widget::paintEvent(QPaintEvent *) {
         break;
         case MINI_MODE:
         {
+            // 窗口不透明
+            this->setWindowOpacity(1);
             // draw a round rect
             painter.setRenderHint(QPainter::Antialiasing);
             painter.setBrush(QBrush(QColor::fromRgb( MAIN_COLOR[0], MAIN_COLOR[1], MAIN_COLOR[2] )));
 
             // main circle
             painter.setPen(Qt::transparent);
-            painter.drawRoundedRect(MAIN_CIRCLE_X, MAIN_CIRCLE_Y, MAIN_CIRCLE_W/4, MAIN_CIRCLE_H, 3, 3);
+            painter.drawRoundedRect(MAIN_CIRCLE_X, MAIN_CIRCLE_Y, MAIN_CIRCLE_W/6, MAIN_CIRCLE_H, 1, 1);
 
             // set size and content
-            this->setFixedSize(MAIN_CIRCLE_W/4, HEIGHT);
 
+            this->setFixedSize(MAIN_CIRCLE_W/6, HEIGHT);
             cpu_label->clear();
+
+            // mem chart
+            QPen mem_pen;
+            mem_pen.setColor(QColor::fromRgb(MAIN_COLOR[0], MAIN_COLOR[1], MAIN_COLOR[2]));
+            mem_pen.setStyle(Qt::SolidLine);
+            mem_pen.setWidthF(CPU_LINE_W);
+            painter.setBrush(QBrush(QColor::fromRgb( MEM_CHART_COLOR[0], MEM_CHART_COLOR[1], MEM_CHART_COLOR[2] )));
+            painter.setPen(mem_pen);
+            painter.drawRoundedRect(1, 100-mem_data, MAIN_CIRCLE_W/6/2, mem_data, 1, 1);
+
+            // cpu chart
+            QPen cpu_pen;
+            cpu_pen.setColor(QColor::fromRgb(MAIN_COLOR[0], MAIN_COLOR[1], MAIN_COLOR[2]));
+            cpu_pen.setStyle(Qt::SolidLine);
+            cpu_pen.setWidthF(CPU_LINE_W);
+            painter.setBrush(QBrush(QColor::fromRgb( CPU_LINE_COLOR[0], CPU_LINE_COLOR[1], CPU_LINE_COLOR[2] )));
+            painter.setPen(cpu_pen);
+            painter.drawRoundedRect(MAIN_CIRCLE_W/6/2-1, 100-cpu_usageData, MAIN_CIRCLE_W/6/2, cpu_usageData, 2, 2);
 
             switch (WINDOW_SET_DIRECTION) {
                 case LEFT_MODE:

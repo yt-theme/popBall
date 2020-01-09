@@ -66,7 +66,7 @@ public:
     void set_ui_style();            // 设置主要样式 (set main style)
     void timer_setInterval();       // 用于全局唯一计时器执行 (only timer func)
     void content();                 // 内容 (content func)
-    void window_adsorb();   // 窗口吸附位置
+    void window_adsorb(bool isInit);   // 窗口吸附位置
     GetSysInfo *Get_sys_info;       // 获取内容方法 (get content func)
 
 private:
