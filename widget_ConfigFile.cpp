@@ -48,7 +48,6 @@ void Widget::deal_configFile(int mode) { // USE_MODE:use conf, SET_MODE: set con
                     cfg.POSITION_Y = item[1].trimmed().split(" ")[1].toInt();
                     // 设置窗口位置
                     this->setGeometry(cfg.POSITION_X, cfg.POSITION_Y, cfg.WIDTH, cfg.HEIGHT);
-                    window_adsorb(true);
                 break;
                 case SET_MODE: // set conf
                     config_items[i] = "POSITION=" + QString::number(cfg.POSITION_X) + " " + QString::number(cfg.POSITION_Y);

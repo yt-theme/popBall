@@ -121,7 +121,7 @@ private:
         int     OUTER_BORDER_COLOR[3]   = {249, 249, 249};
         int     MEM_CHART_COLOR[4]      = {19, 187, 177, 191};
         int     CPU_LINE_COLOR[3]       = {121, 230, 203};
-        int     CPUUSAGE_CHART_COLOR[4] = {19, 187, 177, 191};
+        int     CPUUSAGE_CHART_COLOR[4] = {121, 230, 203, 191};
     } cfg;
 
     // effect
@@ -132,10 +132,10 @@ private:
     // configure file
     const char CONF_FILE_DEFAULT_CONTENT[127] =
             "POSITION=0 0\n"            // x y and autoset
-            "REFRESH_INTERVAL=3000\n"   // ms
+            "REFRESH_INTERVAL=1300\n"   // ms
             "SHOW_CPU_LABEL=1\n"        // 0: hide 1: show
+            "LABEL_FONT_SIZE=10\n"      // cpu or else label font
             "MAIN_OPACITY=0.89\n"       // opacity
-            "LABEL_FONT_SIZE=10\n"       // opacity
             ;
 
     // 窗口模式外观 (MINI and NORMAL) (window look)

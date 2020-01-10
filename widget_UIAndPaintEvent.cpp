@@ -61,10 +61,12 @@ void Widget::paintEvent(QPaintEvent *) {
             clip_path.arcTo(cfg.OUTER_CIRCLE_X+cfg.BORDER_WIDTH, cfg.OUTER_CIRCLE_Y+cfg.BORDER_WIDTH, cfg.OUTER_CIRCLE_W-(cfg.BORDER_WIDTH*2), cfg.OUTER_CIRCLE_H-(cfg.BORDER_WIDTH*2), 0, 360);
             painter.setClipPath(clip_path);
 
-            // mem chart
+            // pen used to draw chart
             QPen chart_pen;
             chart_pen.setColor(QColor::fromRgb(cfg.CPU_LINE_COLOR[0], cfg.CPU_LINE_COLOR[1], cfg.CPU_LINE_COLOR[2]));
             chart_pen.setStyle(Qt::SolidLine);
+
+            // mem chart
             chart_pen.setWidthF(cfg.CPU_LINE_W);
             painter.setPen(chart_pen);
 //            painter.setViewport(cfg.OUTER_CIRCLE_X, cfg.HEIGHT/2 - cfg.OUTER_CIRCLE_Y, cfg.WIDTH, cfg.HEIGHT/2);
@@ -95,7 +97,7 @@ void Widget::paintEvent(QPaintEvent *) {
             painter.setRenderHint(QPainter::Antialiasing);
             painter.setBrush(QBrush(QColor::fromRgb( cfg.MAIN_COLOR[0], cfg.MAIN_COLOR[1], cfg.MAIN_COLOR[2] )));
 
-            // main circle
+            // main round rect
             painter.setPen(Qt::transparent);
             painter.drawRoundedRect(cfg.MAIN_CIRCLE_X, cfg.MAIN_CIRCLE_Y, cfg.MAIN_CIRCLE_W/6, cfg.MAIN_CIRCLE_H, 1, 1);
 
@@ -106,7 +108,7 @@ void Widget::paintEvent(QPaintEvent *) {
             mem_pen.setWidthF(cfg.CPU_LINE_W);
             painter.setBrush(QBrush(QColor::fromRgb( cfg.MEM_CHART_COLOR[0], cfg.MEM_CHART_COLOR[1], cfg.MEM_CHART_COLOR[2] )));
             painter.setPen(mem_pen);
-            painter.drawRoundedRect(1, 100-mem_data, cfg.MAIN_CIRCLE_W/6-2, mem_data, 0, 0);
+            painter.drawRoundedRect(1, 100-( static_cast<int>(mem_data)), cfg.MAIN_CIRCLE_W/6-2, ( static_cast<int>(mem_data)), 0, 0);
 
             // cpu chart
             QPen cpu_pen;
@@ -115,7 +117,7 @@ void Widget::paintEvent(QPaintEvent *) {
             cpu_pen.setWidthF(cfg.CPU_LINE_W);
             painter.setBrush(QBrush(QColor::fromRgb( cfg.CPU_LINE_COLOR[0], cfg.CPU_LINE_COLOR[1], cfg.CPU_LINE_COLOR[2] )));
             painter.setPen(cpu_pen);
-            painter.drawRoundedRect(cfg.MAIN_CIRCLE_W/6/2-1, 100-cpu_usageData, cfg.MAIN_CIRCLE_W/6/2, cpu_usageData, 0, 0);
+            painter.drawRoundedRect(cfg.MAIN_CIRCLE_W/6/2-1, 100-(static_cast<int>(cpu_usageData)), cfg.MAIN_CIRCLE_W/6/2, ( static_cast<int>(cpu_usageData)), 0, 0);
 
             switch (WINDOW_SET_DIRECTION) {
                 case LEFT_MODE:
