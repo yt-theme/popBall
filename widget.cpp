@@ -20,7 +20,8 @@ Widget::Widget(QWidget *parent)
 
     Get_sys_info = new GetSysInfo(); // 获取内容数据类
 
-    content();  // 内容 第一次获取
+    window_adsorb(true);
+    timer_setInterval(); // 内容 第一次获取
     global_timer = new QTimer(this); // 全局唯一计时器
     connect(global_timer, &QTimer::timeout, this, &Widget::timer_setInterval); // 计时器事件
     global_timer->start(TIMER_INTERVAL); // 开始计时
@@ -137,7 +138,7 @@ void Widget::set_init_data() {
 //    rightBtnMenu->addAction(menu_action_configure);
     // exit
     QAction *menu_action_exit = new QAction("exit", this);
-    connect(menu_action_exit, &QAction::triggered, [=](){ qDebug() << "exit =>";  close(); exit(0); });
+    connect(menu_action_exit, &QAction::triggered, [=](){ qDebug() << "exit =>"; exit(0); });
     rightBtnMenu->addAction(menu_action_exit);
 }
 
@@ -241,6 +242,7 @@ void Widget::window_adsorb(bool isInit) {
             this->setGeometry(0, pos_y, WIDTH/6+1, HEIGHT);
             // set size and content
             this->setFixedSize(MAIN_CIRCLE_W/6, HEIGHT);
+            // hide item
             cpu_label->clear();
         }
         break;
@@ -383,8 +385,10 @@ void Widget::content() {
 
     // ######## cpu #############
     // 获取cpu信息
-    cpu_data = Get_sys_info->getCpuInfo();
-    cpu_label->setText(QString::number(cpu_data, 'f', 2) + "GHz");
+    if (WINDOW_SIZE_LOOK == NORMAL_MODE) {
+        cpu_data = Get_sys_info->getCpuInfo();
+        cpu_label->setText(QString::number(cpu_data, 'f', 2) + "GHz");
+    }
 
     // ######## cpu usage #######
     // 获取cpu使用率
