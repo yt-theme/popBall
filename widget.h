@@ -135,6 +135,7 @@ private:
             "REFRESH_INTERVAL=3000\n"   // ms
             "SHOW_CPU_LABEL=1\n"        // 0: hide 1: show
             "MAIN_OPACITY=0.89\n"       // opacity
+            "LABEL_FONT_SIZE=10\n"       // opacity
             ;
 
     // 窗口模式外观 (MINI and NORMAL) (window look)

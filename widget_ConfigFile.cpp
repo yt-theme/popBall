@@ -93,6 +93,18 @@ void Widget::deal_configFile(int mode) { // USE_MODE:use conf, SET_MODE: set con
                 default: break;
             }
         }
+        // LABEL_FONT_SIZE
+        if (item[0].trimmed() == "LABEL_FONT_SIZE") {
+            switch (mode) {
+                case USE_MODE:
+                    cfg.LABEL_FONT_SIZE = item[1].trimmed().toInt();
+                break;
+                case SET_MODE:
+
+                break;
+                default: break;
+            }
+        }
     }
     config_file->close();
 
