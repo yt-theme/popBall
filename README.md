@@ -6,7 +6,7 @@
 
 ###### configure file content manual
 ```
-POSITION=0 0            // x y and autoset, int type and separete with space
+POSITION=0 0            // x y and autoset, int type and separate with space
 REFRESH_INTERVAL=1300   // ms, int type
 SHOW_CPU_LABEL=1        // 0: hide 1: show, int type
 LABEL_FONT_SIZE=10      // cpu or else label font, int type
