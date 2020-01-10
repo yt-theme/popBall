@@ -81,11 +81,23 @@ void Widget::deal_configFile(int mode) { // USE_MODE:use conf, SET_MODE: set con
                 default: break;
             }
         }
+        // MAIN_OPACITY
+        if (item[0].trimmed() == "MAIN_OPACITY") {
+            switch (mode) {
+                case USE_MODE:
+                    cfg.MAIN_OPACITY = item[1].trimmed().toDouble();
+                break;
+                case SET_MODE:
+
+                break;
+                default: break;
+            }
+        }
     }
     config_file->close();
 
     // 写入配置文件
-    if (mode==2 && tmp_config_content.size()>0) {
+    if (mode==SET_MODE && tmp_config_content.size()>0) {
         config_file->open(QIODevice::WriteOnly);
         config_file->write(tmp_config_content.toUtf8() + "\n");
         config_file->close();
