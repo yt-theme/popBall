@@ -27,6 +27,7 @@ HEADERS += \
     define.h \
     getsysinfo.h \
     mailnotify.h \
+    menu_action/menu_action.h \
     widget.h
 
 # Default rules for deployment.

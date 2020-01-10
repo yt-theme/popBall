@@ -5,12 +5,16 @@
 
 #include <unistd.h>
 
+#include <QObject>
 #include <QWidget>
 #include <QApplication>
 #include <QDesktopWidget>
 #include <QGuiApplication>
+#include <QListWidget>
 #include <QMouseEvent>
 #include <QMenu>
+#include <QActionGroup>
+#include <QAction>
 #include <QPainter>
 #include <QPen>
 #include <QLineF>
@@ -59,6 +63,8 @@ public:
     QLabel *mem_chart;        // mem图表 (mem chart)
     QLabel *mail_indic_label; // mail指示器 (mail indicating)
     QMenu *rightBtnMenu;      // 右键菜单 (right menu)
+    QActionGroup *rightBtnMenu_actonGroup; // 右键菜单 act
+
 
     // methods
     void deal_configFile(int mode); // 检测和生成配置文件SET_MODE:use SET_MODE:set (test and create configure) at ~/.config/PopBall
@@ -92,7 +98,7 @@ private:
 
     // configure file name
     QString CONF_FILE_NAME = "yt-popball.conf"; // name
-    const char CONF_FILE_DEFAULT_CONTENT[127] = "POSITION=0 0\nREFRESH_INTERVAL=1000\n";
+    const char CONF_FILE_DEFAULT_CONTENT[127] = "POSITION=0 0\nREFRESH_INTERVAL=3000\n";
 
     // 窗口模式外观 (MINI and NORMAL) (window look)
     int WINDOW_SIZE_LOOK = NORMAL_MODE; // default normal mode

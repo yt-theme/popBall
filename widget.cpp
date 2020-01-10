@@ -6,11 +6,13 @@ Widget::Widget(QWidget *parent)
     : QWidget(parent)
 {
     // addon
-    rightBtnMenu     = new QMenu(this);     // 右键菜单
-    cpu_label        = new QLabel(this);    // cpu频率 QLabel
-    mem_label        = new QLabel(this);    // mem使用
-    mem_chart        = new QLabel(this);    // mem图表
-    mail_indic_label = new QLabel(this);    // mail指示器
+    rightBtnMenu            = new QMenu(this);     // 右键菜单
+    rightBtnMenu_actonGroup = new QActionGroup(this); // 右键菜单 act
+    cpu_label               = new QLabel(this);    // cpu频率 QLabel
+    mem_label               = new QLabel(this);    // mem使用
+    mem_chart               = new QLabel(this);    // mem图表
+    mail_indic_label        = new QLabel(this);    // mail指示器
+
 
     deal_configFile(USE_MODE); // 处理配置文件
     set_init_data();           // 设置初始数据
@@ -27,6 +29,7 @@ Widget::Widget(QWidget *parent)
 Widget::~Widget()
 {
     delete rightBtnMenu;
+    delete rightBtnMenu_actonGroup;
     delete cpu_label;
     delete mem_label;
     delete text_shadowEffect;
@@ -71,7 +74,6 @@ void Widget::deal_configFile(int mode) { // USE_MODE:use conf, SET_MODE: set con
     QString conf_file_content = config_file->readAll();
     // 以\n划分配置项
     QStringList config_items = conf_file_content.split("\n", QString::SkipEmptyParts);
-    qDebug() << "config_items =>" << config_items;
     // 每个配置项用=划分键和值 (= split key and v)
     QString tmp_config_content; // 临时配置文件内容
     for (int i=0; i<config_items.size(); i++) {
@@ -119,8 +121,6 @@ void Widget::deal_configFile(int mode) { // USE_MODE:use conf, SET_MODE: set con
         config_file->close();
     }
 
-    qDebug() << "item =>" << configItem.POSITION_X << configItem.POSITION_Y;
-
     delete config_file;
 }
 
@@ -130,6 +130,15 @@ void Widget::set_init_data() {
         mem_data_history.push_back(0);
         cpuUsage_data_history.push_back(0);
     }
+
+    // right contextMenu
+    // configure
+//    QAction *menu_action_configure = new QAction("configure", this);
+//    rightBtnMenu->addAction(menu_action_configure);
+    // exit
+    QAction *menu_action_exit = new QAction("exit", this);
+    connect(menu_action_exit, &QAction::triggered, [=](){ qDebug() << "exit =>";  close(); exit(0); });
+    rightBtnMenu->addAction(menu_action_exit);
 }
 
 void Widget::set_ui_style() {
@@ -168,7 +177,7 @@ void Widget::timer_setInterval() {
 
 
 void Widget::mouseReleaseEvent(QMouseEvent *event) {
-    // 窗口当前坐标
+    // 窗口当前坐标menu_action_exit
     POSITION_X = this->x();
     POSITION_Y = this->y();
 
@@ -186,6 +195,9 @@ void Widget::mousePressEvent(QMouseEvent *event) {
     if (event->button() == Qt::LeftButton) {
         mouseIsPress = true;
         curPoint = event->pos();
+    }
+    if (event->button() == Qt::RightButton) {
+        rightBtnMenu->exec(event->globalPos()); // show right contextMenu
     }
 }
 

@@ -71,8 +71,6 @@ double GetSysInfo::getCpuUsageInfo() {
     cpuUsage_total_last = total;
     cpuUsage_idle_last = idle;
 
-    // qDebug() << "getCpuUsageInfo =>" << cpu_usage;
-
     process.close();
     return cpu_usage;
 }
