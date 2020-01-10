@@ -108,7 +108,7 @@ void Widget::paintEvent(QPaintEvent *) {
             mem_pen.setWidthF(cfg.CPU_LINE_W);
             painter.setBrush(QBrush(QColor::fromRgb( cfg.MEM_CHART_COLOR[0], cfg.MEM_CHART_COLOR[1], cfg.MEM_CHART_COLOR[2] )));
             painter.setPen(mem_pen);
-            painter.drawRoundedRect(1, 100-( static_cast<int>(mem_data)), cfg.MAIN_CIRCLE_W/6-2, ( static_cast<int>(mem_data)), 0, 0);
+            painter.drawRoundedRect(1, 100-(static_cast<int>(mem_data)), cfg.MAIN_CIRCLE_W/6-2, (static_cast<int>(mem_data)), 0, 0);
 
             // cpu chart
             QPen cpu_pen;
@@ -117,7 +117,7 @@ void Widget::paintEvent(QPaintEvent *) {
             cpu_pen.setWidthF(cfg.CPU_LINE_W);
             painter.setBrush(QBrush(QColor::fromRgb( cfg.CPU_LINE_COLOR[0], cfg.CPU_LINE_COLOR[1], cfg.CPU_LINE_COLOR[2] )));
             painter.setPen(cpu_pen);
-            painter.drawRoundedRect(cfg.MAIN_CIRCLE_W/6/2-1, 100-(static_cast<int>(cpu_usageData)), cfg.MAIN_CIRCLE_W/6/2, ( static_cast<int>(cpu_usageData)), 0, 0);
+            painter.drawRoundedRect(cfg.MAIN_CIRCLE_W/6/2-1, 100-(static_cast<int>(cpu_usageData)), cfg.MAIN_CIRCLE_W/6/2, (static_cast<int>(cpu_usageData)), 0, 0);
 
             switch (WINDOW_SET_DIRECTION) {
                 case LEFT_MODE:
