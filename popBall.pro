@@ -20,7 +20,12 @@ SOURCES += \
     getsysinfo.cpp \
     mailnotify.cpp \
     main.cpp \
-    widget.cpp
+    widget.cpp \
+    widget_ConfigFile.cpp \
+    widget_Initial.cpp \
+    widget_MouseEvent.cpp \
+    widget_UIAndPaintEvent.cpp \
+    widget_WindowPositionStyle.cpp
 
 HEADERS += \
     datastruct.h \

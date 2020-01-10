@@ -87,54 +87,55 @@ private:
     double mem_data;
     QVector<double> mem_data_history;      // data of mem
     QVector<double> cpuUsage_data_history; // data of cpuUsage
-    struct configItem {                    // configure item
-        int    POSITION_X; // x at window
-        int    POSITION_Y; // y at window
-        int    REFRESH_INTERVAL; // data refresh interval
-    } configItem;
+
+    struct cfg {                    // configure item
+        int POSITION_X;             // x at window
+        int POSITION_Y;             // y at window
+        int REFRESH_INTERVAL=1000;  // data refresh interval
+        int SHOW_CPU_LABEL;         // cpu label show or hide
+
+        int     CHART_ROW      = 41;  // 图表最大列数 (max row)
+        double  CPU_LINE_W     = 1.5; // cpu line width
+        int     WIDTH          = 100; // window width;
+        int     HEIGHT         = 100; // window height;
+        int     BORDER_WIDTH   = 3;   // border width
+        int     OUTER_CIRCLE_X = 3;   // outer circle
+        int     OUTER_CIRCLE_Y = 3;
+        int     OUTER_CIRCLE_W = 94;
+        int     OUTER_CIRCLE_H = 94;
+        int     MAIN_CIRCLE_X  = 0;   // main circle
+        int     MAIN_CIRCLE_Y  = 0;
+        int     MAIN_CIRCLE_W  = 100;
+        int     MAIN_CIRCLE_H  = 100;
+        // font
+        QString LABEL_FONT_TYPE     = "Microsoft YaHei";
+        int     LABEL_FONT_SIZE     = 10;
+        int     LABEL_FONT_WEIGHT   = 74;
+        QString LABEL_STYLE         = "color:#fdfefd;";
+        int     LABEL_FONT_SHADOW_R = 11;
+        // color
+        double  MAIN_OPACITY            = 0.89;
+        int     MAIN_COLOR[3]           = {35, 38, 41};
+        int     OUTER_BORDER_COLOR[3]   = {249, 249, 249};
+        int     MEM_CHART_COLOR[4]      = {19, 187, 177, 191};
+        int     CPU_LINE_COLOR[3]       = {121, 230, 203};
+        int     CPUUSAGE_CHART_COLOR[4] = {17, 109, 200, 191};
+    } cfg;
 
     // effect
     QGraphicsDropShadowEffect *text_shadowEffect; // text shadow effect
 
     // configure file name
     QString CONF_FILE_NAME = "yt-popball.conf"; // name
-    const char CONF_FILE_DEFAULT_CONTENT[127] = "POSITION=0 0\nREFRESH_INTERVAL=3000\n";
+    // configure file
+    const char CONF_FILE_DEFAULT_CONTENT[127] =
+            "POSITION=0 0\n"            // x y and autoset
+            "REFRESH_INTERVAL=3000\n"   // ms
+            "SHOW_CPU_LABEL=1\n"        // 0: hide 1: show
+            ;
 
     // 窗口模式外观 (MINI and NORMAL) (window look)
     int WINDOW_SIZE_LOOK = NORMAL_MODE; // default normal mode
-    int WINDOW_SET_DIRECTION = NOTEDGE_MODE; // window on edge (left or right or other)
-
-    // 图表最大列数 (max row)
-    int CHART_ROW = 41;
-    // time interval
-    int TIMER_INTERVAL = 1000;
-    // size
-    double CPU_LINE_W  = 1.5;
-    int POSITION_X     = 0;   // position x at window
-    int POSITION_Y     = 0;   // position y at window
-    int WIDTH          = 100; // window width;
-    int HEIGHT         = 100; // wineow height;
-    int BORDER_WIDTH   = 3;   // border width
-    int OUTER_CIRCLE_X = 3;   // outer circle
-    int OUTER_CIRCLE_Y = 3;
-    int OUTER_CIRCLE_W = 94;
-    int OUTER_CIRCLE_H = 94;
-    int MAIN_CIRCLE_X  = 0;   // main circle
-    int MAIN_CIRCLE_Y  = 0;
-    int MAIN_CIRCLE_W  = 100;
-    int MAIN_CIRCLE_H  = 100;
-    // font
-    QString LABEL_FONT_TYPE = "Microsoft YaHei";
-    int LABEL_FONT_SIZE     = 10;
-    int LABEL_FONT_WEIGHT   = 74;
-    QString LABEL_STYLE     = "color:#fdfefd;";
-    int LABEL_FONT_SHADOW_R = 11;
-    // color
-    double MAIN_OPACITY         = 0.89;
-    int MAIN_COLOR[3]           = {35, 38, 41};
-    int OUTER_BORDER_COLOR[3]   = {249, 249, 249};
-    int MEM_CHART_COLOR[4]      = {19, 187, 177, 191};
-    int CPU_LINE_COLOR[3]       = {121, 230, 203};
-    int CPUUSAGE_CHART_COLOR[4] = {17, 109, 200, 191};
+    int WINDOW_SET_DIRECTION = NOTEDGE_MODE; // window on edge (left or right or other)    
 };
 #endif // WIDGET_H

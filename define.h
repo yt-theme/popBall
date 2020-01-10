@@ -10,8 +10,8 @@
 #define BOTTOM_MODE 6  // 下模式
 #define NOTEDGE_MODE 7 // 非边缘模式
 
-#define HIDE_MODE 8    // 隐藏模式
-#define SHOW_MODE 9    // 展示模式
+#define HIDE_MODE 0    // 隐藏模式
+#define SHOW_MODE 1    // 展示模式
 
 #define MINI_MODE 10    // 微小模式
 #define SMALL_MODE 11  // 小模式
