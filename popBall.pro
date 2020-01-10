@@ -22,6 +22,7 @@ SOURCES += \
     main.cpp \
     widget.cpp \
     widget_ConfigFile.cpp \
+    widget_Ending.cpp \
     widget_Initial.cpp \
     widget_MouseEvent.cpp \
     widget_UIAndPaintEvent.cpp \

@@ -5,22 +5,11 @@
 Widget::Widget(QWidget *parent)
     : QWidget(parent)
 {
-    // addon
-    rightBtnMenu            = new QMenu(this);     // 右键菜单
-    rightBtnMenu_actonGroup = new QActionGroup(this); // 右键菜单 act
-    cpu_label               = new QLabel(this);    // cpu频率 QLabel
-    mem_label               = new QLabel(this);    // mem使用
-    mem_chart               = new QLabel(this);    // mem图表
-    mail_indic_label        = new QLabel(this);    // mail指示器
-
-
     deal_configFile(USE_MODE); // 处理配置文件 (func at widget_ConfigFile.cpp)
-    set_init_data();           // 设置初始数据
-    set_ui_style();            // 设置 main ui
+    init();                    // 设置初始数据 (func at widget_Initial.cpp)
+    main_ui_style();           // 设置 main ui (func at widget_UIAndPaintEvent.cpp)
 
-    Get_sys_info = new GetSysInfo(); // 获取内容数据类
-
-    window_adsorb(true);
+    window_adsorb(true);       // 窗口位置与形态 (func at widget_WindowPositionStyle.cpp)
     timer_setInterval(); // 内容 第一次获取
     global_timer = new QTimer(this); // 全局唯一计时器
     connect(global_timer, &QTimer::timeout, this, &Widget::timer_setInterval); // 计时器事件
@@ -29,15 +18,7 @@ Widget::Widget(QWidget *parent)
 
 Widget::~Widget()
 {
-    delete rightBtnMenu;
-    delete rightBtnMenu_actonGroup;
-    delete cpu_label;
-    delete mem_label;
-    delete text_shadowEffect;
-    delete global_timer;
-    delete Get_sys_info;
-    delete mem_chart;
-    delete mail_indic_label;
+    ending(); // 析构 (func at widget_Ending.cpp)
 }
 
 void Widget::timer_setInterval() {

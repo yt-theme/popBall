@@ -21,7 +21,7 @@ void Widget::mousePressEvent(QMouseEvent *event) {
         curPoint = event->pos();
     }
     if (event->button() == Qt::RightButton) {
-        rightBtnMenu->exec(event->globalPos()); // show right contextMenu
+        rightBtnMenu->exec(event->globalPos()); // 右键菜单 (show right contextMenu)
     }
 }
 

@@ -1,6 +1,6 @@
 #include "widget.h"
 
-void Widget::set_ui_style() {
+void Widget::main_ui_style() {
     // main styleSheet
     this->setWindowFlag(Qt::FramelessWindowHint);
     this->setWindowFlag(Qt::Tool);
