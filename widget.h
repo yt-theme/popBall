@@ -70,6 +70,7 @@ public:
     void deal_configFile(int mode);  // 检测和生成配置文件SET_MODE:use SET_MODE:set (test and create configure) at ~/.config/PopBall               //
     void init();                     // 设置初始数据 (set initial data)
     void ending();                   // 析构
+    void right_contextMenu();          // 右键菜单 (right context menu)
     void main_ui_style();            // 设置主要样式 (set main style)
     void timer_setInterval();        // 用于全局唯一计时器执行 (only timer func)
     void content();                  // 内容 (content func)

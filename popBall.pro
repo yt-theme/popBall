@@ -25,6 +25,7 @@ SOURCES += \
     widget_Ending.cpp \
     widget_Initial.cpp \
     widget_MouseEvent.cpp \
+    widget_RightContextMenu.cpp \
     widget_UIAndPaintEvent.cpp \
     widget_WindowPositionStyle.cpp
 

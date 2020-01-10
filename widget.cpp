@@ -7,6 +7,7 @@ Widget::Widget(QWidget *parent)
 {
     deal_configFile(USE_MODE); // 处理配置文件 (func at widget_ConfigFile.cpp)
     init();                    // 设置初始数据 (func at widget_Initial.cpp)
+    right_contextMenu();       // 右键菜单 (func at widget_RightContextMenu)
     main_ui_style();           // 设置 main ui (func at widget_UIAndPaintEvent.cpp)
 
     window_adsorb(true);       // 窗口位置与形态 (func at widget_WindowPositionStyle.cpp)
