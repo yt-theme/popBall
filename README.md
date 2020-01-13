@@ -12,3 +12,5 @@ SHOW_CPU_LABEL=1        // 0: hide 1: show, int type
 LABEL_FONT_SIZE=10      // cpu or label font, int type
 MAIN_OPACITY=0.89       // opacity, double type
 ```
+
+###### configure tools ready
