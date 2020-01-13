@@ -1,6 +1,8 @@
 #ifndef DEFINE_H
 #define DEFINE_H
 
+#define CONFIGURE_FILE_NAME "yt-popball.conf" // 配置文件名
+
 #define USE_MODE 1     // 使用模式
 #define SET_MODE 2     // 设置模式
 

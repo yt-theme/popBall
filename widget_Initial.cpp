@@ -13,7 +13,7 @@ void Widget::init() {
     Get_sys_info            = new GetSysInfo(); // 获取内容数据类
 
     // QVector init
-    for (auto i=0; i<cfg.CHART_ROW; i++) {
+    for (auto i=0; i<cfg->CHART_ROW; i++) {
         mem_data_history.push_back(0);
         cpuUsage_data_history.push_back(0);
     }

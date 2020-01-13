@@ -5,6 +5,12 @@ void Widget::right_contextMenu () {
 
     // configure
     QAction *menu_action_configure = new QAction("configure", this);
+    connect(menu_action_configure, &QAction::triggered,
+            [=](){
+                qDebug() << "configure =>";
+                setting_panel();
+            }
+    );
     rightBtnMenu->addAction(menu_action_configure);
 
 
@@ -17,4 +23,13 @@ void Widget::right_contextMenu () {
         }
     );
     rightBtnMenu->addAction(menu_action_exit);
+}
+
+void Widget::setting_panel () {
+    QDialog *dialog = new ConfigureDialog(this);
+
+    dialog->setGeometry(QApplication::desktop()->width()/2 - (300/2), QApplication::desktop()->height()/2 - (500/2), 300, 500);
+    dialog->setWindowModality(Qt::ApplicationModal);
+    dialog->setWindowTitle("configure");
+    dialog->exec();
 }

@@ -7,6 +7,7 @@
 
 #include <QObject>
 #include <QWidget>
+#include <QDialog>
 #include <QApplication>
 #include <QDesktopWidget>
 #include <QGuiApplication>
@@ -21,6 +22,8 @@
 #include <QPainterPath>
 #include <QPixmap>
 #include <QRegion>
+#include <QLineEdit>
+#include <QLabel>
 #include <QFrame>
 #include <QGraphicsDropShadowEffect>
 #include <QStyleOption>
@@ -42,6 +45,7 @@
 #include "define.h"
 #include "getsysinfo.h"
 #include "datastruct.h"
+#include "configuredialog.h"
 
 class Widget : public QWidget, public GetSysInfo
 {
@@ -70,14 +74,14 @@ public:
     void deal_configFile(int mode);  // 检测和生成配置文件SET_MODE:use SET_MODE:set (test and create configure) at ~/.config/PopBall               //
     void init();                     // 设置初始数据 (set initial data)
     void ending();                   // 析构
-    void right_contextMenu();          // 右键菜单 (right context menu)
+    void right_contextMenu();        // 右键菜单 (right context menu)
+    void setting_panel();            // 设置面板
     void main_ui_style();            // 设置主要样式 (set main style)
     void timer_setInterval();        // 用于全局唯一计时器执行 (only timer func)
     void content();                  // 内容 (content func)
     void window_adsorb(bool isInit); // 窗口吸附位置
     GetSysInfo *Get_sys_info;        // 获取内容方法 (get content func)
 
-private:
     // event cor
     bool mouseIsPress = false; // 鼠标是否按下 (mouse is press)
     QPoint curPoint;           // 当前坐标 (current coordinate)
@@ -90,45 +94,14 @@ private:
     QVector<double> mem_data_history;      // data of mem
     QVector<double> cpuUsage_data_history; // data of cpuUsage
 
-    struct cfg {                       // configure item
-        int     POSITION_X;            // x at window
-        int     POSITION_Y;            // y at window
-        int     REFRESH_INTERVAL=1000; // data refresh interval
-        int     SHOW_CPU_LABEL;        // cpu label show or hide
-
-        int     CHART_ROW      = 41;   // 图表最大列数 (max row)
-        double  CPU_LINE_W     = 1.5;  // cpu line width
-        int     WIDTH          = 100;  // window width;
-        int     HEIGHT         = 100;  // window height;
-        int     BORDER_WIDTH   = 3;    // border width
-        int     OUTER_CIRCLE_X = 3;    // outer circle
-        int     OUTER_CIRCLE_Y = 3;
-        int     OUTER_CIRCLE_W = 94;
-        int     OUTER_CIRCLE_H = 94;
-        int     MAIN_CIRCLE_X  = 0;    // main circle
-        int     MAIN_CIRCLE_Y  = 0;
-        int     MAIN_CIRCLE_W  = 100;
-        int     MAIN_CIRCLE_H  = 100;
-        // font
-        QString LABEL_FONT_TYPE     = "Microsoft YaHei";
-        int     LABEL_FONT_SIZE     = 10;
-        int     LABEL_FONT_WEIGHT   = 74;
-        QString LABEL_STYLE         = "color:#fdfefd;";
-        int     LABEL_FONT_SHADOW_R = 11;
-        // color
-        double  MAIN_OPACITY            = 0.89;
-        int     MAIN_COLOR[3]           = {35, 38, 41};
-        int     OUTER_BORDER_COLOR[3]   = {249, 249, 249};
-        int     MEM_CHART_COLOR[4]      = {19, 187, 177, 191};
-        int     CPU_LINE_COLOR[3]       = {121, 230, 203};
-        int     CPUUSAGE_CHART_COLOR[4] = {121, 230, 203, 191};
-    } cfg;
+    // configure data
+    // cfg
 
     // effect
     QGraphicsDropShadowEffect *text_shadowEffect; // text shadow effect
 
     // configure file name
-    QString CONF_FILE_NAME = "yt-popball.conf"; // name
+    QString CONF_FILE_NAME = CONFIGURE_FILE_NAME; // name
     // configure file
     const char CONF_FILE_DEFAULT_CONTENT[127] =
             "POSITION=0 0\n"            // x y and autoset

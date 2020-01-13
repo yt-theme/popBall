@@ -16,7 +16,7 @@
 
 #include "datastruct.h"
 
-class GetSysInfo : public DataStruct
+class GetSysInfo
 {
 public:
     GetSysInfo();
@@ -29,7 +29,7 @@ public:
 
 private:
     QProcess process;                // Qprocess
-    DataStruct::MemStruct memstruct; // store struct
+    MemStruct memstruct; // store struct
     unsigned long long mem_used;     // mem used
     double cpu_usage;                // cpu usage
     double cpuUsage_total_last=0.0;  // 上一次 cpu total

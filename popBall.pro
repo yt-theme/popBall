@@ -16,6 +16,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    configuredialog.cpp \
     datastruct.cpp \
     getsysinfo.cpp \
     mailnotify.cpp \
@@ -30,6 +31,7 @@ SOURCES += \
     widget_WindowPositionStyle.cpp
 
 HEADERS += \
+    configuredialog.h \
     datastruct.h \
     define.h \
     getsysinfo.h \
@@ -47,3 +49,6 @@ DISTFILES += \
 
 RESOURCES += \
     res/mail.qrc
+
+FORMS += \
+    configuredialog.ui

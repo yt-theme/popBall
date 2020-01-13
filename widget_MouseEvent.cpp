@@ -2,8 +2,8 @@
 
 void Widget::mouseReleaseEvent(QMouseEvent *event) {
     // 窗口当前坐标menu_action_exit
-    cfg.POSITION_X = this->x();
-    cfg.POSITION_Y = this->y();
+    cfg->POSITION_X = this->x();
+    cfg->POSITION_Y = this->y();
 
     // 保存当前坐标
     deal_configFile(SET_MODE);

@@ -44,13 +44,13 @@ void Widget::deal_configFile(int mode) { // USE_MODE:use conf, SET_MODE: set con
             // mode
             switch (mode) {
                 case USE_MODE: // use conf
-                    cfg.POSITION_X = item[1].trimmed().split(" ")[0].toInt();
-                    cfg.POSITION_Y = item[1].trimmed().split(" ")[1].toInt();
+                    cfg->POSITION_X = item[1].trimmed().split(" ")[0].toInt();
+                    cfg->POSITION_Y = item[1].trimmed().split(" ")[1].toInt();
                     // 设置窗口位置
-                    this->setGeometry(cfg.POSITION_X, cfg.POSITION_Y, cfg.WIDTH, cfg.HEIGHT);
+                    this->setGeometry(cfg->POSITION_X, cfg->POSITION_Y, cfg->WIDTH, cfg->HEIGHT);
                 break;
                 case SET_MODE: // set conf
-                    config_items[i] = "POSITION=" + QString::number(cfg.POSITION_X) + " " + QString::number(cfg.POSITION_Y);
+                    config_items[i] = "POSITION=" + QString::number(cfg->POSITION_X) + " " + QString::number(cfg->POSITION_Y);
                     tmp_config_content = config_items.join("\n");
                 break;
                 default: break;
@@ -60,7 +60,7 @@ void Widget::deal_configFile(int mode) { // USE_MODE:use conf, SET_MODE: set con
         if (item[0].trimmed() == "REFRESH_INTERVAL") {
             switch (mode) {
                 case USE_MODE:
-                    cfg.REFRESH_INTERVAL = item[1].trimmed().toInt();
+                    cfg->REFRESH_INTERVAL = item[1].trimmed().toInt();
                 break;
                 case SET_MODE:
 
@@ -72,7 +72,7 @@ void Widget::deal_configFile(int mode) { // USE_MODE:use conf, SET_MODE: set con
         if (item[0].trimmed() == "SHOW_CPU_LABEL") {
             switch (mode) {
                 case USE_MODE:
-                    cfg.SHOW_CPU_LABEL = item[1].trimmed().toInt();
+                    cfg->SHOW_CPU_LABEL = item[1].trimmed().toInt();
                 break;
                 case SET_MODE:
 
@@ -84,7 +84,7 @@ void Widget::deal_configFile(int mode) { // USE_MODE:use conf, SET_MODE: set con
         if (item[0].trimmed() == "MAIN_OPACITY") {
             switch (mode) {
                 case USE_MODE:
-                    cfg.MAIN_OPACITY = item[1].trimmed().toDouble();
+                    cfg->MAIN_OPACITY = item[1].trimmed().toDouble();
                 break;
                 case SET_MODE:
 
@@ -96,7 +96,7 @@ void Widget::deal_configFile(int mode) { // USE_MODE:use conf, SET_MODE: set con
         if (item[0].trimmed() == "LABEL_FONT_SIZE") {
             switch (mode) {
                 case USE_MODE:
-                    cfg.LABEL_FONT_SIZE = item[1].trimmed().toInt();
+                    cfg->LABEL_FONT_SIZE = item[1].trimmed().toInt();
                 break;
                 case SET_MODE:
 

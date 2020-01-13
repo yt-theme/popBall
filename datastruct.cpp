@@ -2,7 +2,4 @@
 
 #include "datastruct.h"
 
-DataStruct::DataStruct()
-{
-
-}
+ConfigItem *cfg = new ConfigItem;
