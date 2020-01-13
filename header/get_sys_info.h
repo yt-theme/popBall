@@ -12,6 +12,8 @@
 #include <QFile>
 #include <QTextStream>
 #include <QIODevice>
+// GPL-3.0
+
 #include <QRegExp>
 #include <QList>
 

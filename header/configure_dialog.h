@@ -1,3 +1,5 @@
+// GPL-3.0
+
 #ifndef CONFIGUREDIALOG_H
 #define CONFIGUREDIALOG_H
 

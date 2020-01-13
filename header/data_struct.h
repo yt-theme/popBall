@@ -1,10 +1,9 @@
 #ifndef DATASTRUCT_H
+// GPL-3.0
+
 #define DATASTRUCT_H
 
 #include <QString>
-
-
-// GPL-3.0
 
 // mem
 struct MemStruct {

@@ -1,3 +1,5 @@
+// GPL-3.0
+
 #include "header/widget.h"
 
 void Widget::init() {

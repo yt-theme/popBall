@@ -1,3 +1,5 @@
+// GPL-3.0
+
 #include "header/widget.h"
 
 void Widget::deal_configFile(int mode) { // USE_MODE:use conf, SET_MODE: set conf
