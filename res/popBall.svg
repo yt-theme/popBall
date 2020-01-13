@@ -26,16 +26,16 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="0.98994949"
-     inkscape:cx="-241.65343"
-     inkscape:cy="122.31875"
+     inkscape:cx="86.141072"
+     inkscape:cy="130.39997"
      inkscape:document-units="mm"
      inkscape:current-layer="layer1"
      showgrid="true"
      units="px"
-     inkscape:window-width="1280"
-     inkscape:window-height="723"
+     inkscape:window-width="1272"
+     inkscape:window-height="740"
      inkscape:window-x="0"
-     inkscape:window-y="0"
+     inkscape:window-y="27"
      inkscape:window-maximized="1">
     <inkscape:grid
        type="xygrid"
@@ -87,13 +87,19 @@
        rx="30.578272"
        ry="30.76923" />
     <path
-       style="opacity:1;fill:#4dd2c4;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.26499999;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       style="opacity:1;fill:#4dd2c4;fill-opacity:0.87450981;fill-rule:nonzero;stroke:none;stroke-width:0.26499999;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        d="m 4.3206623,262.13106 a 29.633333,29.633333 0 0 0 -0.05116,1.02061 A 29.633333,29.633333 0 0 0 33.902836,292.78501 29.633333,29.633333 0 0 0 63.53617,263.15167 29.633333,29.633333 0 0 0 63.5,262.13106 Z"
        id="path821-3"
        inkscape:connector-curvature="0" />
     <path
        style="fill:none;stroke:#707070;stroke-width:3.4395833;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;paint-order:markers stroke fill"
-       d="m 12.7,282.71249 12.7,-25.4 12.7,25.4 h 16.933333"
+       d="M 12.170833,277.94999 25.4,251.49164 38.629167,278.47915 H 55.5625"
+       id="path858-6-3"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="cccc" />
+    <path
+       style="fill:none;stroke:#707070;stroke-width:3.4395833;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;paint-order:markers stroke fill"
+       d="M 13.758333,281.12498 25.4,257.31248 37.041667,281.65416 h 17.991666"
        id="path858-6"
        inkscape:connector-curvature="0"
        sodipodi:nodetypes="cccc" />
