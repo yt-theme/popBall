@@ -1,4 +1,4 @@
-#include "widget.h"
+#include "header/widget.h"
 
 void Widget::right_contextMenu () {
     // right contextMenu

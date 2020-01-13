@@ -16,13 +16,14 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
-    data_struct/datastruct.cpp \
+    data_struct/data_struct.cpp \
     dialog/configure_dialog.cpp \
-    get_sys_info/getsysinfo.cpp \
-    mail/mailnotify.cpp \
+    get_sys_info/get_sys_info.cpp \
+    mail/mail_notify.cpp \
     main.cpp \
     widget/widget.cpp \
     widget/widget_ConfigFile.cpp \
+    widget/widget_Content.cpp \
     widget/widget_Ending.cpp \
     widget/widget_Initial.cpp \
     widget/widget_MouseEvent.cpp \
@@ -31,12 +32,12 @@ SOURCES += \
     widget/widget_WindowPositionStyle.cpp
 
 HEADERS += \
-    configure_dialog.h \
-    datastruct.h \
-    define.h \
-    getsysinfo.h \
-    mailnotify.h \
-    widget.h
+    header/configure_dialog.h \
+    header/data_struct.h \
+    header/define.h \
+    header/get_sys_info.h \
+    header/mail_notify.h \
+    header/widget.h \
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

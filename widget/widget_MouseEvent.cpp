@@ -1,4 +1,4 @@
-#include "widget.h"
+#include "header/widget.h"
 
 void Widget::mouseReleaseEvent(QMouseEvent *event) {
     // 窗口当前坐标menu_action_exit

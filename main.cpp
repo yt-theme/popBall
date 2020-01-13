@@ -1,6 +1,6 @@
 // GPL-3.0
 
-#include "widget.h"
+#include "header/widget.h"
 
 #include <QApplication>
 

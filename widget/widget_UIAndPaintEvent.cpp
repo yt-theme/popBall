@@ -1,4 +1,4 @@
-#include "widget.h"
+#include "header/widget.h"
 
 void Widget::main_ui_style() {
     // main styleSheet

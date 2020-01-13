@@ -1,6 +1,6 @@
 // GPL-3.0
 
-#include "getsysinfo.h"
+#include "header/get_sys_info.h"
 
 GetSysInfo::GetSysInfo()
 {
@@ -14,10 +14,11 @@ GetSysInfo::~GetSysInfo() {
 //cpu 信息
 double GetSysInfo::getCpuInfo() {
     QString tmp_str = "";
-    process.start("cat /proc/cpuinfo");
-    process.waitForFinished();
+    QFile *process = new QFile;
+    process->setFileName("/proc/cpuinfo");
+    process->open(QIODevice::ReadOnly|QIODevice::Text);
 
-    tmp_str = process.readAll().replace("\t", "");
+    tmp_str = process->readAll().replace("\t", "");
     QStringList tmp_str_arr = tmp_str.split("\n");
 
     double num_of_cpu = 0.0;
@@ -39,17 +40,19 @@ double GetSysInfo::getCpuInfo() {
     
     max_freq = (max_freq/1000);
 
-    process.close();
+    process->close();
+    delete process;
     return max_freq;
 }
 
 //cpu 使用率
 double GetSysInfo::getCpuUsageInfo() {
-    cpu_usage = 0.0;
-    process.start("cat /proc/stat");
-    process.waitForFinished();
+    double cpu_usage = 0.0;
+    QFile *process = new QFile;
+    process->setFileName("/proc/stat");
+    process->open(QIODevice::ReadOnly|QIODevice::Text);
 
-    QString     data_string = process.readLine().replace("\t", "").replace("\n", "");
+    QString     data_string = process->readLine().replace("\t", "").replace("\n", "");
     QStringList data_list   = data_string.split(" ", QString::SkipEmptyParts);
 
     double total = data_list[1].toDouble() +
@@ -65,21 +68,23 @@ double GetSysInfo::getCpuUsageInfo() {
 
     double idle = data_list[4].toDouble();
 
-    cpu_usage = (double)((total - cpuUsage_total_last) - (idle - cpuUsage_idle_last))/(total - cpuUsage_total_last) * 100;
+    cpu_usage = static_cast<double>((total - cpuUsage_total_last) - (idle - cpuUsage_idle_last))/(total - cpuUsage_total_last) * 100;
 
     // last usage store
     cpuUsage_total_last = total;
     cpuUsage_idle_last = idle;
 
-    process.close();
+    process->close();
+    delete process;
     return cpu_usage;
 }
 
 double GetSysInfo::getMemInfo() {
-    process.start("cat /proc/meminfo");
-    process.waitForFinished();
+    QFile *process = new QFile;
+    process->setFileName("/proc/meminfo");
+    process->open(QIODevice::ReadOnly|QIODevice::Text);
 
-    QString     data_string = process.readAll().replace("\t", "");
+    QString     data_string = process->readAll().replace("\t", "");
     QStringList data_list   = data_string.split("\n", QString::SkipEmptyParts);
 
     for (auto ite : data_list) {
@@ -92,8 +97,9 @@ double GetSysInfo::getMemInfo() {
         if (ite_list[0] == "Buffers")      { memstruct.Buffers = ite_list[1].trimmed().split(" ")[0].toULongLong(); }
     }
 
-    mem_used = memstruct.MemTotal - (memstruct.Buffers + memstruct.MemFree + memstruct.Cached);
+    unsigned long long mem_used = memstruct.MemTotal - (memstruct.Buffers + memstruct.MemFree + memstruct.Cached);
 
-    process.close();
-    return static_cast<double>(mem_used / memstruct.MemTotal * 100);
+    process->close();
+    delete process;
+    return static_cast<double>(mem_used) / memstruct.MemTotal * 100;
 }

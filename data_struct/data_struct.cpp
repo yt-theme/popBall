@@ -1,5 +1,5 @@
 // GPL-3.0
 
-#include "datastruct.h"
+#include "header/data_struct.h"
 
 ConfigItem *cfg = new ConfigItem;

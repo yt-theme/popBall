@@ -1,4 +1,4 @@
-#include "widget.h"
+#include "header/widget.h"
 
 void Widget::deal_configFile(int mode) { // USE_MODE:use conf, SET_MODE: set conf
     QDir dot_config_dir;
