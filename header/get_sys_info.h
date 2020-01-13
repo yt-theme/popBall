@@ -29,9 +29,7 @@ public:
     double getMemInfo();   
 
 private:
-    MemStruct memstruct; // store struct
-    unsigned long long mem_used;     // mem used
-    double cpu_usage;                // cpu usage
+    MemStruct memstruct;             // store struct
     double cpuUsage_total_last=0.0;  // 上一次 cpu total
     double cpuUsage_idle_last=0.0;   // 上一次 cpu idle
 
