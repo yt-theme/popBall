@@ -16,19 +16,19 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
-    configuredialog.cpp \
-    datastruct.cpp \
-    getsysinfo.cpp \
-    mailnotify.cpp \
+    data_struct/datastruct.cpp \
+    dialog/configuredialog.cpp \
+    get_sys_info/getsysinfo.cpp \
+    mail/mailnotify.cpp \
     main.cpp \
-    widget.cpp \
-    widget_ConfigFile.cpp \
-    widget_Ending.cpp \
-    widget_Initial.cpp \
-    widget_MouseEvent.cpp \
-    widget_RightContextMenu.cpp \
-    widget_UIAndPaintEvent.cpp \
-    widget_WindowPositionStyle.cpp
+    widget/widget.cpp \
+    widget/widget_ConfigFile.cpp \
+    widget/widget_Ending.cpp \
+    widget/widget_Initial.cpp \
+    widget/widget_MouseEvent.cpp \
+    widget/widget_RightContextMenu.cpp \
+    widget/widget_UIAndPaintEvent.cpp \
+    widget/widget_WindowPositionStyle.cpp
 
 HEADERS += \
     configuredialog.h \
@@ -36,7 +36,6 @@ HEADERS += \
     define.h \
     getsysinfo.h \
     mailnotify.h \
-    menu_action/menu_action.h \
     widget.h
 
 # Default rules for deployment.

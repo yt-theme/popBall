@@ -96,6 +96,7 @@ struct ConfigItem {                       // configure item
     int     CPUUSAGE_CHART_COLOR[4] = {121, 230, 203, 191};
 };
 
+// cfg 全局变量
 extern ConfigItem *cfg;
 
 #endif // DATASTRUCT_H
