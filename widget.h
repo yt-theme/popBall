@@ -45,7 +45,7 @@
 #include "define.h"
 #include "getsysinfo.h"
 #include "datastruct.h"
-#include "configuredialog.h"
+#include "configure_dialog.h"
 
 class Widget : public QWidget, public GetSysInfo
 {

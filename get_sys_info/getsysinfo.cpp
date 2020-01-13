@@ -95,5 +95,5 @@ double GetSysInfo::getMemInfo() {
     mem_used = memstruct.MemTotal - (memstruct.Buffers + memstruct.MemFree + memstruct.Cached);
 
     process.close();
-    return (double)mem_used / memstruct.MemTotal * 100;
+    return static_cast<double>(mem_used / memstruct.MemTotal * 100);
 }

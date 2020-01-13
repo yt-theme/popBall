@@ -17,7 +17,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
     data_struct/datastruct.cpp \
-    dialog/configuredialog.cpp \
+    dialog/configure_dialog.cpp \
     get_sys_info/getsysinfo.cpp \
     mail/mailnotify.cpp \
     main.cpp \
@@ -31,7 +31,7 @@ SOURCES += \
     widget/widget_WindowPositionStyle.cpp
 
 HEADERS += \
-    configuredialog.h \
+    configure_dialog.h \
     datastruct.h \
     define.h \
     getsysinfo.h \
@@ -50,4 +50,4 @@ RESOURCES += \
     res/mail.qrc
 
 FORMS += \
-    configuredialog.ui
+    configure_dialog.ui
