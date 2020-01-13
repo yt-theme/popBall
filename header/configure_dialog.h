@@ -25,7 +25,7 @@ public:
     explicit ConfigureDialog(QWidget *parent = nullptr);
     ~ConfigureDialog();
 
-    // tmp data to store
+    // global data to store
     // cfg
 
     void saveToConfiureFile();

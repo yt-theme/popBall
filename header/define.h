@@ -3,6 +3,13 @@
 #ifndef DEFINE_H
 #define DEFINE_H
 
+#define DEFAULT_CONFIGURE_CONTENT \
+    "POSITION=0 0\n" \
+    "REFRESH_INTERVAL=1300\n" \
+    "SHOW_CPU_LABEL=1\n" \
+    "LABEL_FONT_SIZE=10\n" \
+    "MAIN_OPACITY=0.89\n" // 默认配置文件内容
+
 #define CONFIGURE_FILE_NAME "yt-popball.conf" // 配置文件名
 
 #define USE_MODE 1     // 使用模式

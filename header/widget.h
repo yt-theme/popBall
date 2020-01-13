@@ -103,13 +103,7 @@ public:
     // configure file name
     QString CONF_FILE_NAME = CONFIGURE_FILE_NAME; // name
     // configure file
-    const char CONF_FILE_DEFAULT_CONTENT[127] =
-            "POSITION=0 0\n"            // x y and autoset
-            "REFRESH_INTERVAL=1300\n"   // ms
-            "SHOW_CPU_LABEL=1\n"        // 0: hide 1: show
-            "LABEL_FONT_SIZE=10\n"      // cpu or else label font
-            "MAIN_OPACITY=0.89\n"       // opacity
-            ;
+    const char CONF_FILE_DEFAULT_CONTENT[4096] = DEFAULT_CONFIGURE_CONTENT;
 
     // 窗口模式外观 (MINI and NORMAL) (window look)
     int WINDOW_SIZE_LOOK     = NORMAL_MODE;      // default normal mode
