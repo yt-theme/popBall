@@ -12,4 +12,5 @@ void Widget::ending() {
     delete Get_sys_info;
     delete mem_chart;
     delete mail_indic_label;
+    delete cfg;
 }

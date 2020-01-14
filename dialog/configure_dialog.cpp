@@ -1,7 +1,7 @@
 // GPL-3.0
 
 #include "header/configure_dialog.h"
-#include "ui_configuredialog.h"
+#include "ui_configure_dialog.h"
 
 ConfigureDialog::ConfigureDialog(QWidget *parent) :
     QDialog(parent),

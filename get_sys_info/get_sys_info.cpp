@@ -8,7 +8,7 @@ GetSysInfo::GetSysInfo()
 }
 
 GetSysInfo::~GetSysInfo() {
-    delete file_proc_stat;
+
 }
 
 //cpu 信息

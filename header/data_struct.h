@@ -1,6 +1,6 @@
-#ifndef DATASTRUCT_H
 // GPL-3.0
 
+#ifndef DATASTRUCT_H
 #define DATASTRUCT_H
 
 #include <QString>
@@ -61,11 +61,11 @@ struct MemStruct {
 
 
 // configure item
-struct ConfigItem {                       // configure item
-    int     POSITION_X;            // x at window
-    int     POSITION_Y;            // y at window
+struct ConfigItem {
+    int     POSITION_X=0;          // x at window
+    int     POSITION_Y=0;          // y at window
     int     REFRESH_INTERVAL=1000; // data refresh interval
-    int     SHOW_CPU_LABEL;        // cpu label show or hide
+    int     SHOW_CPU_LABEL=1;      // cpu label show or hide
 
     int     CHART_ROW      = 41;   // 图表最大列数 (max row)
     double  CPU_LINE_W     = 1.5;  // cpu line width
