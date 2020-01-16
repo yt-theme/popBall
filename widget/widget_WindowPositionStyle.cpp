@@ -36,8 +36,6 @@ void Widget::window_adsorb(bool isInit) {
             this->setGeometry(0, pos_y, cfg->WIDTH/6+1, cfg->HEIGHT);
             // set size and content
             this->setFixedSize(cfg->MAIN_CIRCLE_W/6, cfg->HEIGHT);
-            // hide item
-            cpu_label->clear();
         }
         break;
         case RIGHT_MODE:
@@ -51,7 +49,6 @@ void Widget::window_adsorb(bool isInit) {
             this->setGeometry(QApplication::desktop()->width()-cfg->MAIN_CIRCLE_W/6, pos_y, cfg->WIDTH/6+1, cfg->HEIGHT);
             // set size and content
             this->setFixedSize(cfg->MAIN_CIRCLE_W/6, cfg->HEIGHT);
-            cpu_label->clear();
         }
         break;
         case NORMAL_MODE: WINDOW_SIZE_LOOK = NORMAL_MODE; WINDOW_SET_DIRECTION = NOTEDGE_MODE; break;

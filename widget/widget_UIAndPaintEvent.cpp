@@ -34,7 +34,6 @@ void Widget::main_ui_style() {
     mail_indic_button->setIcon(mail_indic_button_icon);
     mail_indic_button->setStyleSheet("background:#2F3439;border:1.5px solid #E4E4E4;border-radius:12px;margin:0;");
     mail_indic_button->setGeometry(cfg->WIDTH-24, 0, 24, 24);
-    mail_indic_button->hide();
 
     // clock icon
     QIcon clock_indic_button_icon;
@@ -42,7 +41,6 @@ void Widget::main_ui_style() {
     clock_indic_button->setIcon(clock_indic_button_icon);
     clock_indic_button->setStyleSheet("background:#2F3439;border:1.5px solid #E4E4E4;border-radius:12px;margin:0;");
     clock_indic_button->setGeometry(0, 0, 24, 24);
-    clock_indic_button->hide();
 
 
     // set qlabel text shadow
@@ -52,6 +50,7 @@ void Widget::main_ui_style() {
     text_shadowEffect->setColor(Qt::black);
     text_shadowEffect->setBlurRadius(cfg->LABEL_FONT_SHADOW_R);
     cpu_label->setGraphicsEffect(text_shadowEffect);
+
     // cpuTemper_label
     text_shadowEffect = new QGraphicsDropShadowEffect(cpuTemper_label);
     text_shadowEffect->setOffset(0, 0);
@@ -70,8 +69,8 @@ void Widget::paintEvent(QPaintEvent *) {
         case NORMAL_MODE: // WINDOW_SET_DIRECTION = NOTEDGE_MODE;
         {
             // action button look
-            mail_indic_button->hide();
-            clock_indic_button->hide();
+            mail_indic_button->show();
+            clock_indic_button->show();
 
             // set size and content
             this->setFixedSize(cfg->WIDTH, cfg->HEIGHT);
