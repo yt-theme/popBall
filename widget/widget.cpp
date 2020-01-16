@@ -11,10 +11,15 @@ Widget::Widget(QWidget *parent)
     main_ui_style();           // 设置 main ui (func at widget_UIAndPaintEvent.cpp)
 
     window_adsorb(true);       // 窗口位置与形态 (func at widget_WindowPositionStyle.cpp)
-    timer_setInterval(); // 内容 第一次获取
+    timer_setInterval();       // 内容 第一次获取
     global_timer = new QTimer(this); // 全局唯一计时器
-    connect(global_timer, &QTimer::timeout, this, &Widget::timer_setInterval); // 计时器事件
     global_timer->start(cfg->REFRESH_INTERVAL); // 开始计时
+
+    connect(global_timer, &QTimer::timeout, this, &Widget::timer_setInterval); // 计时器事件
+    // action button event
+    connect(mail_indic_button, &QPushButton::pressed, this, &Widget::on_mail_indic_button_pressed);
+    connect(clock_indic_button, &QPushButton::pressed, this, &Widget::on_clock_indic_button_pressed);
+    // mail thread event
 }
 
 Widget::~Widget()

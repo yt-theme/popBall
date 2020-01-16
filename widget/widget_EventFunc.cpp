@@ -1,7 +1,9 @@
 // GPL-3.0
 
 #include "header/widget.h"
+#include "header/mail_dialog.h"
 
+// mouse btn event
 void Widget::mouseReleaseEvent(QMouseEvent *event) {
     // 窗口当前坐标menu_action_exit
     cfg->POSITION_X = this->x();
@@ -31,4 +33,16 @@ void Widget::mouseMoveEvent(QMouseEvent *event) {
     if (mouseIsPress) {
         move(event->pos() - curPoint + pos());
     }
+}
+
+// acton button event
+void Widget::on_mail_indic_button_pressed() {
+    qDebug() << "on_mail_indic_button_pressed =>";
+    QDialog *dialog = new MailDialog(this);
+    dialog->setWindowTitle("mail");
+    dialog->exec();
+}
+
+void Widget::on_clock_indic_button_pressed() {
+    qDebug() << "on_clock_indic_button_pressed =>";
 }

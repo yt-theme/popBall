@@ -2,4 +2,6 @@
     <qresource prefix="/new/prefix1">
         <file>mail.svg</file>
     </qresource>
+    <qresource prefix="/clock"/>
+    <qresource prefix="/new/prefix2"/>
 </RCC>

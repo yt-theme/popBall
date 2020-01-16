@@ -23,10 +23,10 @@ public:
     GetSysInfo();
     ~GetSysInfo();
 
-    QString getCpuTemperature();
+    double getCpuTemperature();
     double getCpuInfo();
     double getCpuUsageInfo();
-    double getMemInfo();   
+    double getMemInfo();
 
 private:
     MemStruct memstruct;             // store struct

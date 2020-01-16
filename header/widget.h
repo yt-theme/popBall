@@ -29,6 +29,8 @@
 #include <QStyleOption>
 #include <QBrush>
 #include <QLabel>
+#include <QPushButton>
+#include <QIcon>
 #include <QRect>
 #include <QTimer>
 #include <QDebug>
@@ -41,11 +43,13 @@
 #include <QStandardPaths>
 #include <QFileInfo>
 #include <QFile>
+#include <QThread>
 
 #include "define.h"
 #include "get_sys_info.h"
 #include "data_struct.h"
 #include "configure_dialog.h"
+#include "utils/threads.h"
 
 class Widget : public QWidget, public GetSysInfo
 {
@@ -55,18 +59,14 @@ public:
     Widget(QWidget *parent = nullptr);
     ~Widget();
 
-    // event
-    void mousePressEvent(QMouseEvent *event);
-    void mouseReleaseEvent(QMouseEvent *event);
-    void mouseMoveEvent(QMouseEvent *event);
-    void paintEvent(QPaintEvent *event);        // 绘制界面 (paint interface)
-
     // addon
+    QLabel *cpuTemper_label;  // cpu温度 (cpu temper)
     QLabel *cpu_label;        // cpu标签 (cpu tag)
     QLabel *mem_label;        // mem标签 (mem tag)
     QLabel *mem_chart;        // mem图表 (mem chart)
-    QLabel *mail_indic_label; // mail指示器 (mail indicating)
-    QMenu *rightBtnMenu;      // 右键菜单 (right menu)
+    QPushButton *mail_indic_button;     // mail指示器 (mail indicating)
+    QPushButton *clock_indic_button;    // clock指示器 (mail indicating)
+    QMenu *rightBtnMenu;                   // 右键菜单 (right menu)
     QActionGroup *rightBtnMenu_actonGroup; // 右键菜单 act
 
 
@@ -88,6 +88,7 @@ public:
     QTimer *global_timer;      // 全局唯一计时器对象 (only timer obj)
 
     // data
+    double cpu_temperData;
     double cpu_data;
     double cpu_usageData;
     double mem_data;
@@ -100,13 +101,25 @@ public:
     // effect
     QGraphicsDropShadowEffect *text_shadowEffect; // text shadow effect
 
-    // configure file name
-    QString CONF_FILE_NAME = CONFIGURE_FILE_NAME; // name
-    // configure file
-    const char CONF_FILE_DEFAULT_CONTENT[4096] = DEFAULT_CONFIGURE_CONTENT;
+    // configure relevant
+    QString CONF_FILE_NAME                     = CONFIGURE_FILE_NAME;       // configure file name
+    const char CONF_FILE_DEFAULT_CONTENT[4096] = DEFAULT_CONFIGURE_CONTENT; // configure file
 
     // 窗口模式外观 (MINI and NORMAL) (window look)
     int WINDOW_SIZE_LOOK     = NORMAL_MODE;      // default normal mode
-    int WINDOW_SET_DIRECTION = NOTEDGE_MODE; // window on edge (left or right or other)    
+    int WINDOW_SET_DIRECTION = NOTEDGE_MODE; // window on edge (left or right or other)
+
+private:
+    Threads *testThread;
+    QThread *sub_testThread;
+
+private slots:
+    // event
+    void mousePressEvent(QMouseEvent *event);   // mouse event
+    void mouseReleaseEvent(QMouseEvent *event);
+    void mouseMoveEvent(QMouseEvent *event);
+    void paintEvent(QPaintEvent *event);        // 绘制界面 (paint interface)
+    void on_mail_indic_button_pressed();        // action button event
+    void on_clock_indic_button_pressed();
 };
 #endif // WIDGET_H

@@ -3,27 +3,15 @@
 #include "header/widget.h"
 
 void Widget::right_contextMenu () {
-    // right contextMenu
 
-    // configure
+    // ############### configure ##############
     QAction *menu_action_configure = new QAction("configure", this);
-    connect(menu_action_configure, &QAction::triggered,
-            [=](){
-                qDebug() << "configure =>";
-                setting_panel();
-            }
-    );
+    connect(menu_action_configure, &QAction::triggered, [=](){ setting_panel(); } );
     rightBtnMenu->addAction(menu_action_configure);
 
-
-    // exit
+    // ############### exit ###################
     QAction *menu_action_exit = new QAction("exit", this);
-    connect(menu_action_exit, &QAction::triggered,
-        [=](){
-            qDebug() << "exit =>";
-            exit(0);
-        }
-    );
+    connect(menu_action_exit, &QAction::triggered, [=](){ exit(0); } );
     rightBtnMenu->addAction(menu_action_exit);
 }
 

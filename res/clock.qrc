@@ -1,0 +1,5 @@
+<RCC>
+    <qresource prefix="/new/prefix2">
+        <file>clock.svg</file>
+    </qresource>
+</RCC>

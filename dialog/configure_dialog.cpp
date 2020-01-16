@@ -66,7 +66,7 @@ void ConfigureDialog::saveToConfiureFile() {
     tmp_config_content += "REFRESH_INTERVAL=" + QString::number(cfg->REFRESH_INTERVAL) + "\n";
     tmp_config_content += "SHOW_CPU_LABEL="   + QString::number(cfg->SHOW_CPU_LABEL) + "\n";
     tmp_config_content += "LABEL_FONT_SIZE="  + QString::number(cfg->LABEL_FONT_SIZE) + "\n";
-    tmp_config_content += "MAIN_OPACITY="     + QString::number(cfg->MAIN_OPACITY) + "\n";
+    tmp_config_content += "MAIN_OPACITY="     + (cfg->MAIN_OPACITY<=0 ? QString::number(0.1) : QString::number(cfg->MAIN_OPACITY)) + "\n";
 
     config_file->open(QIODevice::WriteOnly);
     config_file->write(tmp_config_content.toUtf8() + "\n");

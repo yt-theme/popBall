@@ -12,24 +12,52 @@ void Widget::main_ui_style() {
     this->setWindowFlags(windowFlags()|Qt::BypassWindowManagerHint);
     this->setFixedSize(cfg->WIDTH, cfg->HEIGHT);
 
+
+    // cpuTemper_label
+    cpuTemper_label->setAlignment(Qt::AlignCenter);
+    cpuTemper_label->setGeometry(cfg->OUTER_CIRCLE_X, cfg->OUTER_CIRCLE_Y+1, cfg->OUTER_CIRCLE_W, cfg->OUTER_CIRCLE_H/2);
+    cpuTemper_label->setFont(QFont(cfg->LABEL_FONT_TYPE, static_cast<int>(cfg->LABEL_FONT_SIZE*0.79), cfg->LABEL_FONT_WEIGHT));
+    cpuTemper_label->setStyleSheet(cfg->LABEL_STYLE);
+
+
     // cpu_label
     cpu_label->setAlignment(Qt::AlignCenter);
     cpu_label->setGeometry(cfg->OUTER_CIRCLE_X, cfg->OUTER_CIRCLE_Y+1, cfg->OUTER_CIRCLE_W, cfg->OUTER_CIRCLE_H);
     cpu_label->setFont(QFont(cfg->LABEL_FONT_TYPE, cfg->LABEL_FONT_SIZE, cfg->LABEL_FONT_WEIGHT));
     cpu_label->setStyleSheet(cfg->LABEL_STYLE);
 
-    // mail indicating
-//    mail_indic_label->setAlignment(Qt::AlignCenter);
-//    mail_indic_label->setGeometry(cfg->WIDTH-16, cfg->HEIGHT-16, 16, 16);
-//    mail_indic_label->setPixmap(QPixmap(":/new/prefix1/mail.svg"));
-//    mail_indic_label->setScaledContents(true);
+
+    // indicating
+    // mail icon
+    QIcon mail_indic_button_icon;
+    mail_indic_button_icon.addFile(":/new/prefix1/mail.svg");
+    mail_indic_button->setIcon(mail_indic_button_icon);
+    mail_indic_button->setStyleSheet("background:#2F3439;border:1.5px solid #E4E4E4;border-radius:12px;margin:0;");
+    mail_indic_button->setGeometry(cfg->WIDTH-24, 0, 24, 24);
+    mail_indic_button->hide();
+
+    // clock icon
+    QIcon clock_indic_button_icon;
+    clock_indic_button_icon.addFile(":/new/prefix2/clock.svg");
+    clock_indic_button->setIcon(clock_indic_button_icon);
+    clock_indic_button->setStyleSheet("background:#2F3439;border:1.5px solid #E4E4E4;border-radius:12px;margin:0;");
+    clock_indic_button->setGeometry(0, 0, 24, 24);
+    clock_indic_button->hide();
+
 
     // set qlabel text shadow
+    // cpu_label
     text_shadowEffect = new QGraphicsDropShadowEffect(cpu_label);
     text_shadowEffect->setOffset(0, 0);
     text_shadowEffect->setColor(Qt::black);
     text_shadowEffect->setBlurRadius(cfg->LABEL_FONT_SHADOW_R);
     cpu_label->setGraphicsEffect(text_shadowEffect);
+    // cpuTemper_label
+    text_shadowEffect = new QGraphicsDropShadowEffect(cpuTemper_label);
+    text_shadowEffect->setOffset(0, 0);
+    text_shadowEffect->setColor(Qt::black);
+    text_shadowEffect->setBlurRadius(cfg->LABEL_FONT_SHADOW_R);
+    cpuTemper_label->setGraphicsEffect(text_shadowEffect);
 }
 
 void Widget::paintEvent(QPaintEvent *) {
@@ -41,6 +69,10 @@ void Widget::paintEvent(QPaintEvent *) {
     switch (WINDOW_SIZE_LOOK) {
         case NORMAL_MODE: // WINDOW_SET_DIRECTION = NOTEDGE_MODE;
         {
+            // action button look
+            mail_indic_button->hide();
+            clock_indic_button->hide();
+
             // set size and content
             this->setFixedSize(cfg->WIDTH, cfg->HEIGHT);
 
@@ -95,6 +127,10 @@ void Widget::paintEvent(QPaintEvent *) {
         break;
         case MINI_MODE:
         {
+            // action button look
+            mail_indic_button->hide();
+            clock_indic_button->hide();
+
             // draw a round rect
             painter.setRenderHint(QPainter::Antialiasing);
             painter.setBrush(QBrush(QColor::fromRgb( cfg->MAIN_COLOR[0], cfg->MAIN_COLOR[1], cfg->MAIN_COLOR[2] )));

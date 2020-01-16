@@ -5,6 +5,12 @@
 //内容
 void Widget::content() {
 
+    // ######## cpu temper ######
+    if (WINDOW_SIZE_LOOK==NORMAL_MODE && cfg->SHOW_CPU_LABEL==SHOW_MODE) {
+        cpu_temperData = Get_sys_info->getCpuTemperature();
+        cpuTemper_label->setText(QString::number(cpu_temperData, 'f', 2) + "℃");
+    }
+
     // ######## cpu #############
     // 获取cpu信息
     if (WINDOW_SIZE_LOOK==NORMAL_MODE && cfg->SHOW_CPU_LABEL==SHOW_MODE) {

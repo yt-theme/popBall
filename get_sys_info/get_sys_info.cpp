@@ -11,6 +11,19 @@ GetSysInfo::~GetSysInfo() {
 
 }
 
+// cpu 温度
+double GetSysInfo::getCpuTemperature() {
+    QFile *process = new QFile;
+    process->setFileName("/sys/class/thermal/thermal_zone0/temp");
+    process->open(QIODevice::ReadOnly|QIODevice::Text);
+
+    double temperature = process->readLine().toDouble();
+
+    process->close();
+    delete process;
+    return temperature/1000;
+}
+
 //cpu 信息
 double GetSysInfo::getCpuInfo() {
     QString tmp_str = "";
@@ -79,6 +92,7 @@ double GetSysInfo::getCpuUsageInfo() {
     return cpu_usage;
 }
 
+// memory
 double GetSysInfo::getMemInfo() {
     QFile *process = new QFile;
     process->setFileName("/proc/meminfo");

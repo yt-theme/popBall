@@ -1,4 +1,4 @@
-QT       += core gui
+QT       += core gui network
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -18,15 +18,17 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += \
     data_struct/data_struct.cpp \
     dialog/configure_dialog.cpp \
+    dialog/mail_dialog.cpp \
     get_sys_info/get_sys_info.cpp \
-    mail/mail_notify.cpp \
     main.cpp \
+    utils/pop3.cpp \
+    utils/threads.cpp \
     widget/widget.cpp \
     widget/widget_ConfigFile.cpp \
     widget/widget_Content.cpp \
     widget/widget_Ending.cpp \
+    widget/widget_EventFunc.cpp \
     widget/widget_Initial.cpp \
-    widget/widget_MouseEvent.cpp \
     widget/widget_RightContextMenu.cpp \
     widget/widget_UIAndPaintEvent.cpp \
     widget/widget_WindowPositionStyle.cpp
@@ -36,8 +38,11 @@ HEADERS += \
     header/data_struct.h \
     header/define.h \
     header/get_sys_info.h \
-    header/mail_notify.h \
-    header/widget.h \
+    header/widget.h \ \
+    interface/plugins_interface.h \
+    header/mail_dialog.h \
+    utils/pop3.h \
+    utils/threads.h
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
@@ -48,7 +53,9 @@ DISTFILES += \
     res/mail.svg
 
 RESOURCES += \
+    res/clock.qrc \
     res/mail.qrc
 
 FORMS += \
-    configure_dialog.ui
+    configure_dialog.ui \
+    mail_dialog.ui

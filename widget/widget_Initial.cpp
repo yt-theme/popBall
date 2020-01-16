@@ -5,12 +5,15 @@
 void Widget::init() {
 
     // addon
-    rightBtnMenu            = new QMenu(this);     // 右键菜单
-    rightBtnMenu_actonGroup = new QActionGroup(this); // 右键菜单 act
-    cpu_label               = new QLabel(this);    // cpu频率 QLabel
-    mem_label               = new QLabel(this);    // mem使用
-    mem_chart               = new QLabel(this);    // mem图表
-    mail_indic_label        = new QLabel(this);    // mail指示器
+    rightBtnMenu            = new QMenu(this);          // 右键菜单
+    rightBtnMenu_actonGroup = new QActionGroup(this);   // 右键菜单 act
+    cpuTemper_label         = new QLabel(this);         // cpu温度 QLabel
+    cpu_label               = new QLabel(this);         // cpu频率 QLabel
+    mem_label               = new QLabel(this);         // mem使用
+    mem_chart               = new QLabel(this);         // mem图表
+    mail_indic_button       = new QPushButton(this);    // mail指示器
+    clock_indic_button      = new QPushButton(this);    // clock指示器
+
     // class
     Get_sys_info            = new GetSysInfo(); // 获取内容数据类
 
@@ -20,4 +23,7 @@ void Widget::init() {
         cpuUsage_data_history.push_back(0);
     }
 
+    // thread
+    sub_testThread = new QThread(this);
+    testThread     = new Threads();
 }
