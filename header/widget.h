@@ -38,6 +38,7 @@
 #include <QString>
 #include <QStringList>
 #include <QVector>
+#include <QColorDialog>
 #include <QIODevice>
 #include <QDir>
 #include <QStandardPaths>

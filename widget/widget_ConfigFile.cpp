@@ -106,6 +106,115 @@ void Widget::deal_configFile(int mode) { // USE_MODE:use conf, SET_MODE: set con
                 default: break;
             }
         }
+        // every color
+        // MAIN_COLOR
+        if (item[0].trimmed() == "MAIN_COLOR") {
+            switch (mode) {
+                case USE_MODE:
+                {
+                    auto tmp = item[1].split(" ", QString::SkipEmptyParts);
+                    cfg->MAIN_COLOR[0] = tmp[0].toInt();
+                    cfg->MAIN_COLOR[1] = tmp[1].toInt();
+                    cfg->MAIN_COLOR[2] = tmp[2].toInt();
+                    cfg->MAIN_COLOR[3] = tmp[3].toInt();
+                }
+                break;
+                case SET_MODE:
+
+                break;
+                default: break;
+            }
+        }
+        // OUTER_BORDER_COLOR
+        if (item[0].trimmed() == "OUTER_BORDER_COLOR") {
+            switch (mode) {
+                case USE_MODE:
+                {
+                    auto tmp = item[1].split(" ", QString::SkipEmptyParts);
+                    cfg->OUTER_BORDER_COLOR[0] = tmp[0].toInt();
+                    cfg->OUTER_BORDER_COLOR[1] = tmp[1].toInt();
+                    cfg->OUTER_BORDER_COLOR[2] = tmp[2].toInt();
+                    cfg->OUTER_BORDER_COLOR[3] = tmp[3].toInt();
+                }
+                break;
+                case SET_MODE:
+
+                break;
+                default: break;
+            }
+        }
+        // MEM_CHART_COLOR
+        if (item[0].trimmed() == "MEM_CHART_COLOR") {
+            switch (mode) {
+                case USE_MODE:
+                {
+                    auto tmp = item[1].split(" ", QString::SkipEmptyParts);
+                    cfg->MEM_CHART_COLOR[0] = tmp[0].toInt();
+                    cfg->MEM_CHART_COLOR[1] = tmp[1].toInt();
+                    cfg->MEM_CHART_COLOR[2] = tmp[2].toInt();
+                    cfg->MEM_CHART_COLOR[3] = tmp[3].toInt();
+                }
+                break;
+                case SET_MODE:
+
+                break;
+                default: break;
+            }
+        }
+        // SWAP_CHART_COLOR
+        if (item[0].trimmed() == "SWAP_CHART_COLOR") {
+            switch (mode) {
+                case USE_MODE:
+                {
+                    auto tmp = item[1].split(" ", QString::SkipEmptyParts);
+                    cfg->SWAP_CHART_COLOR[0] = tmp[0].toInt();
+                    cfg->SWAP_CHART_COLOR[1] = tmp[1].toInt();
+                    cfg->SWAP_CHART_COLOR[2] = tmp[2].toInt();
+                    cfg->SWAP_CHART_COLOR[3] = tmp[3].toInt();
+                }
+                break;
+                case SET_MODE:
+
+                break;
+                default: break;
+            }
+        }
+        // SWAP_CHART_COLOR
+        if (item[0].trimmed() == "CPU_LINE_COLOR") {
+            switch (mode) {
+                case USE_MODE:
+                {
+                    auto tmp = item[1].split(" ", QString::SkipEmptyParts);
+                    cfg->CPU_LINE_COLOR[0] = tmp[0].toInt();
+                    cfg->CPU_LINE_COLOR[1] = tmp[1].toInt();
+                    cfg->CPU_LINE_COLOR[2] = tmp[2].toInt();
+                    cfg->CPU_LINE_COLOR[3] = tmp[3].toInt();
+                }
+                break;
+                case SET_MODE:
+
+                break;
+                default: break;
+            }
+        }
+        // CPUUSAGE_CHART_COLOR
+        if (item[0].trimmed() == "CPUUSAGE_CHART_COLOR") {
+            switch (mode) {
+                case USE_MODE:
+                {
+                    auto tmp = item[1].split(" ", QString::SkipEmptyParts);
+                    cfg->CPUUSAGE_CHART_COLOR[0] = tmp[0].toInt();
+                    cfg->CPUUSAGE_CHART_COLOR[1] = tmp[1].toInt();
+                    cfg->CPUUSAGE_CHART_COLOR[2] = tmp[2].toInt();
+                    cfg->CPUUSAGE_CHART_COLOR[3] = tmp[3].toInt();
+                }
+                break;
+                case SET_MODE:
+
+                break;
+                default: break;
+            }
+        }
     }
     config_file->close();
 

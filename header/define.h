@@ -3,12 +3,20 @@
 #ifndef DEFINE_H
 #define DEFINE_H
 
+// 默认配置文件内容
 #define DEFAULT_CONFIGURE_CONTENT \
     "POSITION=0 0\n" \
     "REFRESH_INTERVAL=1300\n" \
     "SHOW_CPU_LABEL=1\n" \
     "LABEL_FONT_SIZE=10\n" \
-    "MAIN_OPACITY=0.89\n" // 默认配置文件内容
+    "MAIN_OPACITY=0.89\n" \
+    "MAIN_COLOR=35 38 41 255\n" \
+    "OUTER_BORDER_COLOR=249 249 249 255\n" \
+    "MEM_CHART_COLOR=19 187 177 233\n" \
+    "SWAP_CHART_COLOR=255 136 96 233\n" \
+    "CPU_LINE_COLOR=121 230 203 255\n" \
+    "CPUUSAGE_CHART_COLOR=121 230 203 233\n"
+
 
 #define CONFIGURE_FILE_NAME "yt-popball.conf" // 配置文件名
 

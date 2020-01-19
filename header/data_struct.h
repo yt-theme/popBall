@@ -96,10 +96,10 @@ struct ConfigItem {
     double  MAIN_OPACITY            = 0.89;
     int     MAIN_COLOR[4]           = {35,  38,  41,  255};
     int     OUTER_BORDER_COLOR[4]   = {249, 249, 249, 255};
-    int     MEM_CHART_COLOR[4]      = {19,  187, 177, 191};
-    int     SWAP_CHART_COLOR[4]     = {255, 136, 96,  200};
+    int     MEM_CHART_COLOR[4]      = {19,  187, 177, 233};
+    int     SWAP_CHART_COLOR[4]     = {255, 136, 96,  233};
     int     CPU_LINE_COLOR[4]       = {121, 230, 203, 255};
-    int     CPUUSAGE_CHART_COLOR[4] = {121, 230, 203, 191};
+    int     CPUUSAGE_CHART_COLOR[4] = {121, 230, 203, 233};
 };
 
 // cfg 全局变量

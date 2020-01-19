@@ -8,7 +8,7 @@ void Widget::content() {
     // ######## cpu temper ######
     if (WINDOW_SIZE_LOOK==NORMAL_MODE && cfg->SHOW_CPU_LABEL==SHOW_MODE) {
         cpu_temperData = Get_sys_info->getCpuTemperature();
-        cpuTemper_label->setText(QString::number(cpu_temperData, 'f', 1) + "℃");
+        cpuTemper_label->setText(QString::number(cpu_temperData, 'f', 0) + "℃");
     }
 
     // ######## cpu #############

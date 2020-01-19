@@ -5,6 +5,8 @@
 
 #include <QDialog>
 #include <QString>
+#include <QColor>
+#include <QColorDialog>
 #include <QStandardPaths>
 #include <QFileInfo>
 #include <QFile>
@@ -28,7 +30,7 @@ public:
     // global data to store
     // cfg
 
-    void saveToConfiureFile();
+    void saveToConfigureFile();
 
 
 private slots:
@@ -39,6 +41,18 @@ private slots:
     void on_labelFont_size_editingFinished();
 
     void on_main_opacity_editingFinished();
+
+    void on_select_color_main_released();
+
+    void on_select_color_outer_border_released();
+
+    void on_select_color_mem_released();
+
+    void on_select_color_swap_released();
+
+    void on_select_color_cpu_line_released();
+
+    void on_select_color_cpu_usage_released();
 
 private:
     Ui::ConfigureDialog *ui;

@@ -20,6 +20,7 @@ void Widget::init() {
     // QVector init
     for (auto i=0; i<cfg->CHART_ROW; i++) {
         mem_data_history.push_back(0);
+        swap_data_history.push_back(0);
         cpuUsage_data_history.push_back(0);
     }
 
