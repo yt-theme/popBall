@@ -17,6 +17,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
     data_struct/data_struct.cpp \
+    data_struct/global_data.cpp \
     dialog/configure_dialog.cpp \
     dialog/mail_dialog.cpp \
     get_sys_info/get_sys_info.cpp \

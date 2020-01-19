@@ -1,3 +1,5 @@
+// GPL-3.0
+
 #ifndef dealtCONFIGFILE_H
 #define dealtCONFIGFILE_H
 
@@ -11,9 +13,7 @@
 
 namespace ReadConfigFile
 {
-
     void read(int mode);
-
 }
 
 #endif // READCONFIGFILE_H

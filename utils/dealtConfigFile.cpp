@@ -1,3 +1,5 @@
+// GPL-3.0
+
 #include "dealtConfigFile.h"
 
 void ReadConfigFile::read(int mode) {
