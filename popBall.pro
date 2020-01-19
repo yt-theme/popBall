@@ -21,6 +21,7 @@ SOURCES += \
     dialog/mail_dialog.cpp \
     get_sys_info/get_sys_info.cpp \
     main.cpp \
+    utils/dealtConfigFile.cpp \
     utils/pop3.cpp \
     utils/threads.cpp \
     widget/widget.cpp \
@@ -41,6 +42,7 @@ HEADERS += \
     header/widget.h \ \
     interface/plugins_interface.h \
     header/mail_dialog.h \
+    utils/dealtConfigFile.h \
     utils/pop3.h \
     utils/threads.h
 

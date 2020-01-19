@@ -15,4 +15,6 @@ void Widget::ending() {
     delete mail_indic_button;
     delete clock_indic_button;
     delete cfg;
+
+    qDebug() << "Widget析构 =>";
 }

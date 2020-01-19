@@ -14,6 +14,8 @@
 
 #include "define.h"
 #include "data_struct.h"
+#include "header/widget.h"
+#include "utils/dealtConfigFile.h"
 
 namespace Ui {
 class ConfigureDialog;
@@ -27,10 +29,12 @@ public:
     explicit ConfigureDialog(QWidget *parent = nullptr);
     ~ConfigureDialog();
 
+    void init_setting_item();
+
     // global data to store
     // cfg
 
-    void saveToConfigureFile();
+    void saveToConfigureFile(QString content="");
 
 
 private slots:
@@ -53,6 +57,8 @@ private slots:
     void on_select_color_cpu_line_released();
 
     void on_select_color_cpu_usage_released();
+
+    void on_restore_configure_released();
 
 private:
     Ui::ConfigureDialog *ui;

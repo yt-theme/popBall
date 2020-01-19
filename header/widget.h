@@ -51,13 +51,14 @@
 #include "data_struct.h"
 #include "configure_dialog.h"
 #include "utils/threads.h"
+#include "utils/dealtConfigFile.h"
 
-class Widget : public QWidget, public GetSysInfo
+class Widget : public QWidget
 {
     Q_OBJECT
 
 public:
-    Widget(QWidget *parent = nullptr);
+    Widget(QWidget *parent = nullptr, int mode=EXEC_CONSTRUCTOR);
     ~Widget();
 
     // addon
@@ -72,7 +73,8 @@ public:
 
 
     // methods
-    void deal_configFile(int mode);  // 检测和生成配置文件SET_MODE:use SET_MODE:set (test and create configure) at ~/.config/PopBall               //
+    void deal_configFile(int mode);  // 检测和生成配置文件SET_MODE:use SET_MODE:set (test and create configure) at ~/.config/PopBall
+    void read_configFile(int mode);  // 读配置文件
     void init();                     // 设置初始数据 (set initial data)
     void ending();                   // 析构
     void right_contextMenu();        // 右键菜单 (right context menu)
@@ -81,7 +83,7 @@ public:
     void timer_setInterval();        // 用于全局唯一计时器执行 (only timer func)
     void content();                  // 内容 (content func)
     void window_adsorb(bool isInit); // 窗口吸附位置
-    GetSysInfo *Get_sys_info;        // 获取内容方法 (get content func)
+    GetSysInfo *Get_sys_info = new GetSysInfo;        // 获取内容方法 (get content func)
 
     // event cor
     bool mouseIsPress = false; // 鼠标是否按下 (mouse is press)
@@ -104,12 +106,8 @@ public:
     // effect
     QGraphicsDropShadowEffect *text_shadowEffect; // text shadow effect
 
-    // configure relevant
-    QString CONF_FILE_NAME                     = CONFIGURE_FILE_NAME;       // configure file name
-    const char CONF_FILE_DEFAULT_CONTENT[4096] = DEFAULT_CONFIGURE_CONTENT; // configure file
-
     // 窗口模式外观 (MINI and NORMAL) (window look)
-    int WINDOW_SIZE_LOOK     = NORMAL_MODE;      // default normal mode
+    int WINDOW_SIZE_LOOK     = NORMAL_MODE;  // default normal mode
     int WINDOW_SET_DIRECTION = NOTEDGE_MODE; // window on edge (left or right or other)
 
 private:

@@ -17,6 +17,9 @@ void Widget::init() {
     // class
     Get_sys_info            = new GetSysInfo(); // 获取内容数据类
 
+    // 设置窗口位置
+    this->setGeometry(cfg->POSITION_X, cfg->POSITION_Y, cfg->WIDTH, cfg->HEIGHT);
+
     // QVector init
     for (auto i=0; i<cfg->CHART_ROW; i++) {
         mem_data_history.push_back(0);

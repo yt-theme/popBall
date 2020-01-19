@@ -3,7 +3,6 @@
 #ifndef DEFINE_H
 #define DEFINE_H
 
-// 默认配置文件内容
 #define DEFAULT_CONFIGURE_CONTENT \
     "POSITION=0 0\n" \
     "REFRESH_INTERVAL=1300\n" \
@@ -15,10 +14,11 @@
     "MEM_CHART_COLOR=19 187 177 233\n" \
     "SWAP_CHART_COLOR=255 136 96 233\n" \
     "CPU_LINE_COLOR=121 230 203 255\n" \
-    "CPUUSAGE_CHART_COLOR=121 230 203 233\n"
-
+    "CPUUSAGE_CHART_COLOR=121 230 203 233\n" // 默认配置文件内容
 
 #define CONFIGURE_FILE_NAME "yt-popball.conf" // 配置文件名
+
+
 
 #define USE_MODE 1     // 使用模式
 #define SET_MODE 2     // 设置模式
@@ -37,5 +37,8 @@
 #define NORMAL_MODE 12 // 正常模式
 #define BIG_MODE 13    // 大模式
 #define BIGGER_MODE 14 // 巨大模式
+
+#define EXEC_CONSTRUCTOR 15    // 执行构造函数
+#define NO_EXEC_CONSTRUCTOR 16 // 不执行构造函数
 
 #endif // DEFINE_H

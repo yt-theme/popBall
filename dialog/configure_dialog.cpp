@@ -9,6 +9,15 @@ ConfigureDialog::ConfigureDialog(QWidget *parent) :
 {
     ui->setupUi(this);
 
+    init_setting_item(); // init data
+}
+
+ConfigureDialog::~ConfigureDialog()
+{
+    delete ui;
+}
+
+void ConfigureDialog::init_setting_item() {
     // tips
     ui->tips->setText(QString("tips: configure file at ~/.config/") + CONFIGURE_FILE_NAME);
 
@@ -23,11 +32,6 @@ ConfigureDialog::ConfigureDialog(QWidget *parent) :
     ui->swap_chart_color->   setText(QString::number(cfg->SWAP_CHART_COLOR[0]) + " " + QString::number(cfg->SWAP_CHART_COLOR[1]) + " " + QString::number(cfg->SWAP_CHART_COLOR[2]) + " " + QString::number(cfg->SWAP_CHART_COLOR[3]));
     ui->cpu_line_color->     setText(QString::number(cfg->CPU_LINE_COLOR[0]) + " " + QString::number(cfg->CPU_LINE_COLOR[1]) + " " + QString::number(cfg->CPU_LINE_COLOR[2]) + " " + QString::number(cfg->CPU_LINE_COLOR[3]));
     ui->cpu_usage_color->    setText(QString::number(cfg->CPUUSAGE_CHART_COLOR[0]) + " " + QString::number(cfg->CPUUSAGE_CHART_COLOR[1]) + " " + QString::number(cfg->CPUUSAGE_CHART_COLOR[2]) + " " + QString::number(cfg->CPUUSAGE_CHART_COLOR[3]));
-}
-
-ConfigureDialog::~ConfigureDialog()
-{
-    delete ui;
 }
 
 void ConfigureDialog::on_refresh_interval_editingFinished()
@@ -177,7 +181,7 @@ void ConfigureDialog::on_select_color_cpu_usage_released()
 }
 
 // 即时修改功能
-void ConfigureDialog::saveToConfigureFile() {
+void ConfigureDialog::saveToConfigureFile(QString content) {
     // 写入配置文件
     QFile *config_file = new QFile;
 
@@ -190,21 +194,36 @@ void ConfigureDialog::saveToConfigureFile() {
 
     // content
     QString tmp_config_content;
-    tmp_config_content += "POSITION="             + QString::number(cfg->POSITION_X) + " " + QString::number(cfg->POSITION_Y) + "\n";
-    tmp_config_content += "REFRESH_INTERVAL="     + QString::number(cfg->REFRESH_INTERVAL) + "\n";
-    tmp_config_content += "SHOW_CPU_LABEL="       + QString::number(cfg->SHOW_CPU_LABEL) + "\n";
-    tmp_config_content += "LABEL_FONT_SIZE="      + QString::number(cfg->LABEL_FONT_SIZE) + "\n";
-    tmp_config_content += "MAIN_OPACITY="         + (cfg->MAIN_OPACITY<=0 ? QString::number(0.1) : QString::number(cfg->MAIN_OPACITY)) + "\n";
-    tmp_config_content += "MAIN_COLOR="           + QString::number(cfg->MAIN_COLOR[0])           + " " + QString::number(cfg->MAIN_COLOR[1])           + " " + QString::number(cfg->MAIN_COLOR[2])           + " " + QString::number(cfg->MAIN_COLOR[3]) + "\n";
-    tmp_config_content += "OUTER_BORDER_COLOR="   + QString::number(cfg->OUTER_BORDER_COLOR[0])   + " " + QString::number(cfg->OUTER_BORDER_COLOR[1])   + " " + QString::number(cfg->OUTER_BORDER_COLOR[2])   + " " + QString::number(cfg->OUTER_BORDER_COLOR[3]) + "\n";
-    tmp_config_content += "MEM_CHART_COLOR="      + QString::number(cfg->MEM_CHART_COLOR[0])      + " " + QString::number(cfg->MEM_CHART_COLOR[1])      + " " + QString::number(cfg->MEM_CHART_COLOR[2])      + " " + QString::number(cfg->MEM_CHART_COLOR[3]) + "\n";
-    tmp_config_content += "SWAP_CHART_COLOR="     + QString::number(cfg->SWAP_CHART_COLOR[0])     + " " + QString::number(cfg->SWAP_CHART_COLOR[1])     + " " + QString::number(cfg->SWAP_CHART_COLOR[2])     + " " + QString::number(cfg->SWAP_CHART_COLOR[3]) + "\n";
-    tmp_config_content += "CPU_LINE_COLOR="       + QString::number(cfg->CPU_LINE_COLOR[0])       + " " + QString::number(cfg->CPU_LINE_COLOR[1])       + " " + QString::number(cfg->CPU_LINE_COLOR[2])       + " " + QString::number(cfg->CPU_LINE_COLOR[3]) + "\n";
-    tmp_config_content += "CPUUSAGE_CHART_COLOR=" + QString::number(cfg->CPUUSAGE_CHART_COLOR[0]) + " " + QString::number(cfg->CPUUSAGE_CHART_COLOR[1]) + " " + QString::number(cfg->CPUUSAGE_CHART_COLOR[2]) + " " + QString::number(cfg->CPUUSAGE_CHART_COLOR[3]) + "\n";
+    if (content.size() > 0) {
+        tmp_config_content = content;
+    } else {
+        tmp_config_content += "POSITION="             + QString::number(cfg->POSITION_X) + " " + QString::number(cfg->POSITION_Y) + "\n";
+        tmp_config_content += "REFRESH_INTERVAL="     + QString::number(cfg->REFRESH_INTERVAL) + "\n";
+        tmp_config_content += "SHOW_CPU_LABEL="       + QString::number(cfg->SHOW_CPU_LABEL) + "\n";
+        tmp_config_content += "LABEL_FONT_SIZE="      + QString::number(cfg->LABEL_FONT_SIZE) + "\n";
+        tmp_config_content += "MAIN_OPACITY="         + (cfg->MAIN_OPACITY<=0 ? QString::number(0.1) : QString::number(cfg->MAIN_OPACITY)) + "\n";
+        tmp_config_content += "MAIN_COLOR="           + QString::number(cfg->MAIN_COLOR[0])           + " " + QString::number(cfg->MAIN_COLOR[1])           + " " + QString::number(cfg->MAIN_COLOR[2])           + " " + QString::number(cfg->MAIN_COLOR[3]) + "\n";
+        tmp_config_content += "OUTER_BORDER_COLOR="   + QString::number(cfg->OUTER_BORDER_COLOR[0])   + " " + QString::number(cfg->OUTER_BORDER_COLOR[1])   + " " + QString::number(cfg->OUTER_BORDER_COLOR[2])   + " " + QString::number(cfg->OUTER_BORDER_COLOR[3]) + "\n";
+        tmp_config_content += "MEM_CHART_COLOR="      + QString::number(cfg->MEM_CHART_COLOR[0])      + " " + QString::number(cfg->MEM_CHART_COLOR[1])      + " " + QString::number(cfg->MEM_CHART_COLOR[2])      + " " + QString::number(cfg->MEM_CHART_COLOR[3]) + "\n";
+        tmp_config_content += "SWAP_CHART_COLOR="     + QString::number(cfg->SWAP_CHART_COLOR[0])     + " " + QString::number(cfg->SWAP_CHART_COLOR[1])     + " " + QString::number(cfg->SWAP_CHART_COLOR[2])     + " " + QString::number(cfg->SWAP_CHART_COLOR[3]) + "\n";
+        tmp_config_content += "CPU_LINE_COLOR="       + QString::number(cfg->CPU_LINE_COLOR[0])       + " " + QString::number(cfg->CPU_LINE_COLOR[1])       + " " + QString::number(cfg->CPU_LINE_COLOR[2])       + " " + QString::number(cfg->CPU_LINE_COLOR[3]) + "\n";
+        tmp_config_content += "CPUUSAGE_CHART_COLOR=" + QString::number(cfg->CPUUSAGE_CHART_COLOR[0]) + " " + QString::number(cfg->CPUUSAGE_CHART_COLOR[1]) + " " + QString::number(cfg->CPUUSAGE_CHART_COLOR[2]) + " " + QString::number(cfg->CPUUSAGE_CHART_COLOR[3]) + "\n";
+    }
 
     config_file->open(QIODevice::WriteOnly);
     config_file->write(tmp_config_content.toUtf8() + "\n");
     config_file->close();
 
     delete config_file;
+}
+
+// restore
+void ConfigureDialog::on_restore_configure_released()
+{
+    // 1.
+    saveToConfigureFile(DEFAULT_CONFIGURE_CONTENT);
+    // 2.
+    ReadConfigFile::read(USE_MODE);
+    // 3.
+    init_setting_item();
 }
