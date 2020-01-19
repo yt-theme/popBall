@@ -92,8 +92,10 @@ double GetSysInfo::getCpuUsageInfo() {
     return cpu_usage;
 }
 
-// memory
-double GetSysInfo::getMemInfo() {
+// memory_rate and swap_used
+MemSwapRate GetSysInfo::getMemInfo() {
+    MemSwapRate rateStruct;
+
     QFile *process = new QFile;
     process->setFileName("/proc/meminfo");
     process->open(QIODevice::ReadOnly|QIODevice::Text);
@@ -109,11 +111,18 @@ double GetSysInfo::getMemInfo() {
         if (ite_list[0] == "MemAvailable") { memstruct.MemAvailable = ite_list[1].trimmed().split(" ")[0].toULongLong(); }
         if (ite_list[0] == "Cached")       { memstruct.Cached = ite_list[1].trimmed().split(" ")[0].toULongLong(); }
         if (ite_list[0] == "Buffers")      { memstruct.Buffers = ite_list[1].trimmed().split(" ")[0].toULongLong(); }
+        if (ite_list[0] == "SwapTotal")    { memstruct.SwapTotal = ite_list[1].trimmed().split(" ")[0].toULongLong(); }
+        if (ite_list[0] == "SwapFree")     { memstruct.SwapFree = ite_list[1].trimmed().split(" ")[0].toULongLong(); }
+
     }
 
-    unsigned long long mem_used = memstruct.MemTotal - (memstruct.Buffers + memstruct.MemFree + memstruct.Cached);
+    unsigned long long mem_used  = memstruct.MemTotal - (memstruct.Buffers + memstruct.MemFree + memstruct.Cached);
+    unsigned long long swap_used = memstruct.SwapTotal - memstruct.SwapFree;
+
+    rateStruct.mem  = static_cast<double>(mem_used) / memstruct.MemTotal * 100;
+    rateStruct.swap = static_cast<double>(swap_used) / memstruct.SwapTotal * 100;
 
     process->close();
     delete process;
-    return static_cast<double>(mem_used) / memstruct.MemTotal * 100;
+    return rateStruct;
 }

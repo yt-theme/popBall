@@ -26,10 +26,10 @@ public:
     double getCpuTemperature();
     double getCpuInfo();
     double getCpuUsageInfo();
-    double getMemInfo();
+    MemSwapRate getMemInfo();
 
 private:
-    MemStruct memstruct;             // store struct
+    MemStruct memstruct;             // store struct for mem
     double cpuUsage_total_last=0.0;  // 上一次 cpu total
     double cpuUsage_idle_last=0.0;   // 上一次 cpu idle
 };

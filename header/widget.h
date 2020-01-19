@@ -92,7 +92,9 @@ public:
     double cpu_data;
     double cpu_usageData;
     double mem_data;
+    double swap_data;
     QVector<double> mem_data_history;      // data of mem
+    QVector<double> swap_data_history;     // data of swap
     QVector<double> cpuUsage_data_history; // data of cpuUsage
 
     // configure data

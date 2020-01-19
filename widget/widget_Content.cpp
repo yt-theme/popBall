@@ -8,7 +8,7 @@ void Widget::content() {
     // ######## cpu temper ######
     if (WINDOW_SIZE_LOOK==NORMAL_MODE && cfg->SHOW_CPU_LABEL==SHOW_MODE) {
         cpu_temperData = Get_sys_info->getCpuTemperature();
-        cpuTemper_label->setText(QString::number(cpu_temperData, 'f', 2) + "℃");
+        cpuTemper_label->setText(QString::number(cpu_temperData, 'f', 1) + "℃");
     }
 
     // ######## cpu #############
@@ -25,11 +25,16 @@ void Widget::content() {
     if (cpuUsage_data_history.size() > cfg->CHART_ROW) { cpuUsage_data_history.pop_front(); }
 
 
-    // ######## mem #############
+    // ######## mem swap ########
+    MemSwapRate memswaprate = Get_sys_info->getMemInfo();
     // 获取内存占用
-    mem_data = Get_sys_info->getMemInfo();
+    mem_data = memswaprate.mem;
     mem_data_history.push_back(mem_data);
     if (mem_data_history.size() > cfg->CHART_ROW) { mem_data_history.pop_front(); }
+    // 获取交换占用
+    swap_data = memswaprate.swap;
+    swap_data_history.push_back(swap_data);
+    if (swap_data_history.size() > cfg->CHART_ROW) { swap_data_history.pop_front(); }
 
     update();
 }

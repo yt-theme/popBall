@@ -16,7 +16,7 @@ void Widget::main_ui_style() {
     // cpuTemper_label
     cpuTemper_label->setAlignment(Qt::AlignCenter);
     cpuTemper_label->setGeometry(cfg->OUTER_CIRCLE_X, cfg->OUTER_CIRCLE_Y+1, cfg->OUTER_CIRCLE_W, cfg->OUTER_CIRCLE_H/2);
-    cpuTemper_label->setFont(QFont(cfg->LABEL_FONT_TYPE, static_cast<int>(cfg->LABEL_FONT_SIZE*0.79), cfg->LABEL_FONT_WEIGHT));
+    cpuTemper_label->setFont(QFont(cfg->LABEL_FONT_TYPE, static_cast<int>(cfg->LABEL_FONT_SIZE*0.8), cfg->LABEL_FONT_WEIGHT));
     cpuTemper_label->setStyleSheet(cfg->LABEL_STYLE);
 
 
@@ -63,6 +63,7 @@ void Widget::paintEvent(QPaintEvent *) {
 
     QPainter painter(this);
     QPainterPath path;
+    QPainterPath path2;
 
     // 窗口样式
     switch (WINDOW_SIZE_LOOK) {
@@ -94,34 +95,36 @@ void Widget::paintEvent(QPaintEvent *) {
             clip_path.arcTo(cfg->OUTER_CIRCLE_X+cfg->BORDER_WIDTH, cfg->OUTER_CIRCLE_Y+cfg->BORDER_WIDTH, cfg->OUTER_CIRCLE_W-(cfg->BORDER_WIDTH*2), cfg->OUTER_CIRCLE_H-(cfg->BORDER_WIDTH*2), 0, 360);
             painter.setClipPath(clip_path);
 
-            // pen used to draw chart
-            QPen chart_pen;
-            chart_pen.setColor(QColor::fromRgb(cfg->CPU_LINE_COLOR[0], cfg->CPU_LINE_COLOR[1], cfg->CPU_LINE_COLOR[2]));
-            chart_pen.setStyle(Qt::SolidLine);
-
             // mem chart
-            chart_pen.setWidthF(cfg->CPU_LINE_W);
-            painter.setPen(chart_pen);
-//            painter.setViewport(cfg->OUTER_CIRCLE_X, cfg->HEIGHT/2 - cfg->OUTER_CIRCLE_Y, cfg->WIDTH, cfg->HEIGHT/2);
             path.moveTo(cfg->OUTER_CIRCLE_X, cfg->HEIGHT);
-            for (auto i=0; i<mem_data_history.size(); i++) {
-                path.lineTo(i*cfg->WIDTH/cfg->CHART_ROW, 100 - mem_data_history[i]);
-            }
+            for (auto i=0; i<mem_data_history.size(); i++) { path.lineTo(i*cfg->WIDTH/cfg->CHART_ROW, 100 - mem_data_history[i]); }
             path.lineTo(cfg->WIDTH, 100 - mem_data_history[ mem_data_history.size()-1 ]);
             path.lineTo(cfg->WIDTH, cfg->HEIGHT);
             painter.fillPath(path, QColor::fromRgba(qRgba(cfg->MEM_CHART_COLOR[0],cfg->MEM_CHART_COLOR[1],cfg->MEM_CHART_COLOR[2],cfg->MEM_CHART_COLOR[3])));
 
+            // swap chart
+            path2.moveTo(cfg->OUTER_CIRCLE_X, cfg->HEIGHT);
+            for (auto i=0; i<swap_data_history.size(); i++) { path2.lineTo(i*cfg->WIDTH/cfg->CHART_ROW, 100 - swap_data_history[i]); }
+            path2.lineTo(cfg->WIDTH, 100 - swap_data_history[ swap_data_history.size()-1 ]);
+            path2.lineTo(cfg->WIDTH, cfg->HEIGHT);
+            painter.fillPath(path2, QColor::fromRgba(qRgba(cfg->SWAP_CHART_COLOR[0], cfg->SWAP_CHART_COLOR[1], cfg->SWAP_CHART_COLOR[2], cfg->SWAP_CHART_COLOR[3])));
+
             // cpuUsage chart
-            QLineF cpuUsage_pen[cpuUsage_data_history.size()];
+            QPen cpuUsage_pen;
+            cpuUsage_pen.setColor(QColor::fromRgb(cfg->CPU_LINE_COLOR[0], cfg->CPU_LINE_COLOR[1], cfg->CPU_LINE_COLOR[2]));
+            cpuUsage_pen.setStyle(Qt::SolidLine);
+            cpuUsage_pen.setWidthF(cfg->CPU_LINE_W);
+            painter.setPen(cpuUsage_pen);
+            QLineF cpuUsage_line[cpuUsage_data_history.size()];
             QPointF cpuUsage_prevPoint[1] = { QPointF(cfg->OUTER_CIRCLE_X, cfg->HEIGHT) }; // prev
             for (int i=0; i<cpuUsage_data_history.size(); i++) {
-                cpuUsage_pen[i].setPoints(
+                cpuUsage_line[i].setPoints(
                             cpuUsage_prevPoint[0],
                             QPointF(i*cfg->WIDTH/cfg->CHART_ROW, 100 - cpuUsage_data_history[i])
                         );
                 cpuUsage_prevPoint[0] = { QPointF(i*cfg->WIDTH/cfg->CHART_ROW, 100 - cpuUsage_data_history[i]) };
             }
-            painter.drawLines(cpuUsage_pen, cpuUsage_data_history.size());
+            painter.drawLines(cpuUsage_line, cpuUsage_data_history.size());
         }
         break;
         case MINI_MODE:
