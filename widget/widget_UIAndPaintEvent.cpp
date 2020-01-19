@@ -150,6 +150,14 @@ void Widget::paintEvent(QPaintEvent *) {
             painter.setPen(mem_pen);
             painter.drawRoundedRect(1, 100-(static_cast<int>(mem_data)), cfg->MAIN_CIRCLE_W/6-2, (static_cast<int>(mem_data)), 0, 0);
 
+            QPen swap_pen;
+            swap_pen.setColor(QColor::fromRgb(cfg->MAIN_COLOR[0], cfg->MAIN_COLOR[1], cfg->MAIN_COLOR[2]));
+            swap_pen.setStyle(Qt::SolidLine);
+            swap_pen.setWidthF(cfg->CPU_LINE_W);
+            painter.setBrush(QBrush(QColor::fromRgba( qRgba(cfg->SWAP_CHART_COLOR[0], cfg->SWAP_CHART_COLOR[1], cfg->SWAP_CHART_COLOR[2], cfg->SWAP_CHART_COLOR[3]) )));
+            painter.setPen(swap_pen);
+            painter.drawRoundedRect(1, 100-(static_cast<int>(swap_data)), cfg->MAIN_CIRCLE_W/6-2, (static_cast<int>(swap_data)), 0, 0);
+
             // cpu chart
             QPen cpu_pen;
             cpu_pen.setColor(QColor::fromRgb(cfg->MAIN_COLOR[0], cfg->MAIN_COLOR[1], cfg->MAIN_COLOR[2]));
