@@ -11,6 +11,13 @@ REFRESH_INTERVAL=1300   // ms, int type
 SHOW_CPU_LABEL=1        // 0: hide 1: show, int type
 LABEL_FONT_SIZE=10      // cpu or label font, int type
 MAIN_OPACITY=0.89       // opacity, double type
+MAIN_COLOR=35 38 41 255
+OUTER_BORDER_COLOR=249 249 249 255
+MEM_CHART_COLOR=57 138 226 233
+SWAP_CHART_COLOR=255 136 96 233
+CPU_LINE_COLOR=206 231 255 255
+CPUUSAGE_CHART_COLOR=121 230 203 233
+NET_CPU_OPTION_RADIO=0
 ```
 
 ###### configure tools ready
