@@ -70,8 +70,8 @@ void Widget::paintEvent(QPaintEvent *) {
         case NORMAL_MODE: // WINDOW_SET_DIRECTION = NOTEDGE_MODE;
         {
             // action button look
-            mail_indic_button->show();
-            clock_indic_button->show();
+            mail_indic_button->hide();
+            clock_indic_button->hide();
 
             // set size and content
             this->setFixedSize(cfg->WIDTH, cfg->HEIGHT);
