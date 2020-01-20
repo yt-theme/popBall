@@ -109,14 +109,15 @@ void Widget::paintEvent(QPaintEvent *) {
             path2.lineTo(cfg->WIDTH, cfg->HEIGHT);
             painter.fillPath(path2, QColor::fromRgba(qRgba(cfg->SWAP_CHART_COLOR[0], cfg->SWAP_CHART_COLOR[1], cfg->SWAP_CHART_COLOR[2], cfg->SWAP_CHART_COLOR[3])));
 
-            // cpuUsage chart
+            // cpu line chart
+            painter.setViewport(0, 7, cfg->WIDTH, cfg->HEIGHT-7);
             QPen cpuUsage_pen;
             cpuUsage_pen.setColor(QColor::fromRgb(cfg->CPU_LINE_COLOR[0], cfg->CPU_LINE_COLOR[1], cfg->CPU_LINE_COLOR[2]));
             cpuUsage_pen.setStyle(Qt::SolidLine);
             cpuUsage_pen.setWidthF(cfg->CPU_LINE_W);
             painter.setPen(cpuUsage_pen);
             QLineF cpuUsage_line[cpuUsage_data_history.size()];
-            QPointF cpuUsage_prevPoint[1] = { QPointF(cfg->OUTER_CIRCLE_X, cfg->HEIGHT) }; // prev
+            QPointF cpuUsage_prevPoint[1] = { QPointF(cfg->OUTER_CIRCLE_X, 100 - cfg->HEIGHT) }; // prev
             for (int i=0; i<cpuUsage_data_history.size(); i++) {
                 cpuUsage_line[i].setPoints(
                             cpuUsage_prevPoint[0],
