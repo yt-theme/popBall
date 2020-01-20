@@ -134,6 +134,8 @@ void Widget::paintEvent(QPaintEvent *) {
             path.lineTo(cfg->WIDTH, cfg->HEIGHT);
             painter.fillPath(path, QColor::fromRgba(qRgba(cfg->MEM_CHART_COLOR[0],cfg->MEM_CHART_COLOR[1],cfg->MEM_CHART_COLOR[2],cfg->MEM_CHART_COLOR[3])));
 
+            painter.setViewport(0, 7, cfg->WIDTH, cfg->HEIGHT-13);
+
             // swap chart
             path2.moveTo(cfg->OUTER_CIRCLE_X, cfg->HEIGHT);
             for (auto i=0; i<swap_data_history.size(); i++) { path2.lineTo(i*cfg->WIDTH/cfg->CHART_ROW, 100 - swap_data_history[i]); }
@@ -142,7 +144,6 @@ void Widget::paintEvent(QPaintEvent *) {
             painter.fillPath(path2, QColor::fromRgba(qRgba(cfg->SWAP_CHART_COLOR[0], cfg->SWAP_CHART_COLOR[1], cfg->SWAP_CHART_COLOR[2], cfg->SWAP_CHART_COLOR[3])));
 
             // cpu line chart
-            painter.setViewport(0, 7, cfg->WIDTH, cfg->HEIGHT-7);
             QPen cpuUsage_pen;
             cpuUsage_pen.setColor(QColor::fromRgb(cfg->CPU_LINE_COLOR[0], cfg->CPU_LINE_COLOR[1], cfg->CPU_LINE_COLOR[2]));
             cpuUsage_pen.setStyle(Qt::SolidLine);
