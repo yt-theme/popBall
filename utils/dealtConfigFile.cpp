@@ -192,6 +192,20 @@ void ReadConfigFile::read(int mode) {
                 default: break;
             }
         }
+        // NET_CPU_OPTION_RADIO
+        if (item[0].trimmed() == "NET_CPU_OPTION_RADIO") {
+            switch (mode) {
+                case USE_MODE:
+                {
+                    cfg->NET_CPU_OPTION_RADIO = item[1].trimmed().toInt();
+                }
+                break;
+                case SET_MODE:
+
+                break;
+                default: break;
+            }
+        }
     }
     config_file->close();
 

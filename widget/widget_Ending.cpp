@@ -12,6 +12,7 @@ void Widget::ending() {
     delete global_timer;
     delete Get_sys_info;
     delete mem_chart;
+    delete netspeed_label;
     delete mail_indic_button;
     delete clock_indic_button;
     delete cfg;

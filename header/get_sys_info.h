@@ -27,11 +27,13 @@ public:
     double getCpuInfo();
     double getCpuUsageInfo();
     MemSwapRate getMemInfo();
+    NetFlows getNetFlows();
 
 private:
-    MemStruct memstruct;             // store struct for mem
-    double cpuUsage_total_last=0.0;  // 上一次 cpu total
-    double cpuUsage_idle_last=0.0;   // 上一次 cpu idle
+    MemStruct memstruct;                // store struct for mem
+    double    cpuUsage_total_last=0.0;  // 上一次 cpu total
+    double    cpuUsage_idle_last=0.0;   // 上一次 cpu idle
+    NetFlows  netFlows_last={0,0};      // 上一次 net 收发总量
 };
 
 #endif // GETSYSINFO_H

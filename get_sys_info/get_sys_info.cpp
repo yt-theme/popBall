@@ -126,3 +126,36 @@ MemSwapRate GetSysInfo::getMemInfo() {
     delete process;
     return rateStruct;
 }
+
+NetFlows GetSysInfo::getNetFlows() {
+    NetFlows netFlows_current={0, 0};
+
+    QFile *process = new QFile;
+    process->setFileName("/proc/net/dev");
+    process->open(QIODevice::ReadOnly|QIODevice::Text);
+
+    QString data_string = process->readAll().replace("\t", "");
+    QStringList data_list = data_string.split("\n", QString::SkipEmptyParts);
+
+    data_list.pop_front();
+    data_list.pop_front();
+
+    for (auto item: data_list) {
+        QStringList tmp = item.split(" ", QString::SkipEmptyParts);
+        netFlows_current.receive  += tmp[1].toDouble();
+        netFlows_current.transmit += tmp[9].toDouble();
+    }
+
+    // compare with last
+    NetFlows result;
+    result.receive  = netFlows_current.receive - netFlows_last.receive;
+    result.transmit = netFlows_current.transmit - netFlows_last.transmit;
+
+    // store current to last;
+    netFlows_last.receive  = netFlows_current.receive;
+    netFlows_last.transmit = netFlows_current.transmit;
+
+    process->close();
+    delete process;
+    return result;
+}

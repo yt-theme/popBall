@@ -5,6 +5,8 @@
 
 #include <QString>
 
+#include "define.h"
+
 // mem
 struct MemStruct {
     unsigned long long MemTotal;
@@ -100,6 +102,14 @@ struct ConfigItem {
     int     SWAP_CHART_COLOR[4]     = {255, 136, 96,  233};
     int     CPU_LINE_COLOR[4]       = {121, 230, 203, 255};
     int     CPUUSAGE_CHART_COLOR[4] = {121, 230, 203, 233};
+    // radio
+    int     NET_CPU_OPTION_RADIO = RADIO_OPTION_0; // 用于切换 netspeed cpu主频 选项
+};
+
+// network speed
+struct NetFlows {
+    double receive;  // receive byte
+    double transmit; // transmit byte
 };
 
 // cfg 全局变量

@@ -32,6 +32,9 @@ void ConfigureDialog::init_setting_item() {
     ui->swap_chart_color->   setText(QString::number(cfg->SWAP_CHART_COLOR[0]) + " " + QString::number(cfg->SWAP_CHART_COLOR[1]) + " " + QString::number(cfg->SWAP_CHART_COLOR[2]) + " " + QString::number(cfg->SWAP_CHART_COLOR[3]));
     ui->cpu_line_color->     setText(QString::number(cfg->CPU_LINE_COLOR[0]) + " " + QString::number(cfg->CPU_LINE_COLOR[1]) + " " + QString::number(cfg->CPU_LINE_COLOR[2]) + " " + QString::number(cfg->CPU_LINE_COLOR[3]));
     ui->cpu_usage_color->    setText(QString::number(cfg->CPUUSAGE_CHART_COLOR[0]) + " " + QString::number(cfg->CPUUSAGE_CHART_COLOR[1]) + " " + QString::number(cfg->CPUUSAGE_CHART_COLOR[2]) + " " + QString::number(cfg->CPUUSAGE_CHART_COLOR[3]));
+    // NET_CPU_OPTION_RADIO
+    ui->radioButton_net->    setChecked(cfg->NET_CPU_OPTION_RADIO==RADIO_OPTION_0 ? true : false);
+    ui->radioButton_cpu->    setChecked(cfg->NET_CPU_OPTION_RADIO==RADIO_OPTION_1 ? true : false);
 }
 
 void ConfigureDialog::on_refresh_interval_editingFinished()
@@ -180,6 +183,19 @@ void ConfigureDialog::on_select_color_cpu_usage_released()
     saveToConfigureFile();
 }
 
+// cpu net radio
+void ConfigureDialog::on_radioButton_net_toggled(bool checked)
+{
+    cfg->NET_CPU_OPTION_RADIO = checked ? RADIO_OPTION_0 : RADIO_OPTION_1;
+    saveToConfigureFile();
+}
+
+void ConfigureDialog::on_radioButton_cpu_toggled(bool checked)
+{
+    cfg->NET_CPU_OPTION_RADIO = checked ? RADIO_OPTION_1 : RADIO_OPTION_0;
+    saveToConfigureFile();
+}
+
 // 即时修改功能
 void ConfigureDialog::saveToConfigureFile(QString content) {
     // 写入配置文件
@@ -208,6 +224,7 @@ void ConfigureDialog::saveToConfigureFile(QString content) {
         tmp_config_content += "SWAP_CHART_COLOR="     + QString::number(cfg->SWAP_CHART_COLOR[0])     + " " + QString::number(cfg->SWAP_CHART_COLOR[1])     + " " + QString::number(cfg->SWAP_CHART_COLOR[2])     + " " + QString::number(cfg->SWAP_CHART_COLOR[3]) + "\n";
         tmp_config_content += "CPU_LINE_COLOR="       + QString::number(cfg->CPU_LINE_COLOR[0])       + " " + QString::number(cfg->CPU_LINE_COLOR[1])       + " " + QString::number(cfg->CPU_LINE_COLOR[2])       + " " + QString::number(cfg->CPU_LINE_COLOR[3]) + "\n";
         tmp_config_content += "CPUUSAGE_CHART_COLOR=" + QString::number(cfg->CPUUSAGE_CHART_COLOR[0]) + " " + QString::number(cfg->CPUUSAGE_CHART_COLOR[1]) + " " + QString::number(cfg->CPUUSAGE_CHART_COLOR[2]) + " " + QString::number(cfg->CPUUSAGE_CHART_COLOR[3]) + "\n";
+        tmp_config_content += "NET_CPU_OPTION_RADIO=" + QString::number(cfg->NET_CPU_OPTION_RADIO) + "\n";
     }
 
     config_file->open(QIODevice::WriteOnly);

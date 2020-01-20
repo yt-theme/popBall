@@ -66,6 +66,7 @@ public:
     QLabel *cpu_label;        // cpu标签 (cpu tag)
     QLabel *mem_label;        // mem标签 (mem tag)
     QLabel *mem_chart;        // mem图表 (mem chart)
+    QLabel *netspeed_label;   // netspeed标签 (netspeed tag)
     QPushButton *mail_indic_button;     // mail指示器 (mail indicating)
     QPushButton *clock_indic_button;    // clock指示器 (mail indicating)
     QMenu *rightBtnMenu;                   // 右键菜单 (right menu)

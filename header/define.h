@@ -14,7 +14,8 @@
     "MEM_CHART_COLOR=57 138 226 233\n" \
     "SWAP_CHART_COLOR=255 136 96 233\n" \
     "CPU_LINE_COLOR=206 231 255 255\n" \
-    "CPUUSAGE_CHART_COLOR=121 230 203 233\n" // 默认配置文件内容
+    "CPUUSAGE_CHART_COLOR=121 230 203 233\n" \
+    "NET_CPU_OPTION_RADIO=0" // 默认配置文件内容
 
 #define CONFIGURE_FILE_NAME "yt-popball.conf" // 配置文件名
 
@@ -32,7 +33,7 @@
 #define HIDE_MODE 0    // 隐藏模式
 #define SHOW_MODE 1    // 展示模式
 
-#define MINI_MODE 10    // 微小模式
+#define MINI_MODE 10   // 微小模式
 #define SMALL_MODE 11  // 小模式
 #define NORMAL_MODE 12 // 正常模式
 #define BIG_MODE 13    // 大模式
@@ -40,5 +41,9 @@
 
 #define EXEC_CONSTRUCTOR 15    // 执行构造函数
 #define NO_EXEC_CONSTRUCTOR 16 // 不执行构造函数
+
+#define RADIO_OPTION_0 0 // radio 选项
+#define RADIO_OPTION_1 1
+#define RADIO_OPTION_2 2
 
 #endif // DEFINE_H

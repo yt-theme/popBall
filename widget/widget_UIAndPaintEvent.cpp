@@ -25,6 +25,14 @@ void Widget::main_ui_style() {
     cpu_label->setGeometry(cfg->OUTER_CIRCLE_X, cfg->OUTER_CIRCLE_Y+1, cfg->OUTER_CIRCLE_W, cfg->OUTER_CIRCLE_H);
     cpu_label->setFont(QFont(cfg->LABEL_FONT_TYPE, cfg->LABEL_FONT_SIZE, cfg->LABEL_FONT_WEIGHT));
     cpu_label->setStyleSheet(cfg->LABEL_STYLE);
+    cpu_label->hide();
+
+
+    // netspeed_label
+    netspeed_label->setAlignment(Qt::AlignCenter);
+    netspeed_label->setGeometry(cfg->OUTER_CIRCLE_X, cfg->OUTER_CIRCLE_Y+cfg->LABEL_FONT_SIZE*0.8, cfg->OUTER_CIRCLE_W, cfg->OUTER_CIRCLE_H);
+    netspeed_label->setFont(QFont(cfg->LABEL_FONT_TYPE, static_cast<int>(cfg->LABEL_FONT_SIZE*0.8), cfg->LABEL_FONT_WEIGHT));
+    netspeed_label->setStyleSheet(cfg->LABEL_STYLE);
 
 
     // indicating
@@ -57,6 +65,13 @@ void Widget::main_ui_style() {
     text_shadowEffect->setColor(Qt::black);
     text_shadowEffect->setBlurRadius(cfg->LABEL_FONT_SHADOW_R);
     cpuTemper_label->setGraphicsEffect(text_shadowEffect);
+
+    // netspeed label
+    text_shadowEffect = new QGraphicsDropShadowEffect(cpuTemper_label);
+    text_shadowEffect->setOffset(0, 0);
+    text_shadowEffect->setColor(Qt::black);
+    text_shadowEffect->setBlurRadius(cfg->LABEL_FONT_SHADOW_R*2);
+    netspeed_label->setGraphicsEffect(text_shadowEffect);
 }
 
 void Widget::paintEvent(QPaintEvent *) {
@@ -64,6 +79,23 @@ void Widget::paintEvent(QPaintEvent *) {
     QPainter painter(this);
     QPainterPath path;
     QPainterPath path2;
+
+    // widget show or hide
+    switch (cfg->NET_CPU_OPTION_RADIO) {
+        case RADIO_OPTION_0:
+        {
+            netspeed_label->show();
+            cpu_label->hide();
+        }
+        break;
+        case RADIO_OPTION_1:
+        {
+            netspeed_label->hide();
+            cpu_label->show();
+        }
+        break;
+        default: break;
+    }
 
     // 窗口样式
     switch (WINDOW_SIZE_LOOK) {

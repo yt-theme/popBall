@@ -36,5 +36,12 @@ void Widget::content() {
     swap_data_history.push_back(swap_data);
     if (swap_data_history.size() > cfg->CHART_ROW) { swap_data_history.pop_front(); }
 
+
+    // ####### net speed ########
+    NetFlows netflows = Get_sys_info->getNetFlows();
+    double receive_speed  = netflows.receive / cfg->REFRESH_INTERVAL / 1024;  // receive
+    double transmit_speed = netflows.transmit / cfg->REFRESH_INTERVAL / 1024; // transmit
+    netspeed_label->setText("↓ " +QString::number(receive_speed, 'f', 2) + " M/s\n↑ " + QString::number(transmit_speed, 'f', 2) + " M/s");
+
     update();
 }

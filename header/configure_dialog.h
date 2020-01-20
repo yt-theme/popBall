@@ -60,6 +60,10 @@ private slots:
 
     void on_restore_configure_released();
 
+    void on_radioButton_net_toggled(bool checked);
+
+    void on_radioButton_cpu_toggled(bool checked);
+
 private:
     Ui::ConfigureDialog *ui;
 };

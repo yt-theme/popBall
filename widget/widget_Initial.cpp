@@ -11,6 +11,7 @@ void Widget::init() {
     cpu_label               = new QLabel(this);         // cpu频率 QLabel
     mem_label               = new QLabel(this);         // mem使用
     mem_chart               = new QLabel(this);         // mem图表
+    netspeed_label          = new QLabel(this);         // netspeed QLabel
     mail_indic_button       = new QPushButton(this);    // mail指示器
     clock_indic_button      = new QPushButton(this);    // clock指示器
 
