@@ -9,6 +9,8 @@ void Widget::content() {
     if (WINDOW_SIZE_LOOK==NORMAL_MODE && cfg->SHOW_CPU_LABEL==SHOW_MODE) {
         cpu_temperData = Get_sys_info->getCpuTemperature();
         cpuTemper_label->setText(QString::number(cpu_temperData, 'f', 0) + "℃");
+    } else {
+        cpuTemper_label->clear();
     }
 
     // ######## cpu #############
@@ -16,6 +18,8 @@ void Widget::content() {
     if (WINDOW_SIZE_LOOK==NORMAL_MODE && cfg->SHOW_CPU_LABEL==SHOW_MODE) {
         cpu_data = Get_sys_info->getCpuInfo();
         cpu_label->setText(QString::number(cpu_data, 'f', 2) + "GHz");
+    } else {
+        cpu_label->clear();
     }
 
     // ######## cpu usage #######
@@ -39,7 +43,7 @@ void Widget::content() {
 
     // ####### net speed ########
     NetFlows netflows = Get_sys_info->getNetFlows();
-    double receive_speed  = netflows.receive / cfg->REFRESH_INTERVAL / 1024;  // receive
+    double receive_speed  = netflows.receive  / cfg->REFRESH_INTERVAL / 1024;  // receive
     double transmit_speed = netflows.transmit / cfg->REFRESH_INTERVAL / 1024; // transmit
     netspeed_label->setText("↓ " +QString::number(receive_speed, 'f', 2) + " MiB/s\n↑ " + QString::number(transmit_speed, 'f', 2) + " MiB/s");
 
