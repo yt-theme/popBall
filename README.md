@@ -17,7 +17,7 @@ MEM_CHART_COLOR=57 138 226 233        // memory chart color
 SWAP_CHART_COLOR=255 136 96 233       // swap chart color
 CPU_LINE_COLOR=206 231 255 255        // cpu chart color
 CPUUSAGE_CHART_COLOR=121 230 203 233  // no use temporary
-NET_CPU_OPTION_RADIO=0                // netspeed and cpu label switch, 0: netspeed, 1: cpu labebl
+NET_CPU_OPTION_RADIO=0                // netspeed and cpu label switch, 0: netspeed, 1: cpu label
 ```
 
 ###### configure tools ready
