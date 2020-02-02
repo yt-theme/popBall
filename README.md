@@ -1,4 +1,4 @@
-# popBall
+# popBall (Qt5.14)
 # qtcreator
 ### author: yt
 
