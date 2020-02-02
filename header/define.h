@@ -15,7 +15,8 @@
     "SWAP_CHART_COLOR=255 136 96 233\n" \
     "CPU_LINE_COLOR=206 231 255 255\n" \
     "CPUUSAGE_CHART_COLOR=121 230 203 233\n" \
-    "NET_CPU_OPTION_RADIO=0" // 默认配置文件内容
+    "NET_CPU_OPTION_RADIO=0\n" \
+    "SYSTEM_MONITOR_PATH="// 默认配置文件内容
 
 #define CONFIGURE_FILE_NAME "yt-popball.conf" // 配置文件名
 

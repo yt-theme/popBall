@@ -20,10 +20,13 @@ void Widget::mouseReleaseEvent(QMouseEvent *event) {
 }
 
 void Widget::mousePressEvent(QMouseEvent *event) {
+
     if (event->button() == Qt::LeftButton) {
         mouseIsPress = true;
         curPoint = event->pos();
     }
+
+    // right contextMenu
     if (event->button() == Qt::RightButton) {
         rightBtnMenu->exec(event->globalPos()); // 右键菜单 (show right contextMenu)
     }

@@ -104,6 +104,8 @@ struct ConfigItem {
     int     CPUUSAGE_CHART_COLOR[4] = {121, 230, 203, 233};
     // radio
     int     NET_CPU_OPTION_RADIO = RADIO_OPTION_0; // 用于切换 netspeed cpu主频 选项
+    // system monitor absolute path
+    QString SYSTEM_MONITOR_PATH = "";
 };
 
 // network speed

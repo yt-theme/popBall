@@ -17,5 +17,9 @@ void Widget::ending() {
     delete clock_indic_button;
     delete cfg;
 
+    // test
+    delete sub_testThread;
+    delete testThread;
+
     qDebug() << "Widget析构 =>";
 }

@@ -206,6 +206,26 @@ void ReadConfigFile::read(int mode) {
                 default: break;
             }
         }
+        // SYSTEM_MONITOR_PATH
+        if (item[0].trimmed() == "SYSTEM_MONITOR_PATH") {
+            switch (mode) {
+                case USE_MODE:
+                {
+                    QString tmp_path_str;
+                    if (item.length() >= 2) {
+                        tmp_path_str = item[1].trimmed();
+                    } else {
+                        tmp_path_str = "";
+                    }
+                    cfg->SYSTEM_MONITOR_PATH = tmp_path_str;
+                }
+                break;
+                case SET_MODE:
+
+                break;
+                default: break;
+            }
+        }
     }
     config_file->close();
 

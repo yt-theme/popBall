@@ -35,6 +35,7 @@
 #include <QTimer>
 #include <QDebug>
 #include <QDateTime>
+#include <QProcess>
 #include <QString>
 #include <QStringList>
 #include <QVector>
@@ -80,6 +81,7 @@ public:
     void ending();                   // 析构
     void right_contextMenu();        // 右键菜单 (right context menu)
     void setting_panel();            // 设置面板
+    void system_monitor();             // 系统监视器 (system monitor)
     void main_ui_style();            // 设置主要样式 (set main style)
     void timer_setInterval();        // 用于全局唯一计时器执行 (only timer func)
     void content();                  // 内容 (content func)

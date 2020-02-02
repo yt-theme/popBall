@@ -10,6 +10,9 @@
 #include <QStandardPaths>
 #include <QFileInfo>
 #include <QFile>
+#include <QFileDialog>
+#include <QDialog>
+#include <QUrl>
 #include <QDebug>
 
 #include "define.h"
@@ -63,6 +66,8 @@ private slots:
     void on_radioButton_net_toggled(bool checked);
 
     void on_radioButton_cpu_toggled(bool checked);
+
+    void on_system_monitor_path_editingFinished();
 
 private:
     Ui::ConfigureDialog *ui;

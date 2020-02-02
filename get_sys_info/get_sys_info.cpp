@@ -127,6 +127,7 @@ MemSwapRate GetSysInfo::getMemInfo() {
     return rateStruct;
 }
 
+// network flow
 NetFlows GetSysInfo::getNetFlows() {
     NetFlows netFlows_current={0, 0};
 
@@ -141,6 +142,7 @@ NetFlows GetSysInfo::getNetFlows() {
     data_list.pop_front();
 
     for (auto item: data_list) {
+        if (item.split(":")[0] == "lo") continue;
         QStringList tmp = item.split(" ", QString::SkipEmptyParts);
         netFlows_current.receive  += tmp[1].toDouble();
         netFlows_current.transmit += tmp[9].toDouble();

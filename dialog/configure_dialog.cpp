@@ -22,19 +22,21 @@ void ConfigureDialog::init_setting_item() {
     ui->tips->setText(QString("tips: configure file at ~/.config/") + CONFIGURE_FILE_NAME);
 
     // set data to ui
-    ui->refresh_interval->   setText(QString::number(cfg->REFRESH_INTERVAL));
-    ui->showCpu_checkbox->   setCheckState(QString::number(cfg->SHOW_CPU_LABEL) == "1" ? Qt::Checked : Qt::Unchecked);
-    ui->labelFont_size->     setText(QString::number(cfg->LABEL_FONT_SIZE));
-    ui->main_opacity->       setText(QString::number(cfg->MAIN_OPACITY));
-    ui->main_color->         setText(QString::number(cfg->MAIN_COLOR[0]) + " " + QString::number(cfg->MAIN_COLOR[1]) + " " + QString::number(cfg->MAIN_COLOR[2]) + " " + QString::number(cfg->MAIN_COLOR[3]));
-    ui->outer_border_color-> setText(QString::number(cfg->OUTER_BORDER_COLOR[0]) + " " + QString::number(cfg->OUTER_BORDER_COLOR[1]) + " " + QString::number(cfg->OUTER_BORDER_COLOR[2]) + " " + QString::number(cfg->OUTER_BORDER_COLOR[3]));
-    ui->mem_chart_color->    setText(QString::number(cfg->MEM_CHART_COLOR[0]) + " " + QString::number(cfg->MEM_CHART_COLOR[1]) + " " + QString::number(cfg->MEM_CHART_COLOR[2]) + " " + QString::number(cfg->MEM_CHART_COLOR[3]));
-    ui->swap_chart_color->   setText(QString::number(cfg->SWAP_CHART_COLOR[0]) + " " + QString::number(cfg->SWAP_CHART_COLOR[1]) + " " + QString::number(cfg->SWAP_CHART_COLOR[2]) + " " + QString::number(cfg->SWAP_CHART_COLOR[3]));
-    ui->cpu_line_color->     setText(QString::number(cfg->CPU_LINE_COLOR[0]) + " " + QString::number(cfg->CPU_LINE_COLOR[1]) + " " + QString::number(cfg->CPU_LINE_COLOR[2]) + " " + QString::number(cfg->CPU_LINE_COLOR[3]));
-    ui->cpu_usage_color->    setText(QString::number(cfg->CPUUSAGE_CHART_COLOR[0]) + " " + QString::number(cfg->CPUUSAGE_CHART_COLOR[1]) + " " + QString::number(cfg->CPUUSAGE_CHART_COLOR[2]) + " " + QString::number(cfg->CPUUSAGE_CHART_COLOR[3]));
+    ui->refresh_interval->    setText(QString::number(cfg->REFRESH_INTERVAL));
+    ui->showCpu_checkbox->    setCheckState(QString::number(cfg->SHOW_CPU_LABEL) == "1" ? Qt::Checked : Qt::Unchecked);
+    ui->labelFont_size->      setText(QString::number(cfg->LABEL_FONT_SIZE));
+    ui->main_opacity->        setText(QString::number(cfg->MAIN_OPACITY));
+    ui->main_color->          setText(QString::number(cfg->MAIN_COLOR[0]) + " " + QString::number(cfg->MAIN_COLOR[1]) + " " + QString::number(cfg->MAIN_COLOR[2]) + " " + QString::number(cfg->MAIN_COLOR[3]));
+    ui->outer_border_color->  setText(QString::number(cfg->OUTER_BORDER_COLOR[0]) + " " + QString::number(cfg->OUTER_BORDER_COLOR[1]) + " " + QString::number(cfg->OUTER_BORDER_COLOR[2]) + " " + QString::number(cfg->OUTER_BORDER_COLOR[3]));
+    ui->mem_chart_color->     setText(QString::number(cfg->MEM_CHART_COLOR[0]) + " " + QString::number(cfg->MEM_CHART_COLOR[1]) + " " + QString::number(cfg->MEM_CHART_COLOR[2]) + " " + QString::number(cfg->MEM_CHART_COLOR[3]));
+    ui->swap_chart_color->    setText(QString::number(cfg->SWAP_CHART_COLOR[0]) + " " + QString::number(cfg->SWAP_CHART_COLOR[1]) + " " + QString::number(cfg->SWAP_CHART_COLOR[2]) + " " + QString::number(cfg->SWAP_CHART_COLOR[3]));
+    ui->cpu_line_color->      setText(QString::number(cfg->CPU_LINE_COLOR[0]) + " " + QString::number(cfg->CPU_LINE_COLOR[1]) + " " + QString::number(cfg->CPU_LINE_COLOR[2]) + " " + QString::number(cfg->CPU_LINE_COLOR[3]));
+    ui->cpu_usage_color->     setText(QString::number(cfg->CPUUSAGE_CHART_COLOR[0]) + " " + QString::number(cfg->CPUUSAGE_CHART_COLOR[1]) + " " + QString::number(cfg->CPUUSAGE_CHART_COLOR[2]) + " " + QString::number(cfg->CPUUSAGE_CHART_COLOR[3]));
     // NET_CPU_OPTION_RADIO
-    ui->radioButton_net->    setChecked(cfg->NET_CPU_OPTION_RADIO==RADIO_OPTION_0 ? true : false);
-    ui->radioButton_cpu->    setChecked(cfg->NET_CPU_OPTION_RADIO==RADIO_OPTION_1 ? true : false);
+    ui->radioButton_net->     setChecked(cfg->NET_CPU_OPTION_RADIO==RADIO_OPTION_0 ? true : false);
+    ui->radioButton_cpu->     setChecked(cfg->NET_CPU_OPTION_RADIO==RADIO_OPTION_1 ? true : false);
+    // SYSTEM_MONITOR_PATH
+    ui->system_monitor_path-> setText(cfg->SYSTEM_MONITOR_PATH);
 }
 
 void ConfigureDialog::on_refresh_interval_editingFinished()
@@ -196,7 +198,25 @@ void ConfigureDialog::on_radioButton_cpu_toggled(bool checked)
     saveToConfigureFile();
 }
 
-// 即时修改功能
+// system monitor
+void ConfigureDialog::on_system_monitor_path_editingFinished()
+{
+    cfg->SYSTEM_MONITOR_PATH = ui->system_monitor_path->text();
+    saveToConfigureFile();
+}
+
+// restore
+void ConfigureDialog::on_restore_configure_released()
+{
+    // 1.
+    saveToConfigureFile(DEFAULT_CONFIGURE_CONTENT);
+    // 2.
+    ReadConfigFile::read(USE_MODE);
+    // 3.
+    init_setting_item();
+}
+
+// 即时修改功 (change cfg)
 void ConfigureDialog::saveToConfigureFile(QString content) {
     // 写入配置文件
     QFile *config_file = new QFile;
@@ -225,6 +245,7 @@ void ConfigureDialog::saveToConfigureFile(QString content) {
         tmp_config_content += "CPU_LINE_COLOR="       + QString::number(cfg->CPU_LINE_COLOR[0])       + " " + QString::number(cfg->CPU_LINE_COLOR[1])       + " " + QString::number(cfg->CPU_LINE_COLOR[2])       + " " + QString::number(cfg->CPU_LINE_COLOR[3]) + "\n";
         tmp_config_content += "CPUUSAGE_CHART_COLOR=" + QString::number(cfg->CPUUSAGE_CHART_COLOR[0]) + " " + QString::number(cfg->CPUUSAGE_CHART_COLOR[1]) + " " + QString::number(cfg->CPUUSAGE_CHART_COLOR[2]) + " " + QString::number(cfg->CPUUSAGE_CHART_COLOR[3]) + "\n";
         tmp_config_content += "NET_CPU_OPTION_RADIO=" + QString::number(cfg->NET_CPU_OPTION_RADIO) + "\n";
+        tmp_config_content += "SYSTEM_MONITOR_PATH="  + cfg->SYSTEM_MONITOR_PATH + "\n";
     }
 
     config_file->open(QIODevice::WriteOnly);
@@ -232,15 +253,4 @@ void ConfigureDialog::saveToConfigureFile(QString content) {
     config_file->close();
 
     delete config_file;
-}
-
-// restore
-void ConfigureDialog::on_restore_configure_released()
-{
-    // 1.
-    saveToConfigureFile(DEFAULT_CONFIGURE_CONTENT);
-    // 2.
-    ReadConfigFile::read(USE_MODE);
-    // 3.
-    init_setting_item();
 }
