@@ -90,7 +90,7 @@ struct ConfigItem {
     int     MAIN_CIRCLE_H  = 100;
     // font
     QString LABEL_FONT_TYPE     = "Microsoft YaHei";
-    int     LABEL_FONT_SIZE     = 10;
+    int     LABEL_FONT_SIZE     = 8;
     int     LABEL_FONT_WEIGHT   = 74;
     QString LABEL_STYLE         = "color:#fdfefd;";
     int     LABEL_FONT_SHADOW_R = 11;
@@ -100,7 +100,7 @@ struct ConfigItem {
     int     OUTER_BORDER_COLOR[4]   = {249, 249, 249, 255};
     int     MEM_CHART_COLOR[4]      = {19,  187, 177, 233};
     int     SWAP_CHART_COLOR[4]     = {255, 136, 96,  233};
-    int     CPU_LINE_COLOR[4]       = {121, 230, 203, 255};
+    int     CPU_LINE_COLOR[4]       = {143, 207, 234, 255};
     int     CPUUSAGE_CHART_COLOR[4] = {121, 230, 203, 233};
     // radio
     int     NET_CPU_OPTION_RADIO = RADIO_OPTION_0; // 用于切换 netspeed cpu主频 选项
