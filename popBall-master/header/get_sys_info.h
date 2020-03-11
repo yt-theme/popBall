@@ -7,7 +7,6 @@
 #include <QString>
 #include <sys/statfs.h>
 #include <QProcess>
-#include <QProcessEnvironment>
 #include <QObject>
 #include <QDebug>
 #include <QFile>

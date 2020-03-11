@@ -13,26 +13,15 @@ GetSysInfo::~GetSysInfo() {
 
 // cpu 温度
 double GetSysInfo::getCpuTemperature() {
-    QProcess *process = new QProcess;
-    process->start("cat /sys/class/hwmon/hwmon0/temp1_input");
-    process->waitForStarted();
-    process->waitForFinished();
+    QFile *process = new QFile;
+    process->setFileName("/sys/class/thermal/thermal_zone0/temp");
+    process->open(QIODevice::ReadOnly|QIODevice::Text);
 
-    double highest = 0.0;
-    /*hile (process->atEnd()) {*/
-
-    QString tmp = process->readLine();
-
-    qDebug() << "tmp =>" << tmp;
-    double tmp_d = tmp.toDouble();
-    if (tmp_d > highest) {
-        highest = tmp_d;
-    }
-//    }
+    double temperature = process->readLine().toDouble();
 
     process->close();
     delete process;
-    return highest/1000;
+    return temperature/1000;
 }
 
 //cpu 信息
