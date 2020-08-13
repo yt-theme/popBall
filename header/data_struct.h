@@ -77,17 +77,17 @@ struct ConfigItem {
 
     int     CHART_ROW      = 41;   // 图表最大列数 (max row)
     double  CPU_LINE_W     = 1.5;  // cpu line width
-    int     WIDTH          = 100;  // window width;
-    int     HEIGHT         = 100;  // window height;
-    int     BORDER_WIDTH   = 3;    // border width
-    int     OUTER_CIRCLE_X = 3;    // outer circle
-    int     OUTER_CIRCLE_Y = 3;
+    int     WIDTH          = 98;  // window width;
+    int     HEIGHT         = 98;  // window height;
+    int     BORDER_WIDTH   = 2;    // border width
+    int     OUTER_CIRCLE_X = 2;    // outer circle
+    int     OUTER_CIRCLE_Y = 2;
     int     OUTER_CIRCLE_W = 94;
     int     OUTER_CIRCLE_H = 94;
     int     MAIN_CIRCLE_X  = 0;    // main circle
     int     MAIN_CIRCLE_Y  = 0;
-    int     MAIN_CIRCLE_W  = 100;
-    int     MAIN_CIRCLE_H  = 100;
+    int     MAIN_CIRCLE_W  = 98;
+    int     MAIN_CIRCLE_H  = 98;
     // font
     QString LABEL_FONT_TYPE     = "Microsoft YaHei";
     int     LABEL_FONT_SIZE     = 8;

@@ -31,7 +31,7 @@ void ConfigureDialog::init_setting_item() {
     ui->mem_chart_color->     setText(QString::number(cfg->MEM_CHART_COLOR[0]) + " " + QString::number(cfg->MEM_CHART_COLOR[1]) + " " + QString::number(cfg->MEM_CHART_COLOR[2]) + " " + QString::number(cfg->MEM_CHART_COLOR[3]));
     ui->swap_chart_color->    setText(QString::number(cfg->SWAP_CHART_COLOR[0]) + " " + QString::number(cfg->SWAP_CHART_COLOR[1]) + " " + QString::number(cfg->SWAP_CHART_COLOR[2]) + " " + QString::number(cfg->SWAP_CHART_COLOR[3]));
     ui->cpu_line_color->      setText(QString::number(cfg->CPU_LINE_COLOR[0]) + " " + QString::number(cfg->CPU_LINE_COLOR[1]) + " " + QString::number(cfg->CPU_LINE_COLOR[2]) + " " + QString::number(cfg->CPU_LINE_COLOR[3]));
-    ui->cpu_usage_color->     setText(QString::number(cfg->CPUUSAGE_CHART_COLOR[0]) + " " + QString::number(cfg->CPUUSAGE_CHART_COLOR[1]) + " " + QString::number(cfg->CPUUSAGE_CHART_COLOR[2]) + " " + QString::number(cfg->CPUUSAGE_CHART_COLOR[3]));
+//    ui->cpu_usage_color->     setText(QString::number(cfg->CPUUSAGE_CHART_COLOR[0]) + " " + QString::number(cfg->CPUUSAGE_CHART_COLOR[1]) + " " + QString::number(cfg->CPUUSAGE_CHART_COLOR[2]) + " " + QString::number(cfg->CPUUSAGE_CHART_COLOR[3]));
     // NET_CPU_OPTION_RADIO
     ui->radioButton_net->     setChecked(cfg->NET_CPU_OPTION_RADIO==RADIO_OPTION_0 ? true : false);
     ui->radioButton_cpu->     setChecked(cfg->NET_CPU_OPTION_RADIO==RADIO_OPTION_1 ? true : false);
@@ -167,22 +167,22 @@ void ConfigureDialog::on_select_color_cpu_line_released()
 
 void ConfigureDialog::on_select_color_cpu_usage_released()
 {
-    // default color
-    QColor default_color = Qt::green;
+//    // default color
+//    QColor default_color = Qt::green;
 
-    // let input val set dialog color
-    QStringList tmp_arr = ui->cpu_usage_color->text().split(" ", QString::SkipEmptyParts);
-    if (tmp_arr.size() == 4) { default_color = QColor::fromRgba(qRgba(tmp_arr[0].toInt(), tmp_arr[1].toInt(), tmp_arr[2].toInt(), tmp_arr[3].toInt())); }
+//    // let input val set dialog color
+//    QStringList tmp_arr = ui->cpu_usage_color->text().split(" ", QString::SkipEmptyParts);
+//    if (tmp_arr.size() == 4) { default_color = QColor::fromRgba(qRgba(tmp_arr[0].toInt(), tmp_arr[1].toInt(), tmp_arr[2].toInt(), tmp_arr[3].toInt())); }
 
-    QColor color = QColorDialog::getColor(default_color, this, "main color", QColorDialog::ShowAlphaChannel);
-    if (color.isValid()) {
-        cfg->CPUUSAGE_CHART_COLOR[0] = color.red();
-        cfg->CPUUSAGE_CHART_COLOR[1] = color.green();
-        cfg->CPUUSAGE_CHART_COLOR[2] = color.blue();
-        cfg->CPUUSAGE_CHART_COLOR[3] = color.alpha();
-        ui->cpu_usage_color->setText(QString::number(color.red()) + " " + QString::number(color.green()) + " " + QString::number(color.blue()) + " " + QString::number(color.alpha()));
-    }
-    saveToConfigureFile();
+//    QColor color = QColorDialog::getColor(default_color, this, "main color", QColorDialog::ShowAlphaChannel);
+//    if (color.isValid()) {
+//        cfg->CPUUSAGE_CHART_COLOR[0] = color.red();
+//        cfg->CPUUSAGE_CHART_COLOR[1] = color.green();
+//        cfg->CPUUSAGE_CHART_COLOR[2] = color.blue();
+//        cfg->CPUUSAGE_CHART_COLOR[3] = color.alpha();
+//        ui->cpu_usage_color->setText(QString::number(color.red()) + " " + QString::number(color.green()) + " " + QString::number(color.blue()) + " " + QString::number(color.alpha()));
+//    }
+//    saveToConfigureFile();
 }
 
 // cpu net radio

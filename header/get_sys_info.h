@@ -15,6 +15,8 @@
 #include <QIODevice>
 #include <QRegExp>
 #include <QList>
+#include <QDir>
+#include <QStringList>
 
 #include "data_struct.h"
 

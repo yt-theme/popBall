@@ -11,28 +11,31 @@ GetSysInfo::~GetSysInfo() {
 
 }
 
-// cpu 温度
+// 最高 温度
 double GetSysInfo::getCpuTemperature() {
-    QProcess *process = new QProcess;
-    process->start("cat /sys/class/hwmon/hwmon0/temp1_input");
-    process->waitForStarted();
-    process->waitForFinished();
+    double max_temp = 0.0;
 
-    double highest = 0.0;
-    /*hile (process->atEnd()) {*/
+    QString dirname = "/sys/class/hwmon";
 
-    QString tmp = process->readLine();
-
-    qDebug() << "tmp =>" << tmp;
-    double tmp_d = tmp.toDouble();
-    if (tmp_d > highest) {
-        highest = tmp_d;
+    QDir dir(dirname);
+    QStringList files = dir.entryList();
+    for (int i=0; i<files.count(); i++) {
+        if ((files[i] != ".") && (files[i] != "..")) {
+            // 分别读取目录下temp1_input文件
+            QFile qfile;
+            qfile.setFileName(dirname + "/" + files[i] + "/temp1_input");
+            if (qfile.exists()) {
+                qfile.open(QIODevice::ReadOnly|QIODevice::Text);
+                double val_string = qfile.readLine().replace("\t", "").replace("\n", "").toDouble();
+                if (val_string > max_temp) {
+                    max_temp = val_string;
+                }
+                qfile.close();
+            }
+        }
     }
-//    }
 
-    process->close();
-    delete process;
-    return highest/1000;
+    return max_temp/1000;
 }
 
 //cpu 信息

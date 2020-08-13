@@ -137,10 +137,10 @@ void Widget::paintEvent(QPaintEvent *) {
             painter.setViewport(0, 7, cfg->WIDTH, cfg->HEIGHT-13);
 
             // swap chart
-            path2.moveTo(cfg->OUTER_CIRCLE_X, cfg->HEIGHT);
+            path2.moveTo(cfg->OUTER_CIRCLE_X, cfg->HEIGHT + 3);
             for (auto i=0; i<swap_data_history.size(); i++) { path2.lineTo(i*cfg->WIDTH/cfg->CHART_ROW, 100 - swap_data_history[i]); }
             path2.lineTo(cfg->WIDTH, 100 - swap_data_history[ swap_data_history.size()-1 ]);
-            path2.lineTo(cfg->WIDTH, cfg->HEIGHT);
+            path2.lineTo(cfg->WIDTH, cfg->HEIGHT + 3);
             painter.fillPath(path2, QColor::fromRgba(qRgba(cfg->SWAP_CHART_COLOR[0], cfg->SWAP_CHART_COLOR[1], cfg->SWAP_CHART_COLOR[2], cfg->SWAP_CHART_COLOR[3])));
 
             // cpu line chart

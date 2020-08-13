@@ -36,7 +36,7 @@ void Widget::content() {
     mem_data_history.push_back(mem_data);
     if (mem_data_history.size() > cfg->CHART_ROW) { mem_data_history.pop_front(); }
     // 获取交换占用
-    swap_data = memswaprate.swap;
+    swap_data = memswaprate.swap == 0 ? 0.01 : memswaprate.swap;
     swap_data_history.push_back(swap_data);
     if (swap_data_history.size() > cfg->CHART_ROW) { swap_data_history.pop_front(); }
 
