@@ -75,8 +75,8 @@ struct ConfigItem {
     int     REFRESH_INTERVAL=1000; // data refresh interval
     int     SHOW_CPU_LABEL=1;      // cpu label show or hide
 
-    int     CHART_ROW      = 41;   // 图表最大列数 (max row)
-    double  CPU_LINE_W     = 1.5;  // cpu line width
+    int     CHART_ROW      = 60;   // 图表最大列数 (max row)
+    double  CPU_LINE_W     = 1;  // cpu line width
     int     WIDTH          = 98;  // window width;
     int     HEIGHT         = 98;  // window height;
     int     BORDER_WIDTH   = 2;    // border width
