@@ -35,20 +35,20 @@ void Widget::main_ui_style() {
     netspeed_label->setStyleSheet(cfg->LABEL_STYLE);
 
 
-    // indicating
-    // mail icon
-    QIcon mail_indic_button_icon;
-    mail_indic_button_icon.addFile(":/new/prefix1/mail.svg");
-    mail_indic_button->setIcon(mail_indic_button_icon);
-    mail_indic_button->setStyleSheet("background:#2F3439;border:1.5px solid #E4E4E4;border-radius:12px;margin:0;");
-    mail_indic_button->setGeometry(cfg->WIDTH-24, 0, 24, 24);
+//    // indicating
+//    // mail icon
+//    QIcon mail_indic_button_icon;
+//    mail_indic_button_icon.addFile(":/new/prefix1/mail.svg");
+//    mail_indic_button->setIcon(mail_indic_button_icon);
+//    mail_indic_button->setStyleSheet("background:#2F3439;border:1.5px solid #E4E4E4;border-radius:12px;margin:0;");
+//    mail_indic_button->setGeometry(cfg->WIDTH-24, 0, 24, 24);
 
-    // clock icon
-    QIcon clock_indic_button_icon;
-    clock_indic_button_icon.addFile(":/new/prefix2/clock.svg");
-    clock_indic_button->setIcon(clock_indic_button_icon);
-    clock_indic_button->setStyleSheet("background:#2F3439;border:1.5px solid #E4E4E4;border-radius:12px;margin:0;");
-    clock_indic_button->setGeometry(0, 0, 24, 24);
+//    // clock icon
+//    QIcon clock_indic_button_icon;
+//    clock_indic_button_icon.addFile(":/new/prefix2/clock.svg");
+//    clock_indic_button->setIcon(clock_indic_button_icon);
+//    clock_indic_button->setStyleSheet("background:#2F3439;border:1.5px solid #E4E4E4;border-radius:12px;margin:0;");
+//    clock_indic_button->setGeometry(0, 0, 24, 24);
 
 
     // set qlabel text shadow
@@ -137,6 +137,7 @@ void Widget::paintEvent(QPaintEvent *) {
             painter.setViewport(0, 7, cfg->WIDTH, cfg->HEIGHT-13);
 
             // swap chart
+            painter.setOpacity(0.8);
             path2.moveTo(cfg->OUTER_CIRCLE_X, cfg->HEIGHT + 3);
             for (auto i=0; i<swap_data_history.size(); i++) { path2.lineTo(i*cfg->WIDTH/cfg->CHART_ROW, 100 - swap_data_history[i]); }
             path2.lineTo(cfg->WIDTH, 100 - swap_data_history[ swap_data_history.size()-1 ]);
@@ -144,6 +145,7 @@ void Widget::paintEvent(QPaintEvent *) {
             painter.fillPath(path2, QColor::fromRgba(qRgba(cfg->SWAP_CHART_COLOR[0], cfg->SWAP_CHART_COLOR[1], cfg->SWAP_CHART_COLOR[2], cfg->SWAP_CHART_COLOR[3])));
 
             // cpu line chart
+            painter.setOpacity(1);
             QPen cpuUsage_pen;
             cpuUsage_pen.setColor(QColor::fromRgb(cfg->CPU_LINE_COLOR[0], cfg->CPU_LINE_COLOR[1], cfg->CPU_LINE_COLOR[2]));
             cpuUsage_pen.setStyle(Qt::SolidLine);
@@ -184,6 +186,7 @@ void Widget::paintEvent(QPaintEvent *) {
             painter.setPen(mem_pen);
             painter.drawRoundedRect(1, 100-(static_cast<int>(mem_data)), cfg->MAIN_CIRCLE_W/6-2, (static_cast<int>(mem_data)), 0, 0);
 
+            painter.setOpacity(0.8);
             QPen swap_pen;
             swap_pen.setColor(QColor::fromRgb(cfg->MAIN_COLOR[0], cfg->MAIN_COLOR[1], cfg->MAIN_COLOR[2]));
             swap_pen.setStyle(Qt::SolidLine);
@@ -193,6 +196,7 @@ void Widget::paintEvent(QPaintEvent *) {
             painter.drawRoundedRect(1, 100-(static_cast<int>(swap_data)), cfg->MAIN_CIRCLE_W/6-2, (static_cast<int>(swap_data)), 0, 0);
 
             // cpu chart
+            painter.setOpacity(1);
             QPen cpu_pen;
             cpu_pen.setColor(QColor::fromRgb(cfg->MAIN_COLOR[0], cfg->MAIN_COLOR[1], cfg->MAIN_COLOR[2]));
             cpu_pen.setStyle(Qt::SolidLine);
