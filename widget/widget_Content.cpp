@@ -45,7 +45,7 @@ void Widget::content() {
     NetFlows netflows = Get_sys_info->getNetFlows();
     double receive_speed  = netflows.receive  / cfg->REFRESH_INTERVAL / 1024;  // receive
     double transmit_speed = netflows.transmit / cfg->REFRESH_INTERVAL / 1024; // transmit
-    netspeed_label->setText("↓ " +QString::number(receive_speed, 'f', 2) + " MiB/s\n↑ " + QString::number(transmit_speed, 'f', 2) + " MiB/s");
+    netspeed_label->setText("↓ " +QString::number(receive_speed, 'f', 2) + " MB/s\n↑ " + QString::number(transmit_speed, 'f', 2) + " MB/s");
 
     update();
 }
