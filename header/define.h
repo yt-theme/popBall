@@ -16,7 +16,7 @@
     "CPU_LINE_COLOR=203 223 223 255\n" \
     "CPUUSAGE_CHART_COLOR=121 230 203 233\n" \
     "NET_CPU_OPTION_RADIO=0\n" \
-    "SYSTEM_MONITOR_PATH="// 默认配置文件内容
+    "SYSTEM_MONITOR_PATH=gnome-system-monitor"// 默认配置文件内容
 
 #define CONFIGURE_FILE_NAME "yt-popball.conf" // 配置文件名
 
