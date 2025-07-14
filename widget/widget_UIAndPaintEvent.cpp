@@ -127,7 +127,16 @@ void Widget::paintEvent(QPaintEvent *) {
             clip_path.arcTo(cfg->OUTER_CIRCLE_X+cfg->BORDER_WIDTH, cfg->OUTER_CIRCLE_Y+cfg->BORDER_WIDTH, cfg->OUTER_CIRCLE_W-(cfg->BORDER_WIDTH*2), cfg->OUTER_CIRCLE_H-(cfg->BORDER_WIDTH*2), 0, 360);
             painter.setClipPath(clip_path);
 
+            // swap chart
+            painter.setOpacity(0.9);
+            path2.moveTo(cfg->OUTER_CIRCLE_X, cfg->HEIGHT + 3);
+            for (auto i=0; i<swap_data_history.size(); i++) { path2.lineTo(i*cfg->WIDTH/cfg->CHART_ROW, 100 - swap_data_history[i]); }
+            path2.lineTo(cfg->WIDTH, 100 - swap_data_history[ swap_data_history.size()-1 ]);
+            path2.lineTo(cfg->WIDTH, cfg->HEIGHT + 3);
+            painter.fillPath(path2, QColor::fromRgba(qRgba(cfg->SWAP_CHART_COLOR[0], cfg->SWAP_CHART_COLOR[1], cfg->SWAP_CHART_COLOR[2], cfg->SWAP_CHART_COLOR[3])));
+
             // mem chart
+            painter.setOpacity(0.83);
             path.moveTo(cfg->OUTER_CIRCLE_X, cfg->HEIGHT);
             for (auto i=0; i<mem_data_history.size(); i++) { path.lineTo(i*cfg->WIDTH/cfg->CHART_ROW, 100 - mem_data_history[i]); }
             path.lineTo(cfg->WIDTH, 100 - mem_data_history[ mem_data_history.size()-1 ]);
@@ -135,14 +144,6 @@ void Widget::paintEvent(QPaintEvent *) {
             painter.fillPath(path, QColor::fromRgba(qRgba(cfg->MEM_CHART_COLOR[0],cfg->MEM_CHART_COLOR[1],cfg->MEM_CHART_COLOR[2],cfg->MEM_CHART_COLOR[3])));
 
             painter.setViewport(0, 7, cfg->WIDTH, cfg->HEIGHT-13);
-
-            // swap chart
-            painter.setOpacity(0.8);
-            path2.moveTo(cfg->OUTER_CIRCLE_X, cfg->HEIGHT + 3);
-            for (auto i=0; i<swap_data_history.size(); i++) { path2.lineTo(i*cfg->WIDTH/cfg->CHART_ROW, 100 - swap_data_history[i]); }
-            path2.lineTo(cfg->WIDTH, 100 - swap_data_history[ swap_data_history.size()-1 ]);
-            path2.lineTo(cfg->WIDTH, cfg->HEIGHT + 3);
-            painter.fillPath(path2, QColor::fromRgba(qRgba(cfg->SWAP_CHART_COLOR[0], cfg->SWAP_CHART_COLOR[1], cfg->SWAP_CHART_COLOR[2], cfg->SWAP_CHART_COLOR[3])));
 
             // cpu line chart
             painter.setOpacity(1);
@@ -177,16 +178,7 @@ void Widget::paintEvent(QPaintEvent *) {
             painter.setPen(Qt::transparent);
             painter.drawRoundedRect(cfg->MAIN_CIRCLE_X, cfg->MAIN_CIRCLE_Y, cfg->MAIN_CIRCLE_W/6, cfg->MAIN_CIRCLE_H, 1, 1);
 
-            // mem chart
-            QPen mem_pen;
-            mem_pen.setColor(QColor::fromRgb(cfg->MAIN_COLOR[0], cfg->MAIN_COLOR[1], cfg->MAIN_COLOR[2]));
-            mem_pen.setStyle(Qt::SolidLine);
-            mem_pen.setWidthF(cfg->CPU_LINE_W);
-            painter.setBrush(QBrush(QColor::fromRgb( cfg->MEM_CHART_COLOR[0], cfg->MEM_CHART_COLOR[1], cfg->MEM_CHART_COLOR[2] )));
-            painter.setPen(mem_pen);
-            painter.drawRoundedRect(1, 100-(static_cast<int>(mem_data)), cfg->MAIN_CIRCLE_W/6-2, (static_cast<int>(mem_data)), 0, 0);
-
-            painter.setOpacity(0.8);
+            painter.setOpacity(0.93);
             QPen swap_pen;
             swap_pen.setColor(QColor::fromRgb(cfg->MAIN_COLOR[0], cfg->MAIN_COLOR[1], cfg->MAIN_COLOR[2]));
             swap_pen.setStyle(Qt::SolidLine);
@@ -194,6 +186,17 @@ void Widget::paintEvent(QPaintEvent *) {
             painter.setBrush(QBrush(QColor::fromRgba( qRgba(cfg->SWAP_CHART_COLOR[0], cfg->SWAP_CHART_COLOR[1], cfg->SWAP_CHART_COLOR[2], cfg->SWAP_CHART_COLOR[3]) )));
             painter.setPen(swap_pen);
             painter.drawRoundedRect(1, 100-(static_cast<int>(swap_data)), cfg->MAIN_CIRCLE_W/6-2, (static_cast<int>(swap_data)), 0, 0);
+
+            // mem chart
+            QPen mem_pen;
+            painter.setOpacity(0.89);
+            mem_pen.setColor(QColor::fromRgb(cfg->MAIN_COLOR[0], cfg->MAIN_COLOR[1], cfg->MAIN_COLOR[2]));
+            mem_pen.setStyle(Qt::SolidLine);
+            mem_pen.setWidthF(cfg->CPU_LINE_W);
+            painter.setBrush(QBrush(QColor::fromRgb( cfg->MEM_CHART_COLOR[0], cfg->MEM_CHART_COLOR[1], cfg->MEM_CHART_COLOR[2] )));
+            painter.setPen(mem_pen);
+            painter.drawRoundedRect(1, 100-(static_cast<int>(mem_data)), cfg->MAIN_CIRCLE_W/6-2, (static_cast<int>(mem_data)), 0, 0);
+
 
             // cpu chart
             painter.setOpacity(1);
